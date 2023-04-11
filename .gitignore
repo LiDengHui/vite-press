@@ -1,0 +1,5 @@
+.idea
+node_modules
+.vitepress
+*-lock.yaml
+.DS_Store
