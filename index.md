@@ -15,9 +15,13 @@ hero:
       link: /api-examples
 
 features:
-  - title: 个人随想
-    details: 记录个人生活
-  - title: 技术成长
-    details: 记录个人开发经验
+  - title: 3D编辑器
+    link: https://pinia.work/tool
+    details: 简单的3D编辑器
+  - title: 个人后台管理
+    link: https://pinia.work/admin
+    details: 个人后台管理系统
+  - title: three-learn
+    link: https://lidenghui.github.io/three-learn/
+    details: three demo
 ---
-

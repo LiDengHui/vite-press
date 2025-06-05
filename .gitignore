@@ -3,3 +3,7 @@ node_modules
 .vitepress
 *-lock.yaml
 .DS_Store
+.deployConfig.json
+package-lock.json
+.lockb
+formula.md
