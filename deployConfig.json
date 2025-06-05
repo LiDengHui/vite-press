@@ -1,0 +1,12 @@
+[
+    {
+        "mode": "dev",
+        "source": ".vitepress",
+        "host": "1.14.124.224",
+        "password": "Bbanywn4758@",
+        "user": "root",
+        "remote": "/root/blog",
+        "extract": "/root/blog"
+    }
+   
+]
