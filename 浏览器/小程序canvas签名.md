@@ -1,3 +1,5 @@
+# 小程序Canvas签名
+
 在 uni-app 中使用 canvas 实现用户签名绘制的关键在于正确初始化 canvas、捕获触摸事件并实时将用户的绘制轨迹呈现出来。下面详细描述整个过程：
 
 ---
@@ -85,8 +87,7 @@ export default {
 当用户开始触摸 canvas 时，记录初始点，并调用 `beginPath` 开始一条新路径。
 
 ```js
-methods: {
-  startDrawing(e) {
+function  startDrawing(e) {
     // 设置正在绘制标识为 true
     this.isDrawing = true;
     const touch = e.touches[0];
@@ -96,9 +97,8 @@ methods: {
     // 开启一条新路径，并移动到起始点
     this.ctx.beginPath();
     this.ctx.moveTo(this.lastX, this.lastY);
-  },
+  }
   // 后续添加 continueDrawing 与 endDrawing
-}
 ```
 
 ### 3.2 绘制过程（touchmove）
@@ -106,8 +106,8 @@ methods: {
 在用户滑动手指时，不断获取当前触摸点，并用 `lineTo` 连接上一个点，从而形成连续线条。
 
 ```js
-methods: {
-  continueDrawing(e) {
+
+  function continueDrawing(e) {
     if (!this.isDrawing) return;
     const touch = e.touches[0];
     const x = touch.x;
@@ -118,8 +118,7 @@ methods: {
     // 更新上一个触摸点为当前点
     this.lastX = x;
     this.lastY = y;
-  },
-}
+  }
 ```
 
 ### 3.3 结束绘制（touchend）
@@ -127,12 +126,11 @@ methods: {
 当触摸结束时，将绘制标识设为 false，结束当前路径。
 
 ```js
-methods: {
-  endDrawing(e) {
+
+  function endDrawing(e) {
     this.isDrawing = false;
     // 可选：这里可对绘制轨迹进行平滑处理或存储轨迹数据
-  },
-}
+  }
 ```
 
 > **提示**：  
@@ -147,12 +145,11 @@ methods: {
 通过调用 `clearRect` 方法可以清除整个 canvas 内容。
 
 ```js
-methods: {
-  clearCanvas() {
+
+  function clearCanvas() {
     // 清除整个 canvas
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-  },
-}
+  }
 ```
 
 ### 4.2 保存签名
@@ -160,8 +157,7 @@ methods: {
 使用 uni-app 提供的 API `uni.canvasToTempFilePath` 将 canvas 内容保存为图片文件，再传递给后续业务使用。
 
 ```js
-methods: {
-  saveSignature() {
+  function saveSignature() {
     uni.canvasToTempFilePath({
       canvasId: 'signature',
       // 传入 canvas 对象，保证获取正确内容
@@ -177,7 +173,6 @@ methods: {
       }
     }, this);
   }
-}
 ```
 
 > **注意**：  
