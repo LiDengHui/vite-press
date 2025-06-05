@@ -1,9 +1,10 @@
 .idea
 node_modules
-.vitepress
+.vitepress/cache
+.vitepress/dist
 *-lock.yaml
 .DS_Store
 .deployConfig.json
-package-lock.json
+*-lock.json
 .lockb
 formula.md
