@@ -1,15 +1,7 @@
----
-title: async 与 await原理
-tags:
-  - async
-  - await
-categories:
-  - 技术文档
-  - 前端
-  - async
-  - await
-date: 2020-08-24 23:04:44
----
+
+# async 与 await 原理
+
+async 会导致函数返回值变化为Promise， 但如果 async 函数内没有await，虽然结果返回的是 promise但是，执行还是在同步执行
 
 原代码
 ```js

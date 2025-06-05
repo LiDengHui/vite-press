@@ -25,7 +25,7 @@ const vitePressConfigs = {
     },
 }
 const x = withSidebar(vitePressConfigs, {
-
+    excludePattern:['components']
 })
 x.themeConfig.nav = x.themeConfig.sidebar;
 // https://vitepress.dev/reference/site-config
