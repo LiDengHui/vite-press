@@ -77,5 +77,4 @@ plugin用于扩展webpack
 
 参考:
 
-[https://blog.csdn.net/wp270280522/article/details/51496436]()
-
+[webpack 的 loader 和 plugin](https://blog.csdn.net/wp270280522/article/details/51496436)

@@ -147,7 +147,7 @@ Reflect.getOwnPropertyDescriptor(1, 'foo'); // 抛出 TypeError
 
 Reflect.deleteProperty 会删除对象上的属性, 在 ES6 之前,你可能会写 delete obj.foo, 现在就可以用 Reflect.deleteProperty(obj, "foo")
 
-相同点: 都调用内部 target[[Delete]](propertyKey)方法.删除数据
+相同点: 都调用内部 `target[[Delete]](propertyKey)`方法.删除数据
 
 不同点: delete 操作符还可以"用于"非对象的引用(例如,变量), 所以这个接口会做对操作对象进行更多的检查,也更可能的抛出异常
 

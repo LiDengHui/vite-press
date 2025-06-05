@@ -9,9 +9,9 @@ categories:
 date: 2020-08-12 22:57:59
 ---
 
-Vue-Router 默认是Hash模式, 使用url的hash来模拟一个完整的url,当url改变的时候,页面不会重新加载, 比如: 使用hash模式的话, 那么访问变成 http://localhost:8080/page/#/这样的访问
+Vue-Router 默认是Hash模式, 使用url的hash来模拟一个完整的url,当url改变的时候,页面不会重新加载, 比如: 使用hash模式的话, 那么访问变成 `http://localhost:8080/page/#/这样的访问`
 
-但是如果路由使用history的话,那么访问路径变成 如下: http://localhost:8080/page/
+但是如果路由使用history的话,那么访问路径变成 如下: `http://localhost:8080/page/`
 
 注意事项:
 
