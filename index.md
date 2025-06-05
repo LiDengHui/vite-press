@@ -25,3 +25,17 @@ features:
     link: https://lidenghui.github.io/three-learn/
     details: three demo
 ---
+
+<script setup>
+import BlogList from './components/BlogList.vue';
+const list = [
+    {
+        title: "123"
+    },
+    {
+        title: "321"
+    }
+]
+</script>
+
+<BlogList :list="list"></BlogList>
