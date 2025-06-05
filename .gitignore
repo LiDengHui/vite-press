@@ -4,7 +4,7 @@ node_modules
 .vitepress/dist
 *-lock.yaml
 .DS_Store
-.deployConfig.json
+deployConfig.json
 *-lock.json
 .lockb
 formula.md
