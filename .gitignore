@@ -1,0 +1,11 @@
+.idea
+node_modules
+.vitepress/cache
+.vitepress/dist
+*-lock.yaml
+.DS_Store
+deployConfig.json
+*-lock.json
+.lockb
+formula.md
+English
