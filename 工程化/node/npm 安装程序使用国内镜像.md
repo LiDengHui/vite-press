@@ -10,11 +10,12 @@ tags:
 
 一般国内人使用npm比较慢，所以很多人都装了cnpm，但是cnpm一方面模块之间的依赖可能会不好，另一方面，重复下载很多无用的文件（@开头的）:所以这里介绍一种跟好更方便的方式：
 
-    npm intall -g nrm
+```npm intall -g nrm```
 
 `nrm` 是用来切换npm源的一个工具。切过去之后可以很方便的切换回来，比如我要使用cnpm的镜像：
 
-  ![nrm use taobao](./npm-安装程序使用国内镜像/nrmuse.png)
+![nrmuse.png](./npm%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F/nrmuse.png)
+
 
 但是我觉得还是不满足，在这里推荐另外一中包安装工具`yarn`，它有一大优势就是不用每次都去远程服务器上取包，他会在本地保存一部分，当我们安装包的使用，直接copy一份就好。
 
@@ -26,7 +27,7 @@ tags:
 
 换源：
 
-  ![yrm use taobao](./npm-安装程序使用国内镜像/yrmuse.png)
+![yrm use taobao](./npm安装程序使用国内镜像/yrmuse.png)
 
 
 ## 添加cdnurl

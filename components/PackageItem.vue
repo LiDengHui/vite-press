@@ -24,7 +24,7 @@ export default {
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    padding: 1.5rem;
+    padding: 1rem;
     text-decoration: none;
     color: inherit;
     transition: all 0.3s ease;
