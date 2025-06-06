@@ -50,13 +50,14 @@ tags: [vue, vitepress]
 **访问方式**：
 1. **模板中**：通过 `{{ $frontmatter.author }}` 插入
 2. **Vue 组件中**：
-   ```vue  
-   <script setup>  
-   import { useData } from 'vitepress'  
-   const { frontmatter } = useData()  
-   console.log(frontmatter.value.tags) // ["vue", "vitepress"]  
-   </script>  
-   ```   
+
+```vue  
+<script setup>  
+import { useData } from 'vitepress'  
+const { frontmatter } = useData()  
+console.log(frontmatter.value.tags) // ["vue", "vitepress"]  
+</script>  
+```   
 
 ---
 
@@ -72,3 +73,147 @@ tags: [vue, vitepress]
 3. **自定义布局**：通过 `layout: customName` 注册 Vue 组件实现。
 
 > 完整字段参考见 [VitePress Frontmatter 配置文档](https://vitepress.dev/zh/guide/frontmatter)。
+
+## 插件配置
+
+### 配置 Math Latex 公式
+
+```js
+import mathjax3 from 'markdown-it-mathjax3';
+
+const customElements = [
+  'mjx-container',
+  'mjx-assistive-mml',
+  'math',
+  'maction',
+  'maligngroup',
+  'malignmark',
+  'menclose',
+  'merror',
+  'mfenced',
+  'mfrac',
+  'mi',
+  'mlongdiv',
+  'mmultiscripts',
+  'mn',
+  'mo',
+  'mover',
+  'mpadded',
+  'mphantom',
+  'mroot',
+  'mrow',
+  'ms',
+  'mscarries',
+  'mscarry',
+  'mscarries',
+  'msgroup',
+  'mstack',
+  'mlongdiv',
+  'msline',
+  'mstack',
+  'mspace',
+  'msqrt',
+  'msrow',
+  'mstack',
+  'mstack',
+  'mstyle',
+  'msub',
+  'msup',
+  'msubsup',
+  'mtable',
+  'mtd',
+  'mtext',
+  'mtr',
+  'munder',
+  'munderover',
+  'semantics',
+  'math',
+  'mi',
+  'mn',
+  'mo',
+  'ms',
+  'mspace',
+  'mtext',
+  'menclose',
+  'merror',
+  'mfenced',
+  'mfrac',
+  'mpadded',
+  'mphantom',
+  'mroot',
+  'mrow',
+  'msqrt',
+  'mstyle',
+  'mmultiscripts',
+  'mover',
+  'mprescripts',
+  'msub',
+  'msubsup',
+  'msup',
+  'munder',
+  'munderover',
+  'none',
+  'maligngroup',
+  'malignmark',
+  'mtable',
+  'mtd',
+  'mtr',
+  'mlongdiv',
+  'mscarries',
+  'mscarry',
+  'msgroup',
+  'msline',
+  'msrow',
+  'mstack',
+  'maction',
+  'semantics',
+  'annotation',
+  'annotation-xml',
+];
+
+export default {
+  markdown: {
+    config: (md) => {
+      md.use(mathjax3);
+    },
+  },
+  vue: {
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => customElements.includes(tag),
+      },
+    },
+  },
+};
+```
+
+### Mermaid 配置
+
+在 VitePress 中如果想要画流程图，饼图，UML类图等一系列图的话，VitePress 原生是不支持的，但是我们可以使用 Mermaid 的vitepress插件，名字是 vitepress-plugin-mermaid。下面介绍如何安装和使用
+
+[插件的 Github 地址](https://github.com/emersonbottero/vitepress-plugin-mermaid)
+[插件使用文档](https://emersonbottero.github.io/vitepress-plugin-mermaid/)
+```bash
+npm i vitepress-plugin-mermaid mermaid -D
+```
+```js
+// .vitepress/config.js
+//import { defineConfig } from "vitepress";// [!code --]
+import { withMermaid } from "vitepress-plugin-mermaid";// [!code ++]
+
+//export default defineConfig({// [!code --]
+export default withMermaid({
+   // [!code ++]
+  // 你的原本配置
+  // 可选地，可以传入MermaidConfig
+  mermaid: {
+    // 配置参考： https://mermaid.js.org/config/setup/modules/mermaidAPI.html#mermaidapi-configuration-defaults
+  },
+  // 可选地使用MermaidPluginConfig为插件本身设置额外的配置
+  mermaidPlugin: {
+   
+    class: "mermaid my-class" // 为父容器设置额外的CSS类
+  }
+});
+
+```
