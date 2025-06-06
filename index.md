@@ -28,14 +28,7 @@ features:
 
 <script setup>
 import BlogList from './components/BlogList.vue';
-const list = [
-    {
-        title: "123"
-    },
-    {
-        title: "321"
-    }
-]
+import PackageList from "./components/PackageList.vue";
 </script>
-
-<BlogList :list="list"></BlogList>
+<PackageList> </PackageList>
+<BlogList></BlogList>
