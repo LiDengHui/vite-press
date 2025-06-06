@@ -9,10 +9,8 @@ hero:
   actions:
     - theme: brand
       text: 个人随想
-      link: /markdown-examples
-    - theme: alt
-      text: 技术成长
-      link: /api-examples
+      link: /CSS/BFC布局.html
+  
 
 features:
   - title: 3D编辑器
@@ -29,6 +27,7 @@ features:
 <script setup>
 import BlogList from './components/BlogList.vue';
 import PackageList from "./components/PackageList.vue";
+
 </script>
-<PackageList> </PackageList>
+<PackageList > </PackageList>
 <BlogList></BlogList>

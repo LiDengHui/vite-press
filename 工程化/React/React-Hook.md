@@ -76,17 +76,17 @@ Hooks 的串联不是一个数组, 是一个链式的数据结构, 从跟节点 
 
 ## class 与 hooks的生命周期对应关系
 
-| class组件                | Hooks组件                |
-| ------------------------ | ------------------------ |
-| constructor              | useState                 |
-| getDerivedStateFromProps | useState里面的update函数 |
-| shouldComponentUpdate    | useMemo                  |
+| class组件                  | Hooks组件              |
+|:-------------------------|:---------------------|
+| constructor              | useState             |
+| getDerivedStateFromProps | useState里面的update函数  |
+| shouldComponentUpdate    | useMemo              |
 | render                   | 函数本身                 |
-| componentDidMount        | useLayoutEffect          |
-| componentDidUpdate       | useEffect                |
-| componentWillUnmount     | useEffect里面返回的函数  |
-| componentDidCatch        | 无                       |
-| getDerivedStateFromError | 无                       |
+| componentDidMount        | useLayoutEffect      |
+| componentDidUpdate       | useEffect            |
+| componentWillUnmount     | useEffect里面返回的函数     |
+| componentDidCatch        | 无                    |
+| getDerivedStateFromError | 无                    |
 
 ## setState
 
@@ -97,8 +97,13 @@ const [state, setState] = useState(initialState);
 setState 函数用于更新 state。它接收一个新的 state 值并将组件的一次重新渲染加入队列。
 
 ```js
-  setState(Object.assign(state,{name:'123'}) // 并不会改变 state中的name
-    setState({...state,{name:'123'}}) // 每次都要付给他新的值
+setState(Object.assign(state, { name: '123' })); // 并不会改变 state中的name
+setState({
+    ...state,
+    ...{
+        name: '123',
+    },
+});
 ```
 
 ## useEffect(fn,[state...])
@@ -262,7 +267,7 @@ const value = useContext(MyContext);
           inputRef.current.focus();
         }
       }));
-      return <input ref={inputRef} ... />;
+      return <input ref={inputRef} />;
     }
     FancyInput = forwardRef(FancyInput);
 ```

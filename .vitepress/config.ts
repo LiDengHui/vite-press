@@ -5,7 +5,12 @@ import mathjax from './mathjax';
 
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
 
+let base = undefined;
+if (process.env.DEPLOY_TYPE === 'git') {
+    base = '/vite-press/';
+}
 const vitePressConfigs: VitePressConfigs = {
+    base,
     title: '点滴生活',
     description: '记录个人成长',
     markdown: {
