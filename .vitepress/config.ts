@@ -5,7 +5,7 @@ import mathjax from './mathjax';
 
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
 
-let base = undefined;
+let base = '';
 if (process.env.DEPLOY_TYPE === 'git') {
     base = '/vite-press/';
 }
@@ -15,10 +15,14 @@ const vitePressConfigs: VitePressConfigs = {
     description: '记录个人成长',
     markdown: {
         config: mathjax,
+        image: {
+            lazyLoading: true,
+        },
     },
     mermaid: {
         // refer https://mermaid.js.org/config/setup/modules/mermaidAPI.html#mermaidapi-configuration-defaults for options
     },
+
     lastUpdated: true,
     // optionally set additional config for plugin itself with MermaidPluginConfig
     mermaidPlugin: {

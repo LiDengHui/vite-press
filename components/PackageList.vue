@@ -120,7 +120,6 @@ export default {
 <style scoped>
 .package-list-container {
     margin: 0 auto;
-    padding: 2rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
