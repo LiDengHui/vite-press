@@ -1,5 +1,5 @@
 import mathjax3 from 'markdown-it-mathjax3';
-import {MarkdownOptions} from "vitepress";
+import { MarkdownOptions } from 'vitepress';
 
 const customElements = [
     'mjx-container',
@@ -91,8 +91,4 @@ const customElements = [
     'annotation-xml',
 ];
 
- const mathjax: MarkdownOptions['config'] = (md) => {
-    md.use(mathjax3);
-}
-
-export default mathjax;
+export default mathjax3;

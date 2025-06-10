@@ -2,8 +2,10 @@ import { defineConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 import { withMermaid } from 'vitepress-plugin-mermaid';
 import mathjax from './mathjax';
-
+import timeline from 'vitepress-markdown-timeline';
+import markdownItTaskCheckbox from 'markdown-it-task-checkbox';
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
+import vitepressProtectPlugin from 'vitepress-protect-plugin';
 
 let base = '';
 if (process.env.DEPLOY_TYPE === 'git') {
@@ -14,7 +16,11 @@ const vitePressConfigs: VitePressConfigs = {
     title: '点滴生活',
     description: '记录个人成长',
     markdown: {
-        config: mathjax,
+        config(md) {
+            md.use(mathjax);
+            md.use(timeline);
+            md.use(markdownItTaskCheckbox);
+        },
         image: {
             lazyLoading: true,
         },
@@ -39,9 +45,18 @@ const vitePressConfigs: VitePressConfigs = {
             copyright: '<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备2023003969号-1</a>',
         },
     },
+    vite: {
+        plugins: [
+            vitepressProtectPlugin({
+                disableF12: true, // 禁用F12开发者模式
+                disableCopy: false, // 禁用文本复制
+                disableSelect: false, // 禁用文本选择
+            }),
+        ],
+    },
 };
 const x = withSidebar(vitePressConfigs, {
-    excludePattern: ['components', 'English'],
+    excludePattern: ['components', 'English', 'README'],
 });
 x.themeConfig.nav = x.themeConfig.sidebar;
 // https://vitepress.dev/reference/site-config

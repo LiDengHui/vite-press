@@ -125,6 +125,25 @@ HTML支持：<kbd>Ctrl</kbd>+<kbd>C</kbd>
 > 3. 不同平台可能有渲染差异
 > 4. 支持直接嵌套HTML代码
 
+## checkbox
+
+- [ ] 吃饭
+- [ ] 睡觉
+- [x] 打豆豆
+
+
+## 时间线
+
+::: timeline 2023-04-24
+- 一个非常棒的开源项目 H5-Dooring 目前 star 3.1k
+    - 开源地址 https://github.com/MrXujiang/h5-Dooring
+    - 基本介绍 http://h5.dooring.cn/doc/zh/guide/
+- 《深入浅出webpack》 http://webpack.wuhaolin.cn/
+  :::
+
+::: timeline 2023-04-23
+:::
+
 📌 **推荐工具**：
 - Typora（实时预览编辑器）
 - Markdown Here（浏览器插件）
