@@ -48,8 +48,10 @@ export default {
                 repoId: 'R_kgDOJVNT_g', //仓库ID
                 category: 'General', // 讨论分类
                 categoryId: 'DIC_kwDOJVNT_s4CrRbn', //讨论分类ID
-                mapping: 'pathname',
+                mapping: 'title',
                 inputPosition: 'bottom',
+                homePageShowComment: true,
+
                 lang: 'zh-CN',
             },
             {
