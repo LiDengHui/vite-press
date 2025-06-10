@@ -111,6 +111,11 @@ export default {
                     description: 'A simple implementation of a read-write lock with shared read',
                     link: 'https://www.npmjs.com/package/@dhlx/rwlock-shared',
                 },
+                {
+                    title: '@dhlx/cookie',
+                    description: '轻量级浏览器 Cookie 操作工具库，提供类型安全的 Cookie 设置、获取和删除功能',
+                    link: 'https://www.npmjs.com/package/@dhlx/cookie',
+                },
             ],
         };
     },
