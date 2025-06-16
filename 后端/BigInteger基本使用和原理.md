@@ -113,11 +113,13 @@ String hex = big1.toString(16); // 转为十六进制字符串
 
 ## 示例代码：计算 100!（阶乘）
 ```java
-BigInteger factorial = BigInteger.ONE;
-for (int i = 1; i <= 100; i++) {
-    factorial = factorial.multiply(BigInteger.valueOf(i));
+public main() {
+    BigInteger factorial = BigInteger.ONE;
+    for (int i = 1; i <= 100; i++) {
+        factorial = factorial.multiply(BigInteger.valueOf(i));
+    }
+    System.out.println(factorial); // 输出 9332621544...（共 158 位）
 }
-System.out.println(factorial); // 输出 9332621544...（共 158 位）
 ```
 
 > **注意**：`BigInteger` 无固定大小限制，仅受 JVM 内存约束（通常可处理数百万位的数字）。

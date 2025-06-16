@@ -56,7 +56,7 @@ const vitePressConfigs: VitePressConfigs = {
     },
 };
 const x = withSidebar(vitePressConfigs, {
-    excludePattern: ['components', 'English', 'README', 'cache'],
+    excludePattern: ['components', 'English', 'README', 'README.md', 'cache'],
 });
 x.themeConfig.nav = x.themeConfig.sidebar;
 // https://vitepress.dev/reference/site-config
