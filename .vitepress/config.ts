@@ -4,13 +4,28 @@ import { withMermaid } from 'vitepress-plugin-mermaid';
 import mathjax from './mathjax';
 import timeline from 'vitepress-markdown-timeline';
 import markdownItTaskCheckbox from 'markdown-it-task-checkbox';
+import lightbox from 'vitepress-plugin-lightbox';
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
+
 import vitepressProtectPlugin from 'vitepress-protect-plugin';
 
 let base = '';
 if (process.env.DEPLOY_TYPE === 'git') {
     base = '/vite-press/';
 }
+
+import { Transformer } from 'markmap-lib';
+
+const transformer = new Transformer();
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 const vitePressConfigs: VitePressConfigs = {
     base,
     title: '点滴生活',
@@ -19,7 +34,23 @@ const vitePressConfigs: VitePressConfigs = {
         config(md) {
             md.use(mathjax);
             md.use(timeline);
+            md.use(lightbox, {
+                selector: 'img',
+            });
             md.use(markdownItTaskCheckbox);
+            const temp = md.renderer.rules.fence.bind(md.renderer.rules);
+            md.renderer.rules.fence = (tokens, idx, options, env, slf) => {
+                const token = tokens[idx];
+                if (token.info === 'mindmap') {
+                    try {
+                        const { root, _ } = transformer.transform(token.content.trim());
+                        return `<svg class="markmap-svg" data-json='${escapeHtml(JSON.stringify(root))}'></svg>`;
+                    } catch (ex) {
+                        return `<pre>${ex}</pre>`;
+                    }
+                }
+                return temp(tokens, idx, options, env, slf);
+            };
         },
         image: {
             lazyLoading: true,
@@ -32,7 +63,7 @@ const vitePressConfigs: VitePressConfigs = {
     lastUpdated: true,
     // optionally set additional config for plugin itself with MermaidPluginConfig
     mermaidPlugin: {
-        class: 'mermaid my-class', // set additional css classes for parent container
+        class: 'mermaid my-class main img', // set additional css classes for parent container
     },
     themeConfig: {
         search: {
@@ -48,7 +79,7 @@ const vitePressConfigs: VitePressConfigs = {
     vite: {
         plugins: [
             vitepressProtectPlugin({
-                disableF12: true, // 禁用F12开发者模式
+                disableF12: false, // 禁用F12开发者模式
                 disableCopy: false, // 禁用文本复制
                 disableSelect: false, // 禁用文本选择
             }),
