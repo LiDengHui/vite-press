@@ -52,9 +52,9 @@ description: EJS 前端模版语言学习笔记
 如果不喜欢`<% ...%>` 也可以换成其他的
 
 ```js
-  var ejs = require('ejs');
-    ejs.open = '{{';
-    ejs.close = '}}';
+  var ejs = require('语言/JavaScript/ejs');
+ejs.open = '{{';
+ejs.close = '}}';
 ```
       
 

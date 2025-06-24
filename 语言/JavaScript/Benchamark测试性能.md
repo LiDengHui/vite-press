@@ -1,7 +1,5 @@
 # Benchmark测试性能
 
-# Benchmark.js 详细使用指南
-
 Benchmark.js 是一个强大的 JavaScript 基准测试库，用于精确测量代码性能。本文将详细介绍其使用方法，包含完整示例代码。
 
 ## 安装方法
@@ -261,7 +259,7 @@ noop(testFn);
 </body>
 </html>
 ```
-![](./Benchamark测试性能/234749537352541.png)
+![](Benchamark测试性能/234749537352541.png)
 ## 常见问题解决
 
 1. **测试结果波动大**：

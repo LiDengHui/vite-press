@@ -56,7 +56,7 @@ console.log(arr + 10)
 //20
 
 ```
-![](./Symbol/446215735464916.png)
+![](Symbol/446215735464916.png)
 
 ## 常见的Symbol
 

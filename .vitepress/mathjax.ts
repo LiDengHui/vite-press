@@ -1,5 +1,4 @@
 import mathjax3 from 'markdown-it-mathjax3';
-import { MarkdownOptions } from 'vitepress';
 
 const customElements = [
     'mjx-container',

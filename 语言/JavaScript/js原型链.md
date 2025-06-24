@@ -228,4 +228,4 @@ console.log(Object.prototype.__proto__); // null
 理解 `Function.prototype` 是掌握 JavaScript 函数本质和原型链机制的关键！ 🚀
 
 # 原型链图
-![](./js原型链/2020-08-24-00-36-10.png)
+![](js原型链/2020-08-24-00-36-10.png)
