@@ -69,6 +69,7 @@ const vitePressConfigs: VitePressConfigs = {
         search: {
             provider: 'local',
         },
+        logo: 'favicon.svg',
         // https://vitepress.dev/reference/default-theme-config
         socialLinks: [{ icon: 'github', link: 'https://github.com/LiDengHui' }],
         footer: {
