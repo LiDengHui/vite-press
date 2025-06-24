@@ -32,7 +32,7 @@ console.log(cruze instanceof Cruze); // true
 console.log(cruze instanceof Car); // true
 ```
 
-![](./ES5继承实现/2020-08-08-16-20-35.png)
+![](ES5继承实现/2020-08-08-16-20-35.png)
 
 1. 实例cruze的是class Cruze，
 
@@ -67,5 +67,4 @@ console.log(cruze instanceof Cruze);
 console.log(cruze instanceof Car);
 ```
 
-![](./ES5继承实现/2020-08-08-18-35-10.png)
-
+![](ES5继承实现/2020-08-08-18-35-10.png)

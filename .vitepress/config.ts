@@ -5,9 +5,8 @@ import mathjax from './mathjax';
 import timeline from 'vitepress-markdown-timeline';
 import markdownItTaskCheckbox from 'markdown-it-task-checkbox';
 import lightbox from 'vitepress-plugin-lightbox';
-type VitePressConfigs = Parameters<typeof defineConfig>[0];
 
-import vitepressProtectPlugin from 'vitepress-protect-plugin';
+type VitePressConfigs = Parameters<typeof defineConfig>[0];
 
 let base = '';
 if (process.env.DEPLOY_TYPE === 'git') {
@@ -17,6 +16,7 @@ if (process.env.DEPLOY_TYPE === 'git') {
 import { Transformer } from 'markmap-lib';
 
 const transformer = new Transformer();
+
 function escapeHtml(unsafe) {
     return unsafe
         .replace(/&/g, '&amp;')
@@ -70,7 +70,7 @@ const vitePressConfigs: VitePressConfigs = {
             provider: 'local',
         },
         // https://vitepress.dev/reference/default-theme-config
-        socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vitepress' }],
+        socialLinks: [{ icon: 'github', link: 'https://github.com/LiDengHui' }],
         footer: {
             message: 'Released under the MIT License.',
             copyright: '<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备2023003969号-1</a>',
@@ -78,11 +78,11 @@ const vitePressConfigs: VitePressConfigs = {
     },
     vite: {
         plugins: [
-            vitepressProtectPlugin({
-                disableF12: false, // 禁用F12开发者模式
-                disableCopy: false, // 禁用文本复制
-                disableSelect: false, // 禁用文本选择
-            }),
+            // vitepressProtectPlugin({
+            //     disableF12: false, // 禁用F12开发者模式
+            //     disableCopy: false, // 禁用文本复制
+            //     disableSelect: false, // 禁用文本选择
+            // }),
         ],
     },
 };

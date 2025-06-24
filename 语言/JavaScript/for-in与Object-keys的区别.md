@@ -45,7 +45,7 @@ for (var i in arr) {
 }
 ```
 
-![](./for-in与Object-keys的区别/2020-10-09-23-01-14.png)
+![](for-in与Object-keys的区别/2020-10-09-23-01-14.png)
 
 # Object.keys
 
@@ -81,7 +81,7 @@ Object.defineProperty(yd, 'address', {
 console.log(Object.keys(yd))
 ```
 
-![](./for-in与Object-keys的区别/2020-10-09-23-06-38.png)
+![](for-in与Object-keys的区别/2020-10-09-23-06-38.png)
 
 # for of 
 

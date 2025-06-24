@@ -3,7 +3,7 @@
 
 important  >  id >  class >  *
 
-![logo](./css优先级/css优先级.png)
+![logo](css优先级/css优先级.png)
 
 CSS优先级（Specificity）用于确定当多个规则作用于同一元素时，哪个样式将生效。其计算规则基于选择器的类型，**优先级从高到低**如下：
 
