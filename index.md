@@ -6,6 +6,9 @@ hero:
   name: "点滴生活"
   text: "记录个人成长"
   tagline: 记录个人成长
+  image:
+    src: /favicon.svg
+    alt: VitePress
   actions:
     - theme: brand
       text: 个人随想
