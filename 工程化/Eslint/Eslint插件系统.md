@@ -1,7 +1,7 @@
 # ESLint插件系统
 
-ESLint 插件系统是 ESLint 的扩展机制，用于添加自定义的 **规则（rules）**、**处理器（processors）**、**配置（configs）**、*
-*解析器（parser）** 和 **环境（env）** 等。插件本质上是一个包含多个属性的模块，遵循一定格式输出一个对象。
+ESLint 插件系统是 ESLint 的扩展机制，用于添加自定义的 **规则（rules）**、**处理器（processors）**、**配置（configs）**、
+**解析器（parser）** 和 **环境（env）** 等。插件本质上是一个包含多个属性的模块，遵循一定格式输出一个对象。
 
 ---
 
@@ -42,7 +42,6 @@ module.exports = {
 
 下面是各个属性的详细说明：
 
----
 
 ### 1. `rules` ✅
 
@@ -68,7 +67,6 @@ rules: {
 
 * 使用时规则名称是：`<plugin>/<rule>`（如 `myplugin/no-foo`）
 
----
 
 ### 2. `configs` ✅
 
@@ -86,7 +84,6 @@ configs: {
 
 * 用户可通过 `extends: ['plugin:myplugin/recommended']` 使用这些配置。
 
----
 
 ### 3. `processors` （可选）
 
@@ -106,7 +103,6 @@ processors: {
 }
 ```
 
----
 
 ### 4. `environments`（可选）
 
@@ -127,7 +123,6 @@ environments: {
 
 * 用户通过 `env: { myenv: true }` 启用。
 
----
 
 ### 5. `meta`（非标准）
 
@@ -140,7 +135,6 @@ meta: {
 }
 ```
 
----
 
 ## ✅ 三、插件注册方式（用户角度）
 
@@ -166,7 +160,6 @@ npm install eslint-plugin-myplugin --save-dev
 }
 ```
 
----
 
 ## ✅ 四、总结
 
@@ -178,6 +171,5 @@ npm install eslint-plugin-myplugin --save-dev
 | `environments` | Object | 定义新的全局变量和环境设置    |
 | `meta`         | Object | 插件元信息（非必需）       |
 
----
 
 ## 插件模版

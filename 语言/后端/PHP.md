@@ -34,7 +34,7 @@ sudo apachectl restart
 2. proftpd
 
 在`/Applications/XAMPP/xamppfiles/etc/proftpd.conf`中添加
-```config
+```text
 
 DefaultAddress 192.168.31.36
 ```

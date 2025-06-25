@@ -31,6 +31,7 @@ const vitePressConfigs: VitePressConfigs = {
     title: '点滴生活',
     description: '记录个人成长',
     markdown: {
+        cache: false,
         config(md) {
             md.use(mathjax);
             md.use(timeline);
@@ -43,7 +44,7 @@ const vitePressConfigs: VitePressConfigs = {
                 const token = tokens[idx];
                 if (token.info === 'mindmap') {
                     try {
-                        const { root, _ } = transformer.transform(token.content.trim());
+                        const { root } = transformer.transform(token.content.trim());
                         return `<svg class="markmap-svg" data-json='${escapeHtml(JSON.stringify(root))}'></svg>`;
                     } catch (ex) {
                         return `<pre>${ex}</pre>`;
@@ -54,6 +55,9 @@ const vitePressConfigs: VitePressConfigs = {
         },
         image: {
             lazyLoading: true,
+        },
+        languageAlias: {
+            svg: 'html',
         },
     },
     mermaid: {
