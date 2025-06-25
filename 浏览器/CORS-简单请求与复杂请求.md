@@ -1,16 +1,5 @@
----
-title: CORS-简单请求与复杂请求
-tags:
-  - 浏览器
-categories:
-  - 技术文档
-  - 前端
-  - 浏览器
-date: 2020-08-18 22:19:19
----
+# CORS-简单请求与复杂请求
 
-
-# CORS
 
 CORS即Cross Origin Resource Sharing (跨来源资源共享), 通俗说就是我们所熟知的跨域请求,
 众所周知,在以前,跨域可以采用代理、JSONP等方式,而在Nodern浏览器前,一切终将是过去,应为有了CORS
