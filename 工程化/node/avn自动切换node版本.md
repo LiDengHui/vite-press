@@ -1,8 +1,4 @@
----
-title: avn自动切换node版本
-date: 2019-08-18 22:02:20
-tags:
----
+# avn自动切换node版本
 
 
 ## 安装nvm

@@ -1,10 +1,13 @@
 import { defineConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 import { withMermaid } from 'vitepress-plugin-mermaid';
+import withDrawio from '@dhlx/vitepress-plugin-drawio';
 import mathjax from './mathjax';
 import timeline from 'vitepress-markdown-timeline';
 import markdownItTaskCheckbox from 'markdown-it-task-checkbox';
 import lightbox from 'vitepress-plugin-lightbox';
+import viteImagemin from 'vite-plugin-imagemin';
+import viteCompression from 'vite-plugin-compression';
 
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
 
@@ -88,6 +91,21 @@ const vitePressConfigs: VitePressConfigs = {
             //     disableCopy: false, // 禁用文本复制
             //     disableSelect: false, // 禁用文本选择
             // }),
+            // 图片压缩插件（支持 JPG/PNG/SVG/GIF）
+            viteImagemin({
+                gifsicle: { optimizationLevel: 3 },
+                mozjpeg: { quality: 80 },
+                optipng: { optimizationLevel: 5 },
+                svgo: {
+                    plugins: [{ name: 'removeViewBox' }, { name: 'removeEmptyAttrs', active: false }],
+                },
+            }),
+
+            // 文件 Gzip/Brotli 压缩（压缩 JS/CSS/HTML）
+            viteCompression({
+                filter: /\.(js|css|html|drawio)$/i, // 仅压缩 JS/CSS/HTML
+                deleteOriginFile: false,
+            }),
         ],
     },
 };
@@ -95,5 +113,5 @@ const x = withSidebar(vitePressConfigs, {
     excludePattern: ['components', 'English', 'README', 'README.md', 'cache'],
 });
 x.themeConfig.nav = x.themeConfig.sidebar;
-// https://vitepress.dev/reference/site-config
-export default withMermaid(defineConfig(x));
+
+export default withMermaid(withDrawio(defineConfig(x)));

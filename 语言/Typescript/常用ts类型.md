@@ -167,7 +167,7 @@ interface EventFunctions {
     b(params: { c: string, d: number }): void
 }
 
-declare const emit = FunctionMapType<EventFunction>
+declare const emit: FunctionMapType<EventFunction> = ()=>any; 
 
 emit('a')
 emit('b', {c: 'hello', d: 1})

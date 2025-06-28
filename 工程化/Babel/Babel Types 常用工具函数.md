@@ -79,13 +79,13 @@ const expr = t.template.expression.ast(`a + b`);
 path.replaceWith(t.identifier("newName")); // 将当前节点替换为新标识符
 ```
 
-###**创建二元表达式**
+### **创建二元表达式**
 ```javascript
 const sum = t.binaryExpression("+", t.identifier("a"), t.identifier("b"));
 // 等价于 AST 节点：a + b
 ```
 
-###**生成函数声明**
+### **生成函数声明**
 ```javascript
 const func = t.functionDeclaration(
   t.identifier("sum"),
@@ -101,7 +101,7 @@ const func = t.functionDeclaration(
 
 
 
-##**7. 实际应用场景**
+## **7. 实际应用场景**
 在 Babel 插件中，这些函数通常结合 `@babel/core` 的 `traverse` 使用：
 ```javascript
 const { traverse } = require("@babel/core");
@@ -121,7 +121,7 @@ traverse(ast, {
 ```
 
 
-##**关键文档参考**
+## **关键文档参考**
 - 完整节点类型列表：[Babel Types 文档](https://babeljs.io/docs/en/babel-types)
 - AST 节点规范：[AST Explorer](https://astexplorer.net/)（实时查看代码的 AST 结构）
 

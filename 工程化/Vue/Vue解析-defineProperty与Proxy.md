@@ -1,15 +1,5 @@
----
-title: Vue解析 defineProperty与Proxy
-date: 2020-07-20 10:01:37
-tags:
-  - Vue
-categories:
-  - 技术文档
-  - 前端
-  - Vue
----
+# Vue解析 defineProperty与Proxy
 
-# Vue 解析 defineProperty 与 Proxy
 
 老说 vue2，数组对象不行，不行在哪？
 老说 vue3 上来，这些数组对象的问题都解决了，到底解决了什么？是真的没有问题了吗？

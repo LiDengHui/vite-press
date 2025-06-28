@@ -1,13 +1,4 @@
----
-title: Vue3的domdiff和vDOM优化
-tags:
-  - vue3
-categories:
-  - 技术文档
-  - 前端
-  - vue3
-date: 2020-09-24 22:18:53
----
+# Vue3的domdiff和vDOM优化
 
 # 编译模版的静态标记
 
@@ -209,5 +200,3 @@ vite的使用放弃了vue2.x使用的webpack
 
 1. 提供了treeShaking,在打包的时候自动去除没有用到的vue模块
 2. 更好的ts支持,类型定义提示,tsx支持,class组件支持
-
-
