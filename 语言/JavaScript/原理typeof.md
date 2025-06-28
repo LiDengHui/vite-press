@@ -14,18 +14,18 @@ date: 2020-08-08 19:31:51
 typeof基本判断
 
 
-| 类型         | 结果           | 描述                                                                |
-| ------------ | -------------- | ------------------------------------------------------------------- |
-| Undefined    | "undefined"    |                                                                     |
-| Null         | "object"       | 最初实现中，object标签为0，Null的标签为0x00, 所以null被误认为object |
-| Boolean      | "boolean"      |
-| Number       | "number"       |
-| BigInt       | "bigint"       |
-| String       | "string"       |
-| Symbol       | "symbol"       |
-| 宿主对象     | 取决于具体实现 |
-| Function对象 | "function"     | 除 Function 外的所有构造函数的类型都是 'object, Number              |
-| 其他任何对象 | "object"       |
+| 类型         | 结果          | 描述                                              |
+|------------|-------------|-------------------------------------------------|
+| Undefined  | "undefined" |                                                 |
+| Null       | "object"    | 最初实现中，object标签为0，Null的标签为0x00, 所以null被误认为object |
+| Boolean    | "boolean"   |
+| Number     | "number"    |
+| BigInt     | "bigint"    |
+| String     | "string"    |
+| Symbol     | "symbol"    |
+| 宿主对象       | 取决于具体实现     |
+| Function对象 | "function"  | 除 Function 外的所有构造函数的类型都是 'object, Number        |
+| 其他任何对象     | "object"    |
 
 ## 运算优先级
 
@@ -50,4 +50,3 @@ class newClass{};
 ## 例外
 
 所有浏览器都存在 `typeof document.all === undefined`
-

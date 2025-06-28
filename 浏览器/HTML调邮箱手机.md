@@ -1,8 +1,5 @@
----
-title: HTML调邮箱手机
-date: 2019-08-20 13:37:28
-tags:
----
+# HTML调邮箱手机
+
 
 ## `format-detectio` 
 
@@ -25,6 +22,6 @@ tags:
 
     <a href="Mailto:ghsau@163.com?CC=ghsau@163.com&BCC=ghsau@163.com&Subject=Hello&Body=你好">给我发邮件</a>
     
-CC       | BCC          | Subject | Body
----------|--------------|---------|-----
-抄送地址 | 密件抄送地址 | 主题    | 邮件内容
+| CC   | BCC    | Subject | Body  |
+|------|--------|---------|-------|
+| 抄送地址 | 密件抄送地址 | 主题      | 邮件内容  |

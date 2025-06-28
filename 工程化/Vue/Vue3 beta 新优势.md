@@ -1,13 +1,5 @@
----
-title: Vue3 beta 新优势
-tags:
-  - vue
-categories:
-  - 技术文档
-  - 前端
-  - vue
-date: 2020-09-21 23:11:06
----
+# Vue3 beta 新优势
+
 
 # optionsAPI --> compositionAPi
 
@@ -165,4 +157,3 @@ export default {
 参考:
 
 <每日前端APP> 连接暂无
-

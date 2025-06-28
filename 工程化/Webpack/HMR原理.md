@@ -1,13 +1,5 @@
----
-title: HMR原理
-tags:
-  - webpack
-categories:
-  - 技术文档
-  - 前端
-  - webpack
-date: 2020-09-03 00:41:08
----
+# HMR原理
+
 
 Hot Module Replacement (简称 HMR)
 

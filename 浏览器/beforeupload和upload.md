@@ -1,10 +1,7 @@
----
-title: beforeupload和upload
-date: 2019-08-09 23:40:12
-tags:
----
+# beforeupload和upload
 
-## `beforeunload` 和 `unload` 的触发时间
+
+## `beforeunload`和 `unload` 的触发时间
     
     // beforeunload在新资源开始跳转或老资源刷新之前之前，可以取消加载
     window.addEventListener('beforeunload', function (e) {

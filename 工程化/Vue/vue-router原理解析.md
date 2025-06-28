@@ -1,13 +1,4 @@
----
-title: vue-router原理解析
-tags:
-  - vue
-categories:
-  - 技术文档
-  - 前端
-  - vue
-date: 2020-08-12 22:57:59
----
+# vue-router原理解析
 
 Vue-Router 默认是Hash模式, 使用url的hash来模拟一个完整的url,当url改变的时候,页面不会重新加载, 比如: 使用hash模式的话, 那么访问变成 `http://localhost:8080/page/#/这样的访问`
 

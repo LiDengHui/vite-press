@@ -35,29 +35,9 @@ import PackageList from "./components/PackageList.vue";
 <PackageList > </PackageList>
 <BlogList></BlogList>
 
-# 模块
-```mindmap
 
-# 算法
-# 测试
-# 浏览器
+![](./index/438090911055125.png)
 
-# 语言
-## JavaScript
-## CSS
-## Rust
-## 后端
-# 其他
-# 工具
-# 工程化
-## Babel
-## Eslint
-## Webpack
-## Vite
-## Rollup
-## Vue
-## React
-## WebGL
-# 性能优化
+![](./index/438104759940666.png)
 
-```
+![](./index/438118524067041.png)
