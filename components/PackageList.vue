@@ -116,6 +116,11 @@ export default {
                     description: '轻量级浏览器 Cookie 操作工具库，提供类型安全的 Cookie 设置、获取和删除功能',
                     link: 'https://www.npmjs.com/package/@dhlx/cookie',
                 },
+                {
+                    title: '@dhlx/vitepress-plugin-drawio',
+                    description: 'A VitePress plugin for rendering drawio diagrams.',
+                    link: 'https://www.npmjs.com/package/@dhlx/vitepress-plugin-drawio',
+                },
             ],
         };
     },
