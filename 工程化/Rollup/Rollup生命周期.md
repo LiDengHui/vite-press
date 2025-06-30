@@ -2,6 +2,120 @@
 
 Rollup.js 的构建过程分为 **Build**（构建）和 **Output**（输出）两大阶段，每个阶段包含多个子流程，并通过**插件钩子（Hooks）** 实现扩展性。以下是各阶段的详细作用和执行流程：
 
+<style>
+.legend-grid {
+	display: grid;
+	grid-template-columns: max-content max-content;
+	grid-column-gap: 16px;
+}
+
+.legend-rect {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border-radius: 5px;
+	border: 1px solid #000;
+	vertical-align: middle;
+	margin-right: 5px;
+	background: #fff;
+}
+</style>
+
+<div class="legend-grid">
+	<div style="grid-column: 1; grid-row: 1">
+		<span class="legend-rect" style="background: #ffb3b3"></span>parallel
+	</div>
+	<div style="grid-column: 1; grid-row: 2">
+		<span class="legend-rect" style="background: #ffd2b3"></span>sequential
+	</div>
+	<div style="grid-column: 1; grid-row: 3">
+		<span class="legend-rect" style="background: #fff2b3"></span>first
+	</div>
+	<div style="grid-column: 2; grid-row: 1">
+		<span class="legend-rect" style="border-color: #000"></span>async
+	</div>
+	<div style="grid-column: 2; grid-row: 2">
+		<span class="legend-rect" style="border-color: #f00"></span>sync
+	</div>
+</div>
+
+```mermaid
+flowchart TB
+    classDef default fill:transparent, color:#000;
+    classDef hook-parallel fill:#ffb3b3,stroke:#000;
+    classDef hook-sequential fill:#ffd2b3,stroke:#000;
+    classDef hook-first fill:#fff2b3,stroke:#000;
+    classDef hook-sequential-sync fill:#ffd2b3,stroke:#f00;
+    classDef hook-first-sync fill:#fff2b3,stroke:#f00;
+
+	watchchange("watchChange"):::hook-parallel
+	click watchchange "#watchchange" _parent
+
+    closewatcher("closeWatcher"):::hook-parallel
+	click closewatcher "#closewatcher" _parent
+
+	buildend("buildEnd"):::hook-parallel
+	click buildend "#buildend" _parent
+
+    buildstart("buildStart"):::hook-parallel
+	click buildstart "#buildstart" _parent
+
+	load("load"):::hook-first
+	click load "#load" _parent
+
+	moduleparsed("moduleParsed"):::hook-parallel
+	click moduleparsed "#moduleparsed" _parent
+
+	options("options"):::hook-sequential
+	click options "#options" _parent
+
+	resolvedynamicimport("resolveDynamicImport"):::hook-first
+	click resolvedynamicimport "#resolvedynamicimport" _parent
+
+	resolveid("resolveId"):::hook-first
+	click resolveid "#resolveid" _parent
+
+	shouldtransformcachedmodule("shouldTransformCachedModule"):::hook-first
+	click shouldtransformcachedmodule "#shouldtransformcachedmodule" _parent
+
+	transform("transform"):::hook-sequential
+	click transform "#transform" _parent
+
+    options
+    --> buildstart
+    --> |each entry|resolveid
+    .-> |external|buildend
+
+    resolveid
+    --> |non-external|load
+    --> |not cached|transform
+    --> moduleparsed
+    .-> |no imports|buildend
+
+    load
+    --> |cached|shouldtransformcachedmodule
+    --> |false|moduleparsed
+
+    shouldtransformcachedmodule
+    --> |true|transform
+
+    moduleparsed
+    --> |"each import()"|resolvedynamicimport
+    --> |non-external|load
+
+    moduleparsed
+    --> |"each import(cached)"|load
+
+    moduleparsed
+    --> |"each import(not cached)"|resolveid
+
+    resolvedynamicimport
+    .-> |external|buildend
+
+    resolvedynamicimport
+    --> |unresolved|resolveid
+```
+
 
 ## 🔧 **一、Build 阶段：依赖解析与模块图生成**
 **目标**：解析入口文件，构建模块依赖图（Module Graph），生成模块的抽象语法树（AST）。  
