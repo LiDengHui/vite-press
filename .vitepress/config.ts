@@ -8,7 +8,7 @@ import markdownItTaskCheckbox from 'markdown-it-task-checkbox';
 import lightbox from 'vitepress-plugin-lightbox';
 import viteImagemin from 'vite-plugin-imagemin';
 import viteCompression from 'vite-plugin-compression';
-
+import withMindMap from '@dhlx/vitepress-plugin-mindmap';
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
 
 let base = '';
@@ -41,20 +41,8 @@ const vitePressConfigs: VitePressConfigs = {
             md.use(lightbox, {
                 selector: 'img',
             });
+
             md.use(markdownItTaskCheckbox);
-            const temp = md.renderer.rules.fence.bind(md.renderer.rules);
-            md.renderer.rules.fence = (tokens, idx, options, env, slf) => {
-                const token = tokens[idx];
-                if (token.info === 'mindmap') {
-                    try {
-                        const { root } = transformer.transform(token.content.trim());
-                        return `<svg class="markmap-svg" data-json='${escapeHtml(JSON.stringify(root))}'></svg>`;
-                    } catch (ex) {
-                        return `<pre>${ex}</pre>`;
-                    }
-                }
-                return temp(tokens, idx, options, env, slf);
-            };
         },
         image: {
             lazyLoading: true,
@@ -76,7 +64,7 @@ const vitePressConfigs: VitePressConfigs = {
         search: {
             provider: 'local',
         },
-        logo: 'favicon.svg',
+        logo: '/favicon.svg',
         // https://vitepress.dev/reference/default-theme-config
         socialLinks: [{ icon: 'github', link: 'https://github.com/LiDengHui' }],
         footer: {
@@ -114,4 +102,4 @@ const x = withSidebar(vitePressConfigs, {
 });
 x.themeConfig.nav = x.themeConfig.sidebar;
 
-export default withMermaid(withDrawio(defineConfig(x)));
+export default withMindMap(withMermaid(withDrawio(defineConfig(x))));

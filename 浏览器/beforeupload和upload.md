@@ -15,7 +15,7 @@
 
 猜测点: 浏览器在资源卸载后最后一步，有可能存在`调优`,如取消事件系统，比如micotask和macotask等.`unload`的可能性要比`beforeunlaod`高。
 
-![20190809234916.png](https://raw.githubusercontent.com/LiDengHui/images/master/img20190809234916.png)
+![](./beforeupload和upload/284626544767166.png)
 
 ### 测试代码
 

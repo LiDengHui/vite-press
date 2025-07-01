@@ -41,3 +41,16 @@ import PackageList from "./components/PackageList.vue";
 ![](./index/438104759940666.png)
 
 ![](./index/438118524067041.png)
+
+```mindmap
+# A
+## B
+### C
+#### D
+##### E
+# 1
+## 2
+### 3
+#### 4
+##### 5
+```

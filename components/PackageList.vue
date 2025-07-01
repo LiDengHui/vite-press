@@ -121,6 +121,11 @@ export default {
                     description: 'A VitePress plugin for rendering drawio diagrams.',
                     link: 'https://www.npmjs.com/package/@dhlx/vitepress-plugin-drawio',
                 },
+                {
+                    title: '@dhlx/vitepress-plugin-mindmap',
+                    description: 'A VitePress plugin for rendering mindmaps.',
+                    link: 'https://www.npmjs.com/package/@dhlx/vitepress-plugin-mindmap',
+                },
             ],
         };
     },
