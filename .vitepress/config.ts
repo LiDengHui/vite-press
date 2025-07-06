@@ -9,6 +9,8 @@ import lightbox from 'vitepress-plugin-lightbox';
 import viteImagemin from 'vite-plugin-imagemin';
 import viteCompression from 'vite-plugin-compression';
 import withMindMap from '@dhlx/vitepress-plugin-mindmap';
+import svgLoader from "vite-svg-loader";
+
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
 
 let base = '';
@@ -73,7 +75,9 @@ const vitePressConfigs: VitePressConfigs = {
         },
     },
     vite: {
+
         plugins: [
+            svgLoader(),
             // vitepressProtectPlugin({
             //     disableF12: false, // 禁用F12开发者模式
             //     disableCopy: false, // 禁用文本复制

@@ -1,5 +1,6 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme';
+import Top from "./Top.vue";
 import { onMounted } from 'vue';
 import { useData, useRoute, useRouter } from 'vitepress';
 import mediumZoom from 'medium-zoom';
@@ -67,9 +68,11 @@ giscusTalk(
 
 <template>
     <Layout />
+    <Top/>
 </template>
 
 <style>
+
 .medium-zoom-overlay {
     backdrop-filter: blur(5rem);
 }

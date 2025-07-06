@@ -13,7 +13,7 @@ hero:
     - theme: brand
       text: 个人随想
       link: /CSS/BFC布局.html
-  
+
 
 features:
   - title: 3D编辑器
@@ -30,8 +30,13 @@ features:
 <script setup>
 import BlogList from './components/BlogList.vue';
 import PackageList from "./components/PackageList.vue";
+import Pome from './components/Pome.vue';
+import Carousel from './components/Carousel.vue';
+
 
 </script>
+<Carousel />
+<Pome/>
 <PackageList > </PackageList>
 <BlogList></BlogList>
 
