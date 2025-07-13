@@ -1,3 +1,7 @@
+<script setup>
+import AutoResizeTwoColumn from './BFC布局/AutoResizeTwoColumn.vue';
+</script>  
+
 # BFC（块级格式上下文）布局
 
 
@@ -170,3 +174,7 @@ div	{
 </style>
 ```
 ![20190813125635.png](https://raw.githubusercontent.com/LiDengHui/images/master/img20190813125635.png)
+
+## 自适应两栏布局
+
+<AutoResizeTwoColumn />    
