@@ -1,14 +1,13 @@
 <template>
-    <div class="carousel-container" @mouseenter="pause" @mouseleave="resume">
+    <div ref="carouselContainer" class="carousel-container" @mouseenter="pause" @mouseleave="resume">
         <div class="carousel-track" :style="trackStyle">
-            <!-- 实际项目中将这部分替换为你的轮播项 -->
             <div
-                v-for="(item, index) in items"
+                v-for="(item, index) in _items"
                 :key="index"
                 class="carousel-item"
                 :style="{ width: itemWidth + 'px' }"
             >
-                <img :src="item.image" :alt="item.title" class="carousel-image">
+                <img :src="item.image" :alt="item.title" class="carousel-image" />
                 <div class="carousel-caption">
                     <h3>{{ item.title }}</h3>
                     <p>{{ item.description }}</p>
@@ -17,137 +16,140 @@
         </div>
 
         <!-- 导航箭头 -->
-        <button class="carousel-arrow prev" @click="prev">
-            &lt;
-        </button>
-        <button class="carousel-arrow next" @click="next">
-            &gt;
-        </button>
+        <button class="carousel-arrow prev" @click="prev">&lt;</button>
+        <button class="carousel-arrow next" @click="next">&gt;</button>
 
         <!-- 指示器 -->
         <div class="carousel-indicators">
-      <span
-          v-for="(item, index) in items"
-          :key="index"
-          :class="{ active: currentIndex === index }"
-          @click="goTo(index)"
-      ></span>
+            <span
+                v-for="(item, index) in items"
+                :key="index"
+                :class="{ active: currentIndex - 1 === index }"
+                @click="goTo(index)"
+            ></span>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    props: {
-        items: {
-            type: Array,
-            required: true,
-            default: () => []
-        },
-        interval: {
-            type: Number,
-            default: 3000
-        },
-        autoplay: {
-            type: Boolean,
-            default: true
-        }
-    },
-    data() {
-        return {
-            currentIndex: 0,
-            itemWidth: 0,
-            timer: null,
-            transitionEnabled: true
-        }
-    },
-    computed: {
-        trackStyle() {
-            return {
-                transform: `translateX(${-this.currentIndex * this.itemWidth}px)`,
-                transition: this.transitionEnabled ? 'transform 0.5s ease' : 'none'
-            }
-        }
-    },
-    mounted() {
-        this.initCarousel()
-        if (this.autoplay) {
-            this.startAutoPlay()
-        }
-    },
-    beforeUnmount() {
-        this.clearTimer()
-    },
-    methods: {
-        initCarousel() {
-            // 获取轮播容器的宽度作为单个项目的宽度
-            const container = this.$el.querySelector('.carousel-container')
-            this.itemWidth = container ? container.offsetWidth : 0
+<script setup>
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
-            // 克隆第一个和最后一个项目以实现无缝循环
-            // 实际项目中你可能需要根据数据结构调整
-            if (this.items.length > 1) {
-                this.items.push({ ...this.items[0] })
-                this.items.unshift({ ...this.items[this.items.length - 2] })
-                this.currentIndex = 1
-            }
-        },
-        startAutoPlay() {
-            this.clearTimer()
-            this.timer = setInterval(() => {
-                this.next()
-            }, this.interval)
-        },
-        clearTimer() {
-            if (this.timer) {
-                clearInterval(this.timer)
-                this.timer = null
-            }
-        },
-        pause() {
-            this.clearTimer()
-        },
-        resume() {
-            if (this.autoplay) {
-                this.startAutoPlay()
-            }
-        },
-        next() {
-            this.transitionEnabled = true
-            this.currentIndex++
+const props = defineProps({
+    items: {
+        type: Array,
+        required: true,
+        default: () => []
+    },
 
-            // 检查是否到达克隆的最后一个项目
-            if (this.currentIndex >= this.items.length - 1) {
-                setTimeout(() => {
-                    this.transitionEnabled = false
-                    this.currentIndex = 1
-                }, 500)
-            }
-        },
-        prev() {
-            this.transitionEnabled = true
-            this.currentIndex--
+    interval: {
+        type: Number,
+        default: 3000
+    },
+    autoplay: {
+        type: Boolean,
+        default: true
+    }
+});
+const carouselContainer = ref(null);
+const currentIndex = ref(0);
+const itemWidth = ref(0);
+const timer = ref(null);
+const transitionEnabled = ref(true);
 
-            // 检查是否到达克隆的第一个项目
-            if (this.currentIndex <= 0) {
-                setTimeout(() => {
-                    this.transitionEnabled = false
-                    this.currentIndex = this.items.length - 2
-                }, 500)
-            }
-        },
-        goTo(index) {
-            // 调整索引，因为我们在数组前后各添加了一个克隆项
-            this.currentIndex = index + 1
-        }
+// 计算属性
+const _items = computed(() => {
+    if (props.items.length === 0) return [];
+    const first = props.items[0];
+    const last = props.items[props.items.length - 1];
+    return [last, ...props.items, first];
+});
+
+const trackStyle = computed(() => ({
+    transform: `translateX(${-currentIndex.value * itemWidth.value}px)`,
+    transition: transitionEnabled.value ? 'transform 0.5s ease' : 'none'
+}));
+
+function initCarousel() {
+    if (carouselContainer.value) {
+        itemWidth.value = carouselContainer.value.offsetWidth;
+    }
+    if (props.items.length > 1) {
+        currentIndex.value = 1;
     }
 }
+
+function startAutoPlay() {
+    clearTimer();
+    timer.value = setInterval(() => {
+        next();
+    }, props.interval);
+}
+
+function clearTimer() {
+    if (timer.value) {
+        clearInterval(timer.value);
+        timer.value = null;
+    }
+}
+
+function pause() {
+    clearTimer();
+}
+
+function resume() {
+    if (props.autoplay) {
+        startAutoPlay();
+    }
+}
+
+function next() {
+    transitionEnabled.value = true;
+    currentIndex.value++;
+
+    if (currentIndex.value >= _items.value.length - 1) {
+        setTimeout(() => {
+            transitionEnabled.value = false;
+            currentIndex.value = 1;
+        }, 500);
+    }
+}
+
+function prev() {
+    transitionEnabled.value = true;
+    currentIndex.value--;
+
+    if (currentIndex.value <= 0) {
+        setTimeout(() => {
+            transitionEnabled.value = false;
+            currentIndex.value = _items.value.length - 2;
+        }, 500);
+    }
+}
+
+function goTo(index) {
+    currentIndex.value = index + 1;
+}
+
+// 生命周期钩子
+onMounted(() => {
+    initCarousel();
+    if (props.autoplay) {
+        startAutoPlay();
+    }
+    window.addEventListener('resize', initCarousel);
+});
+
+onBeforeUnmount(() => {
+    clearTimer();
+    window.removeEventListener('resize', initCarousel);
+});
 </script>
 
 <style scoped>
 .carousel-container {
     position: relative;
     width: 100%;
+    height: 200px;
     overflow: hidden;
     margin: 0 auto;
 }
@@ -160,10 +162,13 @@ export default {
 .carousel-item {
     flex-shrink: 0;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .carousel-image {
-    width: 100%;
+    margin: auto;
     height: auto;
     display: block;
 }
@@ -173,9 +178,8 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
     padding: 10px;
+    display: none;
 }
 
 .carousel-arrow {
@@ -183,19 +187,23 @@ export default {
     top: 50%;
     transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.5);
+    filter: blur(10px);
     color: white;
     border: none;
-    padding: 10px;
+    padding: 20px;
     cursor: pointer;
     z-index: 10;
+    height: 100%;
 }
 
+
+
 .carousel-arrow.prev {
-    left: 10px;
+    left: 0;
 }
 
 .carousel-arrow.next {
-    right: 10px;
+    right: 0;
 }
 
 .carousel-indicators {
