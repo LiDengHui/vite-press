@@ -130,18 +130,30 @@ function goTo(index) {
     currentIndex.value = index + 1;
 }
 
+function handleVisibilityChange() {
+    if (document.hidden) {
+        // 页面不可见时清除定时器
+        pause();
+    } else {
+        // 页面可见时重启定时器
+        resume();
+    }
+}
+
 // 生命周期钩子
 onMounted(() => {
     initCarousel();
     if (props.autoplay) {
         startAutoPlay();
     }
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('resize', initCarousel);
 });
 
 onBeforeUnmount(() => {
     clearTimer();
     window.removeEventListener('resize', initCarousel);
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
 });
 </script>
 
@@ -195,8 +207,6 @@ onBeforeUnmount(() => {
     z-index: 10;
     height: 100%;
 }
-
-
 
 .carousel-arrow.prev {
     left: 0;

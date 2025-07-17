@@ -9,8 +9,8 @@ import lightbox from 'vitepress-plugin-lightbox';
 import viteImagemin from 'vite-plugin-imagemin';
 import viteCompression from 'vite-plugin-compression';
 import withMindMap from '@dhlx/vitepress-plugin-mindmap';
-import svgLoader from "vite-svg-loader";
-
+import svgLoader from 'vite-svg-loader';
+import { visualizer } from 'rollup-plugin-visualizer';
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
 
 let base = '';
@@ -18,40 +18,28 @@ if (process.env.DEPLOY_TYPE === 'git') {
     base = '/vite-press/';
 }
 
-import { Transformer } from 'markmap-lib';
-
-const transformer = new Transformer();
-
-function escapeHtml(unsafe) {
-    return unsafe
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
-
 const vitePressConfigs: VitePressConfigs = {
     base,
     title: '点滴生活',
     description: '记录个人成长',
+    metaChunk: true,
     markdown: {
         cache: false,
         config(md) {
             md.use(mathjax);
             md.use(timeline);
             md.use(lightbox, {
-                selector: 'img',
+                selector: 'img'
             });
 
             md.use(markdownItTaskCheckbox);
         },
         image: {
-            lazyLoading: true,
+            lazyLoading: true
         },
         languageAlias: {
-            svg: 'html',
-        },
+            svg: 'html'
+        }
     },
     mermaid: {
         // refer https://mermaid.js.org/config/setup/modules/mermaidAPI.html#mermaidapi-configuration-defaults for options
@@ -60,23 +48,32 @@ const vitePressConfigs: VitePressConfigs = {
     lastUpdated: true,
     // optionally set additional config for plugin itself with MermaidPluginConfig
     mermaidPlugin: {
-        class: 'mermaid my-class main img', // set additional css classes for parent container
+        class: 'mermaid my-class main img' // set additional css classes for parent container
     },
     themeConfig: {
         search: {
-            provider: 'local',
+            provider: 'local'
         },
         logo: '/favicon.svg',
         // https://vitepress.dev/reference/default-theme-config
         socialLinks: [{ icon: 'github', link: 'https://github.com/LiDengHui' }],
         footer: {
             message: 'Released under the MIT License.',
-            copyright: '<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备2023003969号-1</a>',
-        },
+            copyright: '<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备2023003969号-1</a>'
+        }
     },
     vite: {
-
+        build: {
+            chunkSizeWarningLimit: 2048,
+        },
         plugins: [
+            visualizer({
+                gzipSize: true,
+                brotliSize: true,
+                emitFile: false,
+                filename: 'test.html', //分析图生成的文件名
+                open: true //如果存在本地服务端口，将在打包后自动展示
+            }),
             svgLoader(),
             // vitepressProtectPlugin({
             //     disableF12: false, // 禁用F12开发者模式
@@ -89,20 +86,21 @@ const vitePressConfigs: VitePressConfigs = {
                 mozjpeg: { quality: 80 },
                 optipng: { optimizationLevel: 5 },
                 svgo: {
-                    plugins: [{ name: 'removeViewBox' }, { name: 'removeEmptyAttrs', active: false }],
-                },
+                    plugins: [{ name: 'removeViewBox' }, { name: 'removeEmptyAttrs', active: false }]
+                }
             }),
 
             // 文件 Gzip/Brotli 压缩（压缩 JS/CSS/HTML）
             viteCompression({
-                filter: /\.(js|css|html|drawio)$/i, // 仅压缩 JS/CSS/HTML
-                deleteOriginFile: false,
-            }),
-        ],
-    },
+                // filter: /\.(js|css|html|drawio)$/i, // 仅压缩 JS/CSS/HTML
+                // deleteOriginFile: false,
+                algorithm: 'brotliCompress',
+            })
+        ]
+    }
 };
 const x = withSidebar(vitePressConfigs, {
-    excludePattern: ['components', 'English', 'README', 'README.md', 'cache'],
+    excludePattern: ['components', 'English', 'README', 'README.md', 'cache']
 });
 x.themeConfig.nav = x.themeConfig.sidebar;
 
