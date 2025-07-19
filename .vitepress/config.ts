@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
-import { withMermaid } from 'vitepress-plugin-mermaid';
+import { withMermaid } from 'vitepress-plugin-mermaid2';
 import withDrawio from '@dhlx/vitepress-plugin-drawio';
 import mathjax from './mathjax';
 import timeline from 'vitepress-markdown-timeline';
@@ -11,6 +11,7 @@ import viteCompression from 'vite-plugin-compression';
 import withMindMap from '@dhlx/vitepress-plugin-mindmap';
 import svgLoader from 'vite-svg-loader';
 import { visualizer } from 'rollup-plugin-visualizer';
+
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
 
 let base = '';
@@ -26,8 +27,12 @@ const vitePressConfigs: VitePressConfigs = {
     markdown: {
         cache: false,
         config(md) {
-            md.use(mathjax);
-            md.use(timeline);
+            md.use((a, option) => {
+                mathjax(a, option);
+            });
+            md.use((a, option) => {
+                timeline(a, option);
+            });
             md.use(lightbox, {
                 selector: 'img'
             });
@@ -64,7 +69,7 @@ const vitePressConfigs: VitePressConfigs = {
     },
     vite: {
         build: {
-            chunkSizeWarningLimit: 2048,
+            chunkSizeWarningLimit: 2048
         },
         plugins: [
             visualizer({
@@ -74,6 +79,14 @@ const vitePressConfigs: VitePressConfigs = {
                 filename: 'test.html', //分析图生成的文件名
                 open: true //如果存在本地服务端口，将在打包后自动展示
             }),
+            {
+                name: 'svg-transform',
+                transform(code, id) {
+                    if (id.endsWith('其他/程序设计原则.md')) {
+                        console.log(code)
+                    }
+                }
+            },
             svgLoader(),
             // vitepressProtectPlugin({
             //     disableF12: false, // 禁用F12开发者模式
@@ -94,7 +107,7 @@ const vitePressConfigs: VitePressConfigs = {
             viteCompression({
                 // filter: /\.(js|css|html|drawio)$/i, // 仅压缩 JS/CSS/HTML
                 // deleteOriginFile: false,
-                algorithm: 'brotliCompress',
+                algorithm: 'brotliCompress'
             })
         ]
     }

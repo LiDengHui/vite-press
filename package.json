@@ -18,9 +18,9 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@dhlx/vitepress-plugin-drawio": "^0.0.7",
-        "@dhlx/vitepress-plugin-mindmap": "^0.0.2",
-        "@types/node": "^24.0.13",
+        "@dhlx/vitepress-plugin-drawio": "^0.0.9",
+        "@dhlx/vitepress-plugin-mindmap": "^0.0.4",
+        "@types/node": "^24.0.15",
         "cross-env": "^7.0.3",
         "install": "^0.13.0",
         "markdown-it-drawio-viewer": "^1.5.0",
@@ -29,7 +29,7 @@
         "markmap-common": "^0.18.9",
         "markmap-lib": "^0.18.12",
         "medium-zoom": "^1.1.0",
-        "mermaid": "^11.8.1",
+        "mermaid": "^11.9.0",
         "npm": "^11.4.2",
         "nprogress-v2": "^1.1.10",
         "prettier": "^3.6.2",
@@ -41,11 +41,9 @@
         "vitepress-markdown-timeline": "^1.2.2",
         "vitepress-plugin-comment-with-giscus": "^1.1.15",
         "vitepress-plugin-lightbox": "^1.0.2",
-        "vitepress-plugin-mermaid": "^2.0.17",
+        "vitepress-plugin-mermaid2": "^0.0.3",
         "vitepress-protect-plugin": "^1.0.6",
+        "vitepress-sidebar": "^1.32.1",
         "vue": "^3.5.17"
-    },
-    "dependencies": {
-        "vitepress-sidebar": "^1.32.1"
     }
 }
