@@ -1,10 +1,12 @@
 <script setup>
+
 import DefaultTheme from 'vitepress/theme';
-import Top from "./Top.vue";
+import Top from './Top.vue';
 import { onMounted } from 'vue';
 import { useData, useRoute, useRouter } from 'vitepress';
 import mediumZoom from 'medium-zoom';
 import giscusTalk from 'vitepress-plugin-comment-with-giscus';
+
 const route = useRoute();
 const { Layout } = DefaultTheme;
 const router = useRouter();
@@ -16,7 +18,7 @@ import { NProgress } from 'nprogress-v2'; // 进度条组件
 // Setup medium zoom with the desired options
 const setupMediumZoom = () => {
     mediumZoom('[data-zoomable]', {
-        background: 'transparent',
+        background: 'transparent'
     });
 };
 
@@ -53,26 +55,25 @@ giscusTalk(
         theme: 'light',
         darkTheme: 'transparent_dark',
         themeURL: '',
-        loading: 'lazy',
+        loading: 'lazy'
     },
     {
         frontmatter: data.frontmatter,
-        route,
+        route
     },
     //默认值为true，表示已启用，此参数可以忽略；
     //如果为false，则表示未启用
     //您可以使用“comment:true”序言在页面上单独启用它
-    true,
+    true
 );
 </script>
 
 <template>
     <Layout />
-    <Top/>
+    <Top />
 </template>
 
 <style>
-
 .medium-zoom-overlay {
     backdrop-filter: blur(5rem);
 }

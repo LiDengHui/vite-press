@@ -1,2 +1,19 @@
 @import "./var.css";
 @import "./task-list.css";
+
+/*@font-face {*/
+    /*font-family: "pigeon";*/
+    /*src: url("/fonts/pigeon.ttf") format("truetype");*/
+/*    font-weight: normal;*/
+/*    font-style: normal;*/
+/*}*/
+
+/*:root {*/
+/*    --vp-font-family-base: "pigeon", 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';*/
+/*    --vp-font-family-mono: "pigeon", ui-monospace, 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New',*/
+/*}*/
+
+/* (Optional) apply the font to the whole document */
+/*body {*/
+/*    font-family: var(--vp-font-family-base);*/
+/*}*/

@@ -19,6 +19,9 @@
     /* Bundler mode */
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "types": [
+      "vite-plugin-font/src/font"
+    ]
     /* Linting */
   },
   "include": [

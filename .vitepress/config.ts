@@ -11,7 +11,7 @@ import viteCompression from 'vite-plugin-compression';
 import withMindMap from '@dhlx/vitepress-plugin-mindmap';
 import svgLoader from 'vite-svg-loader';
 import { visualizer } from 'rollup-plugin-visualizer';
-
+import Font from 'vite-plugin-font';
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
 
 let base = '';
@@ -72,6 +72,9 @@ const vitePressConfigs: VitePressConfigs = {
             chunkSizeWarningLimit: 2048
         },
         plugins: [
+            Font.vite({
+                scanFiles: ['**/*.{vue,ts,tsx,js,jsx,md}'],
+            }),
             visualizer({
                 gzipSize: false,
                 brotliSize: false,
@@ -82,9 +85,7 @@ const vitePressConfigs: VitePressConfigs = {
             {
                 name: 'svg-transform',
                 transform(code, id) {
-                    if (id.endsWith('其他/程序设计原则.md')) {
-                        console.log(code)
-                    }
+
                 }
             },
             svgLoader(),
