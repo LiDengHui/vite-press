@@ -73,7 +73,7 @@ const vitePressConfigs: VitePressConfigs = {
         },
         plugins: [
             Font.vite({
-                scanFiles: ['**/*.{vue,ts,tsx,js,jsx,md}'],
+                scanFiles: ['/index.md'],
             }),
             visualizer({
                 gzipSize: false,
@@ -82,12 +82,6 @@ const vitePressConfigs: VitePressConfigs = {
                 filename: 'test.html', //分析图生成的文件名
                 open: true //如果存在本地服务端口，将在打包后自动展示
             }),
-            {
-                name: 'svg-transform',
-                transform(code, id) {
-
-                }
-            },
             svgLoader(),
             // vitepressProtectPlugin({
             //     disableF12: false, // 禁用F12开发者模式
