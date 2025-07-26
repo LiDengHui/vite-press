@@ -7,7 +7,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "vitepress dev .",
-        "build": "vitepress build .",
+        "build": "vitepress build . && echo `date +%s` > .vitepress/dist/version.txt",
         "preview": "vitepress preview .",
         "debug": "node node_modules/vitepress/dist/node/cli.js dev",
         "deploy:pinia": "npm run build && dhlx deploy -m dev",
@@ -17,10 +17,13 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
+    "overrides": {
+        "vite": "npm:rolldown-vite@latest"
+    },
     "devDependencies": {
         "@dhlx/vitepress-plugin-drawio": "^0.0.9",
         "@dhlx/vitepress-plugin-mindmap": "^0.0.4",
-        "@types/node": "^24.0.15",
+        "@types/node": "^24.1.0",
         "cross-env": "^7.0.3",
         "install": "^0.13.0",
         "markdown-it-drawio-viewer": "^1.5.0",
@@ -34,10 +37,11 @@
         "nprogress-v2": "^1.1.10",
         "prettier": "^3.6.2",
         "rollup-plugin-visualizer": "^6.0.3",
+        "sass-embedded": "^1.89.2",
         "vite-plugin-compression": "^0.5.1",
         "vite-plugin-font": "^5.1.2",
         "vite-plugin-imagemin": "^0.6.1",
-        "vite-svg-loader": "^5.1.0",
+        "vite-plugin-vue-devtools": "^7.7.7",
         "vitepress": "^2.0.0-alpha.5",
         "vitepress-markdown-timeline": "^1.2.2",
         "vitepress-plugin-comment-with-giscus": "^1.1.15",

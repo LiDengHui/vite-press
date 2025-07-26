@@ -32,9 +32,10 @@ import BlogList from './components/BlogList.vue';
 import PackageList from "./components/PackageList.vue";
 import Pome from './components/Pome.vue';
 import Carousel from './components/Carousel.vue';
-
+import CanvasDraw from './components/CanvasDraw/CanvasDraw.vue';
 
 </script>
+<CanvasDraw /> 
 <Carousel />
 <Pome/>
 <PackageList > </PackageList>
