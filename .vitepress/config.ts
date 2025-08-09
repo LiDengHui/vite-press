@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress';
+import { createContentLoader, defineConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 import { withMermaid } from 'vitepress-plugin-mermaid2';
 import withDrawio from '@dhlx/vitepress-plugin-drawio';
@@ -11,13 +11,17 @@ import withMindMap from '@dhlx/vitepress-plugin-mindmap';
 import { visualizer } from 'rollup-plugin-visualizer';
 import Font from 'vite-plugin-font';
 import vitepressProtectPlugin from 'vitepress-protect-plugin';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
+
 type VitePressConfigs = Parameters<typeof defineConfig>[0];
-import vueDevTools from 'vite-plugin-vue-devtools'
+import vueDevTools from 'vite-plugin-vue-devtools';
 
 let base = '';
 if (process.env.DEPLOY_TYPE === 'git') {
     base = '/vite-press/';
 }
+const pagesData: any[] = [];
 
 const vitePressConfigs: VitePressConfigs = {
     base,
@@ -26,6 +30,7 @@ const vitePressConfigs: VitePressConfigs = {
     metaChunk: true,
     markdown: {
         cache: false,
+        toc: { level: [1, 2, 3, 4, 5] },
         config(md) {
             md.use((a, option) => {
                 mathjax(a, option);
@@ -52,6 +57,7 @@ const vitePressConfigs: VitePressConfigs = {
 
     lastUpdated: true,
     // optionally set additional config for plugin itself with MermaidPluginConfig
+
     mermaidPlugin: {
         class: 'mermaid my-class main img' // set additional css classes for parent container
     },
@@ -67,14 +73,36 @@ const vitePressConfigs: VitePressConfigs = {
             copyright: '<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备2023003969号-1</a>'
         }
     },
+    buildEnd: async ({ outDir }) => {
+        const outFile = path.resolve(__dirname, 'pages.data.json');
+        fs.writeFileSync(
+            outFile,
+            JSON.stringify(
+                pagesData.sort((a, b) => b.lastUpdated - a.lastUpdated),
+                null,
+                2
+            ),
+            'utf-8'
+        );
+    },
+    async transformPageData(pageData, { siteConfig }) {
+        if (pageData.title) {
+            pagesData.push({
+                title: pageData.title,
+                url: pageData.relativePath.replace(/\.md$/, '.html'),
+                lastUpdated: pageData.lastUpdated
+            });
+        }
+    },
     vite: {
         build: {
             chunkSizeWarningLimit: 2048
         },
+
         plugins: [
             vueDevTools(),
             Font.vite({
-                scanFiles: ['/index.md'],
+                scanFiles: ['/index.md']
             }),
             visualizer({
                 gzipSize: false,
@@ -86,7 +114,7 @@ const vitePressConfigs: VitePressConfigs = {
             vitepressProtectPlugin({
                 disableF12: false, // 禁用F12开发者模式
                 disableCopy: false, // 禁用文本复制
-                disableSelect: false, // 禁用文本选择
+                disableSelect: false // 禁用文本选择
             }),
             // 图片压缩插件（支持 JPG/PNG/SVG/GIF）
             viteImagemin({
@@ -96,7 +124,7 @@ const vitePressConfigs: VitePressConfigs = {
                 svgo: {
                     plugins: [{ name: 'removeViewBox' }, { name: 'removeEmptyAttrs', active: false }]
                 }
-            }),
+            })
 
             // 文件 Gzip/Brotli 压缩（压缩 JS/CSS/HTML）
             // viteCompression({

@@ -8,6 +8,7 @@ import { Theme } from 'vitepress';
 import Layout from './Layout.vue';
 
 import { css } from './fonts/方正楷体简体.ttf';
+import ArticleList from './components/ArticleList.vue';
 
 if (!import.meta.env.SSR) {
     const root = document.documentElement;
@@ -39,5 +40,8 @@ if (!import.meta.env.SSR) {
 export default {
     extends: DefaultTheme,
     Layout,
+    enhanceApp(ctx) {
+        ctx.app.component('ArticleList', ArticleList);
+    },
     setup() {}
 } as Theme;

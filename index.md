@@ -35,6 +35,7 @@ import Carousel from './components/Carousel.vue';
 import CanvasDraw from './components/CanvasDraw/CanvasDraw.vue';
 
 </script>
+
 <CanvasDraw /> 
 <Carousel />
 <Pome/>
@@ -60,3 +61,4 @@ import CanvasDraw from './components/CanvasDraw/CanvasDraw.vue';
 #### 4
 ##### 5
 ```
+<ArticleList />

@@ -21,14 +21,27 @@ import { NProgress } from 'nprogress-v2'; // 进度条组件
 
 // Setup medium zoom with the desired options
 
-const setupMediumZoom = () => {
+const routerChange = () => {
     mediumZoom('[data-zoomable]', {
         background: 'transparent'
     });
+
+    setTimeout(() => {
+        const sidebar = document.querySelector('.VPSidebar');
+        if (!sidebar) return;
+        const activeItem = sidebar.querySelector('.VPSidebarItem .is-active');
+        if (activeItem) {
+            activeItem.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+    }, 100);
 };
 
 // Apply medium zoom on load
-onMounted(setupMediumZoom);
+onMounted(() => {
+    routerChange();
+
+
+});
 
 NProgress.configure({ showSpinner: false });
 router.onBeforeRouteChange = () => {
@@ -36,8 +49,10 @@ router.onBeforeRouteChange = () => {
 };
 router.onAfterRouteChange = () => {
     NProgress.done(); // 停止进度条
-    setupMediumZoom();
+    routerChange();
+
 };
+
 // Subscribe to route changes to re-apply medium zoom effect
 
 // Get frontmatter and route
@@ -71,14 +86,9 @@ giscusTalk(
     //您可以使用“comment:true”序言在页面上单独启用它
     true
 );
-
-
 </script>
 
-
-
 <style>
-
 .medium-zoom-overlay {
     backdrop-filter: blur(5rem);
 }

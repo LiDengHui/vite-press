@@ -6,7 +6,7 @@
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
-    "module": "nodenext",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "noEmit": false,
     "outDir": "dist",
@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2021",
+    "target": "NodeNext",
     "useDefineForClassFields": true,
     /* Bundler mode */
     "resolveJsonModule": true,
