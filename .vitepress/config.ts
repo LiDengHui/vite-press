@@ -78,7 +78,13 @@ const vitePressConfigs: VitePressConfigs = {
         fs.writeFileSync(
             outFile,
             JSON.stringify(
-                pagesData.sort((a, b) => b.lastUpdated - a.lastUpdated),
+                pagesData.sort((a, b) => {
+                    const value = b.lastUpdated - a.lastUpdated;
+                    if (value === 0) {
+                        return b.title.localeCompare(a.title);
+                    }
+                    return value;
+                }),
                 null,
                 2
             ),
