@@ -36,6 +36,12 @@
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
   grid-auto-flow: dense;
+   /**
+    `grid-auto-flow` 属性控制自动放置的算法，可选值包括：
+  - `row`：默认值，按行依次填充。
+  - `column`：按列依次填充。
+  - `dense`：密集模式，尽可能填满网格的空隙。
+    */
 }
 ```
 
@@ -120,26 +126,53 @@ window.addEventListener('resize', responsiveWaterfall);
    <img data-src="real-image.jpg" src="placeholder.jpg" class="lazyload">
    ```
 
-   ```javascript
-   // 懒加载实现
-   const lazyImages = document.querySelectorAll('.lazyload');
-   
-   const lazyLoad = (target) => {
-     const io = new IntersectionObserver((entries, observer) => {
-       entries.forEach(entry => {
-         if (entry.isIntersecting) {
-           const img = entry.target;
-           img.src = img.dataset.src;
-           observer.unobserve(img);
-         }
-       });
-     });
-     
-     io.observe(target);
-   };
-   
-   lazyImages.forEach(lazyLoad);
-   ```
+```javascript
+// 优化后的代码
+const lazyImages = document.querySelectorAll('.lazyload');
+
+// 创建单个IntersectionObserver实例（减少内存占用）
+const observer = new IntersectionObserver(
+        (entries) => {
+           entries.forEach((entry) => {
+              // 使用requestAnimationFrame优化滚动性能
+              if (entry.isIntersecting) {
+                 requestAnimationFrame(() => {
+                    const img = entry.target;
+                    // 添加错误处理和备用方案
+                    img.onerror = () => {
+                       console.warn('Lazy load failed:', img.dataset.src);
+                       img.classList.add('lazyload-error');
+                       observer.unobserve(img);
+                    };
+
+                    // 使用srcset支持响应式图片
+                    if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+                    if (img.dataset.src) img.src = img.dataset.src;
+
+                    // 添加加载状态标记
+                    img.classList.add('lazyloaded');
+                    img.classList.remove('lazyload');
+
+                    // 停止观察已加载图片
+                    observer.unobserve(img);
+                 });
+              }
+           });
+        },
+        {
+           // 添加配置选项
+           rootMargin: '100px 0px', // 提前100px加载
+           threshold: 0.01 // 至少1%可见
+        }
+);
+
+// 批量观察元素（减少函数调用）
+lazyImages.forEach((img) => {
+   // 预加载占位符检查
+   if (!img.dataset.src || img.complete) return;
+   observer.observe(img);
+});
+```
 
 2. **滚动加载更多**：
    ```javascript

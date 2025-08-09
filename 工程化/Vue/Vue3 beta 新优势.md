@@ -119,7 +119,7 @@ setup() {
 ## 生命周期的变更
 
 | vue2          | vue3            |
-| ------------- | --------------- |
+|---------------|-----------------|
 | beforeCreate  | setup           |
 | created       | setup           |
 | beforeMount   | onBeforeMount   |
