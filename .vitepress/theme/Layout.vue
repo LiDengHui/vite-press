@@ -21,12 +21,16 @@ import { NProgress } from 'nprogress-v2'; // 进度条组件
 
 // Setup medium zoom with the desired options
 
+let timer = null;
 const routerChange = () => {
     mediumZoom('[data-zoomable]', {
         background: 'transparent'
     });
 
-    setTimeout(() => {
+    if (timer) {
+        clearInterval(timer);
+    }
+    timer = setTimeout(() => {
         const sidebar = document.querySelector('.VPSidebar');
         if (!sidebar) return;
         const activeItem = sidebar.querySelector('.VPSidebarItem .is-active');
@@ -39,8 +43,6 @@ const routerChange = () => {
 // Apply medium zoom on load
 onMounted(() => {
     routerChange();
-
-
 });
 
 NProgress.configure({ showSpinner: false });
@@ -50,7 +52,6 @@ router.onBeforeRouteChange = () => {
 router.onAfterRouteChange = () => {
     NProgress.done(); // 停止进度条
     routerChange();
-
 };
 
 // Subscribe to route changes to re-apply medium zoom effect

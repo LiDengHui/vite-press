@@ -24,7 +24,7 @@ if (!import.meta.env.SSR) {
     const checkVersion = async () => {
         const res = await fetch('/version.txt?t=' + Date.now());
         const newVersion = await res.text();
-        if (!currentVersion) currentVersion = newVersion;
+          if (!currentVersion) currentVersion = newVersion;
         else if (currentVersion !== newVersion) {
             if (confirm('发现新版本，是否刷新？')) {
                 // 3. 双保险：添加时间戳参数

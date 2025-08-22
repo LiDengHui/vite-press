@@ -2,6 +2,8 @@
 
 SVG（Scalable Vector Graphics）是一种基于 XML 的**矢量图形格式**，可在任何分辨率下无损缩放，适用于图标、图表、动画等场景。
 
+[[toc]]
+
 ---
 
 ## 一、基础语法结构
@@ -141,5 +143,19 @@ SVG（Scalable Vector Graphics）是一种基于 XML 的**矢量图形格式**�
 - IE9+（部分高级特性不支持）
 
 > [查看完整支持表](https://caniuse.com/svg)
+
+## 九、SVG 滤镜的使用
+SVG 滤镜（Filter）是一种用于修改 SVG 元素外观的强大工具。它们可以实现模糊、颜色调整、阴影等效果，使 SVG 图形更加生动和有趣。
+
+[svg-filters 滤镜示例](https://yoksel.github.io/svg-filters/)
+
+
+```html
+
+```
+
+```css
+
+```
 
 掌握 SVG 可创建分辨率无关的图形，结合 CSS/JavaScript 可实现交互式数据可视化与复杂动画。
