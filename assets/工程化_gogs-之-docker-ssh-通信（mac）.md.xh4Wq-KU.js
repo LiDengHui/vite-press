@@ -1,0 +1,5 @@
+import{F as e,b as t,j as n,m as r}from"./chunks/plugin-vue_export-helper.CL7LGUog.js";const i=JSON.parse(`{"title":"gogs 之 docker ssh 通信（mac）","description":"在使用docker布置gogs时遇到的ssh链接问题","frontmatter":{"title":"gogs 之 docker ssh 通信（mac）","date":"2017-02-25T22:18:25.000Z","tags":["docker","gogs"],"description":"在使用docker布置gogs时遇到的ssh链接问题"},"headers":[],"relativePath":"工程化/gogs-之-docker-ssh-通信（mac）.md","filePath":"工程化/gogs-之-docker-ssh-通信（mac）.md","lastUpdated":1749107541000}`),a={name:`工程化/gogs-之-docker-ssh-通信（mac）.md`};function o(t,i,a,o,s,c){return e(),r(`div`,null,i[0]||=[n(`p`,null,`打算用docker布置一下gogs，用来给公司建立代码库`,-1),n(`p`,null,`在连接ssh时遇到要输入密码的问题`,-1),n(`p`,null,`后来才发线 docker 在配置gogs是会对端口进行映射导致端口被改变所以需要用./ssh/config,来更改配置的端口号修改代码如下 ~/.ssh/config`,-1),n(`pre`,null,[n(`code`,null,`	Host	www.macl.com
+
+	Port	32781
+`)],-1),n(`p`,null,`然后再下载：`,-1),n(`pre`,null,[n(`code`,null,`	git clone git@www.macl.com:lidenghui/test.git
+`)],-1)])}var s=t(a,[[`render`,o]]);export{i as __pageData,s as default};
