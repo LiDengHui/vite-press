@@ -1,0 +1,1 @@
+import{aD as e}from"../app.CFsT-BMU.js";var t=class{constructor(e){this.init=e,this.records=this.init()}static#_=e(this,`ImperativeState`);reset(){this.records=this.init()}};export{t as b};
