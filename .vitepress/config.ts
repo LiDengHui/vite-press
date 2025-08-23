@@ -23,6 +23,10 @@ if (process.env.DEPLOY_TYPE === 'git') {
 }
 const pagesData: any[] = [];
 
+const plugins = []
+if( process.env.NODE_ENV === 'production') {
+    plugins.push(vueDevTools())
+}
 const vitePressConfigs: VitePressConfigs = {
     base,
     title: '点滴生活',
@@ -106,7 +110,7 @@ const vitePressConfigs: VitePressConfigs = {
         },
 
         plugins: [
-            vueDevTools(),
+            ...plugins,
             Font.vite({
                 scanFiles: ['/index.md']
             }),
@@ -124,12 +128,31 @@ const vitePressConfigs: VitePressConfigs = {
             }),
             // 图片压缩插件（支持 JPG/PNG/SVG/GIF）
             viteImagemin({
-                gifsicle: { optimizationLevel: 3 },
-                mozjpeg: { quality: 80 },
-                optipng: { optimizationLevel: 5 },
+                gifsicle: {
+                    optimizationLevel: 7,
+                    interlaced: false,
+                },
+                optipng: {
+                    optimizationLevel: 7,
+                },
+                mozjpeg: {
+                    quality: 20,
+                },
+                pngquant: {
+                    quality: [0.8, 0.9],
+                    speed: 4,
+                },
                 svgo: {
-                    plugins: [{ name: 'removeViewBox' }, { name: 'removeEmptyAttrs', active: false }]
-                }
+                    plugins: [
+                        {
+                            name: 'removeViewBox',
+                        },
+                        {
+                            name: 'removeEmptyAttrs',
+                            active: false,
+                        },
+                    ],
+                },
             })
 
             // 文件 Gzip/Brotli 压缩（压缩 JS/CSS/HTML）

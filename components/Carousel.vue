@@ -7,12 +7,15 @@ import { withBase } from 'vitepress';
 
 const items = [
     {
+        title: "title1",
         image: withBase('/image/1.avif')
     },
     {
+        title: "title2",
         image: withBase('/image/2.avif')
     },
     {
+        title: "title3",
         image: withBase('/image/3.avif')
     }
 ];
