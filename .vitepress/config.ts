@@ -24,7 +24,14 @@ if (process.env.DEPLOY_TYPE === 'git') {
 const pagesData: any[] = [];
 
 const plugins = []
-if( process.env.NODE_ENV === 'production') {
+
+// NOTE:
+// `vite-plugin-font` internally uses `cn-font-split` (Node FFI) on Windows.
+// Some environments fail to load its native DLL dependencies during `vitepress dev`.
+// To keep local dev stable, only enable font subsetting for production builds.
+const isProd = process.env.NODE_ENV === 'production'
+
+if (isProd) {
     plugins.push(vueDevTools())
 }
 const vitePressConfigs: VitePressConfigs = {
