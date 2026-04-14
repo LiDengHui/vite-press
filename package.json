@@ -9,7 +9,7 @@
         "dev": "vitepress dev .",
         "build": "vitepress build . && echo `date +%s` > .vitepress/dist/version.txt",
         "preview": "vitepress preview .",
-        "debug": "node node_modules/vitepress/dist/node/cli.js dev",
+        "debug": "node node_modules/vitepress/dist/node/cli.js dev .",
         "deploy:pinia": "npm run build && dhlx deploy -m dev",
         "deploy:git": "cross-env DEPLOY_TYPE=git  npm run build && dhlx gh-pages -i .vitepress/dist",
         "deploy": "npm run deploy:pinia && npm run deploy:git"
@@ -22,6 +22,7 @@
     },
     "devDependencies": {
         "@braintree/sanitize-url": "^7.0.0",
+        "@dhlx/delay": "^0.0.5",
         "@dhlx/vitepress-plugin-drawio": "^0.0.10",
         "@dhlx/vitepress-plugin-mindmap": "^0.0.4",
         "@types/node": "^25.2.1",
@@ -45,7 +46,6 @@
         "rollup-plugin-visualizer": "^6.0.5",
         "sass-embedded": "^1.97.3",
         "vite-plugin-compression": "^0.5.1",
-        "vite-plugin-font": "^5.1.2",
         "vite-plugin-imagemin": "^0.6.1",
         "vite-plugin-vue-devtools": "^8.0.6",
         "vitepress": "^2.0.0-alpha.9",
@@ -56,8 +56,5 @@
         "vitepress-protect-plugin": "^1.0.6",
         "vitepress-sidebar": "^1.33.1",
         "vue": "^3.5.27"
-    },
-    "dependencies": {
-        "cn-font-split": "^7.4.1"
     }
 }

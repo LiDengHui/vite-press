@@ -2,6 +2,8 @@
 node_modules
 .vitepress/cache
 .vitepress/dist
+.vitepress/.temp
+blog/.obsidian/
 *-lock.yaml
 .DS_Store
 deployConfig.json

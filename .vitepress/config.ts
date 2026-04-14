@@ -1,15 +1,14 @@
 import { createContentLoader, defineConfig } from 'vitepress';
-import { withSidebar } from 'vitepress-sidebar';
+import { generateSidebar } from 'vitepress-sidebar';
 import { withMermaid } from 'vitepress-plugin-mermaid2';
 import withDrawio from '@dhlx/vitepress-plugin-drawio';
-import mathjax from './mathjax';
+import mathjax, { mathjaxStyles } from './mathjax';
 import timeline from 'vitepress-markdown-timeline';
 import markdownItTaskCheckbox from 'markdown-it-task-checkbox';
 import lightbox from 'vitepress-plugin-lightbox';
 import viteImagemin from 'vite-plugin-imagemin';
 import withMindMap from '@dhlx/vitepress-plugin-mindmap';
 import { visualizer } from 'rollup-plugin-visualizer';
-import Font from 'vite-plugin-font';
 import vitepressProtectPlugin from 'vitepress-protect-plugin';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
@@ -22,20 +21,96 @@ if (process.env.DEPLOY_TYPE === 'git') {
     base = '/vite-press/';
 }
 const pagesData: any[] = [];
+const srcRoot = path.resolve(__dirname, '../blog');
+const sidebarExcludePattern = ['components', 'English', 'README', 'README.md', 'cache'];
+const maxSidebarScopeDepth = 2;
 
-const plugins = []
-
-// NOTE:
-// `vite-plugin-font` internally uses `cn-font-split` (Node FFI) on Windows.
-// Some environments fail to load its native DLL dependencies during `vitepress dev`.
-// To keep local dev stable, only enable font subsetting for production builds.
-const isProd = process.env.NODE_ENV === 'production'
+const plugins = [];
+const isProd = process.env.NODE_ENV === 'production';
 
 if (isProd) {
-    plugins.push(vueDevTools())
+    plugins.push(vueDevTools());
 }
+
+function buildSidebarOptions(relDir = ''): any[] {
+    const currentDir = relDir ? path.resolve(srcRoot, relDir) : srcRoot;
+    const options: any[] = [];
+    const depth = relDir ? relDir.split('/').length : 0;
+
+    if (relDir) {
+        options.push({
+            documentRootPath: '/blog',
+            scanStartPath: relDir,
+            resolvePath: `/${relDir}/`,
+            excludePattern: sidebarExcludePattern
+        });
+    }
+
+    const childDirs = fs
+        .readdirSync(currentDir, { withFileTypes: true })
+        .filter(
+            (entry) =>
+                entry.isDirectory() &&
+                !entry.name.startsWith('.') &&
+                entry.name !== 'public' &&
+                entry.name !== 'index'
+        )
+        .map((entry) => path.posix.join(relDir, entry.name));
+
+    if (depth >= maxSidebarScopeDepth) {
+        return options;
+    }
+
+    for (const childDir of childDirs) {
+        options.push(...buildSidebarOptions(childDir));
+    }
+
+    return options;
+}
+
+function findFirstLink(item: any): string | undefined {
+    if (item.link) {
+        return item.link;
+    }
+
+    for (const child of item.items ?? []) {
+        const link = findFirstLink(child);
+        if (link) {
+            return link;
+        }
+    }
+}
+
+function toNavItems(items: any[]) {
+    return items
+        .map((item) => {
+            if (item.link) {
+                return { text: item.text, link: item.link };
+            }
+
+            const navItems = (item.items ?? [])
+                .map((child: any) => {
+                    const link = findFirstLink(child);
+                    return link ? { text: child.text, link } : null;
+                })
+                .filter(Boolean);
+
+            return navItems.length ? { text: item.text, items: navItems } : null;
+        })
+        .filter(Boolean);
+}
+
+const topLevelSidebar = generateSidebar({
+    documentRootPath: '/blog',
+    excludePattern: sidebarExcludePattern
+}) as any[];
+
+const scopedSidebar = generateSidebar(buildSidebarOptions()) as Record<string, any>;
+
 const vitePressConfigs: VitePressConfigs = {
     base,
+    srcDir: 'blog',
+    head: [['style', { 'data-mathjax': 'true' }, mathjaxStyles]],
     title: '点滴生活',
     description: '记录个人成长',
     metaChunk: true,
@@ -73,6 +148,8 @@ const vitePressConfigs: VitePressConfigs = {
         class: 'mermaid my-class main img' // set additional css classes for parent container
     },
     themeConfig: {
+        nav: toNavItems(topLevelSidebar),
+        sidebar: scopedSidebar,
         search: {
             provider: 'local'
         },
@@ -118,9 +195,6 @@ const vitePressConfigs: VitePressConfigs = {
 
         plugins: [
             ...plugins,
-            Font.vite({
-                scanFiles: ['/index.md']
-            }),
             visualizer({
                 gzipSize: false,
                 brotliSize: false,
@@ -171,9 +245,5 @@ const vitePressConfigs: VitePressConfigs = {
         ]
     }
 };
-const x = withSidebar(vitePressConfigs, {
-    excludePattern: ['components', 'English', 'README', 'README.md', 'cache']
-});
-x.themeConfig.nav = x.themeConfig.sidebar;
 
-export default withMindMap(withMermaid(withDrawio(defineConfig(x))));
+export default withMindMap(withMermaid(withDrawio(defineConfig(vitePressConfigs))));

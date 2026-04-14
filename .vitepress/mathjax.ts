@@ -1,93 +1,22 @@
 import mathjax3 from 'markdown-it-mathjax3';
 
-const customElements = [
-    'mjx-container',
-    'mjx-assistive-mml',
-    'math',
-    'maction',
-    'maligngroup',
-    'malignmark',
-    'menclose',
-    'merror',
-    'mfenced',
-    'mfrac',
-    'mi',
-    'mlongdiv',
-    'mmultiscripts',
-    'mn',
-    'mo',
-    'mover',
-    'mpadded',
-    'mphantom',
-    'mroot',
-    'mrow',
-    'ms',
-    'mscarries',
-    'mscarry',
-    'mscarries',
-    'msgroup',
-    'mstack',
-    'mlongdiv',
-    'msline',
-    'mstack',
-    'mspace',
-    'msqrt',
-    'msrow',
-    'mstack',
-    'mstack',
-    'mstyle',
-    'msub',
-    'msup',
-    'msubsup',
-    'mtable',
-    'mtd',
-    'mtext',
-    'mtr',
-    'munder',
-    'munderover',
-    'semantics',
-    'math',
-    'mi',
-    'mn',
-    'mo',
-    'ms',
-    'mspace',
-    'mtext',
-    'menclose',
-    'merror',
-    'mfenced',
-    'mfrac',
-    'mpadded',
-    'mphantom',
-    'mroot',
-    'mrow',
-    'msqrt',
-    'mstyle',
-    'mmultiscripts',
-    'mover',
-    'mprescripts',
-    'msub',
-    'msubsup',
-    'msup',
-    'munder',
-    'munderover',
-    'none',
-    'maligngroup',
-    'malignmark',
-    'mtable',
-    'mtd',
-    'mtr',
-    'mlongdiv',
-    'mscarries',
-    'mscarry',
-    'msgroup',
-    'msline',
-    'msrow',
-    'mstack',
-    'maction',
-    'semantics',
-    'annotation',
-    'annotation-xml',
-];
+const adaptor = globalThis.MathJax.startup.adaptor;
 
-export default mathjax3;
+export const mathjaxStyles = adaptor.textContent(globalThis.MathJax.svgStylesheet());
+
+function renderMath(content: string, display = false) {
+    const node = globalThis.MathJax.tex2svg(content, { display });
+    return adaptor.outerHTML(node);
+}
+
+export default function mathjax(md: any) {
+    mathjax3(md);
+
+    md.renderer.rules.math_inline = (tokens: any[], idx: number) => {
+        return renderMath(tokens[idx].content, false);
+    };
+
+    md.renderer.rules.math_block = (tokens: any[], idx: number) => {
+        return renderMath(tokens[idx].content, true);
+    };
+}
