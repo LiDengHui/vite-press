@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "语言/java/04-数据库与中间件能力/01-MySQL索引与执行计划.md",
+                "file": "语言/java/01-Java语言与基础能力深化/02-集合体系与源码.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01-MySQL索引与执行计划"
+              "title": "02-集合体系与源码"
             }
           }
         ]
@@ -196,6 +196,7 @@
   },
   "active": "1ca784f3d68c1d98",
   "lastOpenFiles": [
+    "语言/java/04-数据库与中间件能力/01-MySQL索引与执行计划.md",
     "语言/java/05-Spring体系与框架原理/02-Bean生命周期.md",
     "语言/java/05-Spring体系与框架原理/03-AOP与代理机制.md",
     "语言/java/05-Spring体系与框架原理/04-Spring事务机制.md",
@@ -221,7 +222,6 @@
     "语言/java/13-Dubbo学习/01-基础架构与调用链路.md",
     "语言/java/12-Netty学习/06-实战思路与常见问题.md",
     "语言/java/12-Netty学习/05-线程模型与性能优化.md",
-    "语言/java/12-Netty学习/04-粘包拆包与协议设计.md",
     "未命名.base",
     "未命名.canvas",
     "测试/UI测试之backstopjs/2020-08-15-10-27-37.png",
