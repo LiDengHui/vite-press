@@ -1,0 +1,241 @@
+{
+  "main": {
+    "id": "0532b0a6544b8b74",
+    "type": "split",
+    "children": [
+      {
+        "id": "9b97d99d3733cddc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1ca784f3d68c1d98",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "欢迎.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "欢迎"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "77f2d2b111f0d13b",
+    "type": "split",
+    "children": [
+      {
+        "id": "83dcf97c8652cdd1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "88e0a2f88e02e777",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "4786cd557795fdf1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "1c2ad427977d130a",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 450.5
+  },
+  "right": {
+    "id": "c17c217eb6a289e7",
+    "type": "split",
+    "children": [
+      {
+        "id": "3e35ac7ea4579d3c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3d1c7f9c05c9a5fa",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "未命名.base",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "未命名 的反向链接列表"
+            }
+          },
+          {
+            "id": "dd92ef96939be17e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "未命名.base",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "未命名 的出链列表"
+            }
+          },
+          {
+            "id": "5fdc82a6229bb1ed",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "f7be061d0a436ff0",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "e991caf1c73e5626",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "欢迎.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "欢迎 的大纲"
+            }
+          },
+          {
+            "id": "d171018e75f553d6",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 404.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "1ca784f3d68c1d98",
+  "lastOpenFiles": [
+    "未命名.base",
+    "未命名.canvas",
+    "语言/java/01-Java语言与基础能力深化/01-泛型与类型擦除.md",
+    "语言/java/06-架构设计与工程实践/07-稳定性设计.md",
+    "语言/java/06-架构设计与工程实践/06-部署与运行基础.md",
+    "语言/java/06-架构设计与工程实践/05-测试体系.md",
+    "语言/java/01-Java语言与基础能力深化/02-集合体系与源码.md",
+    "语言/后端/RoundingMode详细描述.md",
+    "语言/java/06-架构设计与工程实践/04-日志监控与告警.md",
+    "语言/java/06-架构设计与工程实践/03-API与错误码设计.md",
+    "语言/java/06-架构设计与工程实践/02-设计模式工程落地.md",
+    "语言/java/06-架构设计与工程实践/01-分层架构与模块拆分.md",
+    "语言/java/05-Spring体系与框架原理/07-Spring工程实践能力.md",
+    "语言/java/05-Spring体系与框架原理/06-SpringMVC请求处理流程.md",
+    "语言/java/05-Spring体系与框架原理/05-SpringBoot自动配置.md",
+    "语言/java/05-Spring体系与框架原理/04-Spring事务机制.md",
+    "语言/java/05-Spring体系与框架原理/03-AOP与代理机制.md",
+    "语言/java/05-Spring体系与框架原理/02-Bean生命周期.md",
+    "语言/java/05-Spring体系与框架原理/01-IoC与依赖注入.md",
+    "语言/java/04-数据库与中间件能力/08-幂等重试与补偿.md",
+    "语言/java/04-数据库与中间件能力/07-消息队列基础.md",
+    "语言/java/04-数据库与中间件能力/06-Redis缓存设计.md",
+    "语言/java/04-数据库与中间件能力/05-Redis数据结构.md",
+    "语言/java/04-数据库与中间件能力/04-SQL优化.md",
+    "语言/java/04-数据库与中间件能力/03-JDBC与连接池.md",
+    "语言/java/04-数据库与中间件能力/02-事务锁与隔离级别.md",
+    "语言/java/04-数据库与中间件能力/01-MySQL索引与执行计划.md",
+    "测试/UI测试之backstopjs/2020-08-15-10-27-37.png",
+    "语言/java/14-ZooKeeper学习",
+    "语言/java/13-Dubbo学习",
+    "语言/java/12-Netty学习",
+    "语言/java/11-ElasticSearch学习",
+    "语言/java/10-Flink学习",
+    "语言/java/09-Kafka学习",
+    "语言/java/08-Redis学习",
+    "语言/java/07-MySQL学习",
+    "语言/java/06-架构设计与工程实践",
+    "画布/未命名.canvas",
+    "工具/vitepress plugin/sidebar.png",
+    "工具/vitepress plugin/img_test.jpg",
+    "语言/后端/PHP/2020-08-01-17-21-35.png"
+  ]
+}
