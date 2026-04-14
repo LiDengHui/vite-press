@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "语言/java/04-数据库与中间件能力/01-MySQL索引与执行计划.md",
+                "file": "语言/java/01-Java语言与基础能力深化/02-集合体系与源码.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "01-MySQL索引与执行计划 的大纲"
+              "title": "02-集合体系与源码 的大纲"
             }
           },
           {
@@ -194,7 +194,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "1ca784f3d68c1d98",
+  "active": "d171018e75f553d6",
   "lastOpenFiles": [
     "语言/java/04-数据库与中间件能力/01-MySQL索引与执行计划.md",
     "语言/java/05-Spring体系与框架原理/02-Bean生命周期.md",
