@@ -11,8 +11,8 @@
 ```javascript
 // 全局注册自定义过滤器
 Vue.filter('capitalize', function (value) {
-  if (!value) return '';
-  return value.charAt(0).toUpperCase() + value.slice(1);
+    if (!value) return '';
+    return value.charAt(0).toUpperCase() + value.slice(1);
 });
 ```
 
@@ -20,16 +20,16 @@ Vue.filter('capitalize', function (value) {
 
 ```vue
 <template>
-  <div>{{ message | capitalize }}</div>
+    <div>{{ message | capitalize }}</div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      message: 'hello world'
-    };
-  }
+    data() {
+        return {
+            message: 'hello world'
+        };
+    }
 };
 </script>
 ```
@@ -42,17 +42,17 @@ export default {
 
 ```javascript
 export default {
-  filters: {
-    capitalize(value) {
-      if (!value) return '';
-      return value.charAt(0).toUpperCase() + value.slice(1);
+    filters: {
+        capitalize(value) {
+            if (!value) return '';
+            return value.charAt(0).toUpperCase() + value.slice(1);
+        }
+    },
+    data() {
+        return {
+            message: 'hello world'
+        };
     }
-  },
-  data() {
-    return {
-      message: 'hello world'
-    };
-  }
 };
 ```
 
@@ -60,7 +60,7 @@ export default {
 
 ```vue
 <template>
-  <div>{{ message | capitalize }}</div>
+    <div>{{ message | capitalize }}</div>
 </template>
 ```
 
@@ -70,8 +70,8 @@ export default {
 
 ```javascript
 Vue.filter('truncate', function (value, length) {
-  if (!value) return '';
-  return value.length > length ? value.substring(0, length) + '...' : value;
+    if (!value) return '';
+    return value.length > length ? value.substring(0, length) + '...' : value;
 });
 ```
 
@@ -79,16 +79,16 @@ Vue.filter('truncate', function (value, length) {
 
 ```vue
 <template>
-  <div>{{ longText | truncate(10) }}</div>
+    <div>{{ longText | truncate(10) }}</div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      longText: 'This is a long text that needs truncation.'
-    };
-  }
+    data() {
+        return {
+            longText: 'This is a long text that needs truncation.'
+        };
+    }
 };
 </script>
 ```
@@ -101,21 +101,21 @@ export default {
 
 ```vue
 <template>
-  <div>{{ capitalizedMessage }}</div>
+    <div>{{ capitalizedMessage }}</div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      message: 'hello world'
-    };
-  },
-  computed: {
-    capitalizedMessage() {
-      return this.message.charAt(0).toUpperCase() + this.message.slice(1);
+    data() {
+        return {
+            message: 'hello world'
+        };
+    },
+    computed: {
+        capitalizedMessage() {
+            return this.message.charAt(0).toUpperCase() + this.message.slice(1);
+        }
     }
-  }
 };
 </script>
 ```
@@ -126,21 +126,21 @@ export default {
 
 ```vue
 <template>
-  <div>{{ capitalize(message) }}</div>
+    <div>{{ capitalize(message) }}</div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      message: 'hello world'
-    };
-  },
-  methods: {
-    capitalize(value) {
-      return value.charAt(0).toUpperCase() + value.slice(1);
+    data() {
+        return {
+            message: 'hello world'
+        };
+    },
+    methods: {
+        capitalize(value) {
+            return value.charAt(0).toUpperCase() + value.slice(1);
+        }
     }
-  }
 };
 </script>
 ```
@@ -153,27 +153,28 @@ export default {
 
 ```javascript
 Vue.filter('capitalize', function (value) {
-  if (!value) return '';
-  return value.charAt(0).toUpperCase() + value.slice(1);
+    if (!value) return '';
+    return value.charAt(0).toUpperCase() + value.slice(1);
 });
 
 Vue.filter('uppercase', function (value) {
-  return value.toUpperCase();
+    return value.toUpperCase();
 });
 
 Vue.filter('lowercase', function (value) {
-  return value.toLowerCase();
+    return value.toLowerCase();
 });
 ```
 
 ### 3.2 **数字格式化**
+
 ```javascript
 Vue.filter('currency', function (value) {
-  return '$' + value.toFixed(2);
+    return '$' + value.toFixed(2);
 });
 
 Vue.filter('numberFormat', function (value) {
-  return new Intl.NumberFormat().format(value);
+    return new Intl.NumberFormat().format(value);
 });
 ```
 
@@ -183,7 +184,7 @@ Vue.filter('numberFormat', function (value) {
 
 ```javascript
 Vue.filter('dateFormat', function (value, format = 'YYYY-MM-DD') {
-  return moment(value).format(format);
+    return moment(value).format(format);
 });
 ```
 
@@ -191,23 +192,23 @@ Vue.filter('dateFormat', function (value, format = 'YYYY-MM-DD') {
 
 ```vue
 <template>
-  <div>{{ formatDate(date) }}</div>
+    <div>{{ formatDate(date) }}</div>
 </template>
 
 <script>
 import moment from 'moment';
 
 export default {
-  data() {
-    return {
-      date: '2023-10-01T12:00:00'
-    };
-  },
-  methods: {
-    formatDate(value) {
-      return moment(value).format('YYYY-MM-DD');
+    data() {
+        return {
+            date: '2023-10-01T12:00:00'
+        };
+    },
+    methods: {
+        formatDate(value) {
+            return moment(value).format('YYYY-MM-DD');
+        }
     }
-  }
 };
 </script>
 ```
@@ -216,8 +217,8 @@ export default {
 
 ```javascript
 Vue.filter('truncate', function (value, length) {
-  if (!value) return '';
-  return value.length > length ? value.substring(0, length) + '...' : value;
+    if (!value) return '';
+    return value.length > length ? value.substring(0, length) + '...' : value;
 });
 ```
 
@@ -227,7 +228,7 @@ Vue.filter('truncate', function (value, length) {
 
 ```javascript
 Vue.filter('filterEven', function (array) {
-  return array.filter(num => num % 2 === 0);
+    return array.filter((num) => num % 2 === 0);
 });
 ```
 
@@ -235,14 +236,14 @@ Vue.filter('filterEven', function (array) {
 
 由于 Vue 3 不再支持过滤器，你可以通过以下方法进行替代：
 
-* 使用 **计算属性** 来代替过滤器。
-* 使用 **方法** 来代替过滤器。
-* 对于常用的格式化功能，可以使用第三方库（如 `moment.js`、`date-fns`）来简化日期和数字处理。
+- 使用 **计算属性** 来代替过滤器。
+- 使用 **方法** 来代替过滤器。
+- 对于常用的格式化功能，可以使用第三方库（如 `moment.js`、`date-fns`）来简化日期和数字处理。
 
 ## **总结**
 
-* **Vue 2** 支持自定义过滤器，通过 `Vue.filter()` 或局部注册方式来实现。
-* **Vue 3** 移除了过滤器的功能，推荐使用计算属性和方法来代替。
-* 常见的过滤器包括大小写转换、日期格式化、数字格式化等，若你使用 Vue 3，建议使用计算属性或方法来实现相同的功能。
+- **Vue 2** 支持自定义过滤器，通过 `Vue.filter()` 或局部注册方式来实现。
+- **Vue 3** 移除了过滤器的功能，推荐使用计算属性和方法来代替。
+- 常见的过滤器包括大小写转换、日期格式化、数字格式化等，若你使用 Vue 3，建议使用计算属性或方法来实现相同的功能。
 
 如果你正在使用 Vue 2.x，过滤器依然是一个很有用的工具，但如果你使用 Vue 3.x，可以考虑使用其他更强大、灵活的方式（如计算属性和方法）来处理数据。

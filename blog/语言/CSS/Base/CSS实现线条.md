@@ -12,30 +12,32 @@
 
 ```css
 .border-line {
-  border-bottom: 1px solid #3498db;
-  padding-bottom: 10px;
+    border-bottom: 1px solid #3498db;
+    padding-bottom: 10px;
 }
 
 /* 高分辨率优化 */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .border-line {
-    border-bottom: 0.5px solid #3498db;
-  }
+    .border-line {
+        border-bottom: 0.5px solid #3498db;
+    }
 }
 
 /* 超高清设备优化 */
 @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
-  .border-line {
-    border-bottom: 0.33px solid #3498db;
-  }
+    .border-line {
+        border-bottom: 0.33px solid #3498db;
+    }
 }
 ```
 
 **优点**：
+
 - 实现简单，兼容性好
 - 支持各方向边框(上、右、下、左)
 
 **缺点**：
+
 - 在高分辨率下需要媒体查询优化
 - 部分浏览器不支持0.5px单位
 
@@ -45,30 +47,32 @@
 
 ```css
 .gradient-line {
-  height: 1px;
-  background: linear-gradient(to right, transparent, #3498db, transparent);
+    height: 1px;
+    background: linear-gradient(to right, transparent, #3498db, transparent);
 }
 
 /* 高分辨率优化 */
 @media (-webkit-min-device-pixel-ratio: 2), (minresolution: 192dpi) {
-  .gradient-line {
-    height: 0.5px;
-  }
+    .gradient-line {
+        height: 0.5px;
+    }
 }
 
 /* 超高清设备优化 */
 @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
-  .gradient-line {
-    height: 0.33px;
-  }
+    .gradient-line {
+        height: 0.33px;
+    }
 }
 ```
 
 **优点**：
+
 - 可创建渐变效果的细线
 - 支持自定义渐变方向和颜色
 
 **缺点**：
+
 - 线性渐变在旧浏览器中兼容性有限
 - 需要媒体查询适配不同分辨率
 
@@ -78,42 +82,44 @@
 
 ```css
 .transform-line {
-  position: relative;
-  height: 1px;
+    position: relative;
+    height: 1px;
 }
 
 .transform-line:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background-color: #3498db;
-  transform: scaleY(0.5);
-  transform-origin: 0 0;
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #3498db;
+    transform: scaleY(0.5);
+    transform-origin: 0 0;
 }
 
 /* 高分辨率优化 */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .transform-line:after {
-    transform: scaleY(0.25);
-  }
+    .transform-line:after {
+        transform: scaleY(0.25);
+    }
 }
 
 /* 超高清设备优化 */
 @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
-  .transform-line:after {
-    transform: scaleY(0.165);
-  }
+    .transform-line:after {
+        transform: scaleY(0.165);
+    }
 }
 ```
 
 **优点**：
+
 - 实现真正的亚像素渲染
 - 线条更加细腻
 
 **缺点**：
+
 - 需要伪元素支持
 - 代码相对复杂
 
@@ -123,30 +129,32 @@
 
 ```css
 .boxshadow-line {
-  height: 1px;
-  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.3);
+    height: 1px;
+    box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* 高分辨率优化 */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .boxshadow-line {
-    box-shadow: 0 0.25px 0 rgba(0, 0, 0, 0.3);
-  }
+    .boxshadow-line {
+        box-shadow: 0 0.25px 0 rgba(0, 0, 0, 0.3);
+    }
 }
 
 /* 超高清设备优化 */
 @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
-  .boxshadow-line {
-    box-shadow: 0 0.165px 0 rgba(0, 0, 0, 0.3);
-  }
+    .boxshadow-line {
+        box-shadow: 0 0.165px 0 rgba(0, 0, 0, 0.3);
+    }
 }
 ```
 
 **优点**：
+
 - 可以创建多线条效果
 - 支持阴影模糊效果
 
 **缺点**：
+
 - 部分浏览器不支持小于1px的阴影尺寸
 - 性能略低于其他方法
 
@@ -156,16 +164,18 @@
 
 ```css
 .svg-line {
-  height: 1px;
-  background: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3cline x1='0' y1='0' x2='100%25' y2='0' fill='none' stroke='%233498db' stroke-width='1'/%3e%3c/svg%3e");
+    height: 1px;
+    background: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3cline x1='0' y1='0' x2='100%25' y2='0' fill='none' stroke='%233498db' stroke-width='1'/%3e%3c/svg%3e");
 }
 ```
 
 **优点**：
+
 - 矢量图形，在任何分辨率下都清晰
 - 可精确控制线条属性
 
 **缺点**：
+
 - 代码可读性较差
 - 修改颜色等属性需要重新编码SVG
 
@@ -175,27 +185,29 @@
 
 ```css
 .pseudo-line {
-  position: relative;
-  padding: 10px 0;
+    position: relative;
+    padding: 10px 0;
 }
 
 .pseudo-line:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  height: 1px;
-  background-color: #9b59b6;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 1px;
+    background-color: #9b59b6;
 }
 ```
 
 **优点**：
+
 - 不占用DOM结构
 - 灵活定位
 
 **缺点**：
+
 - 需要绝对定位
 - 可能需要额外容器
 
@@ -206,34 +218,34 @@
 ```css
 /* 普通屏幕 */
 .element {
-  border-bottom: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 
 /* Retina/HDPI屏幕(2x) */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .element {
-    border-bottom: 0.5px solid #000;
-  }
+    .element {
+        border-bottom: 0.5px solid #000;
+    }
 }
 
 /* 超高清屏幕(3x) */
 @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
-  .element {
-    border-bottom: 0.33px solid #000;
-  }
+    .element {
+        border-bottom: 0.33px solid #000;
+    }
 }
 ```
 
 ## 方法比较表
 
-| 方法 | 兼容性 | 灵活性 | 实现难度 | 性能 |
-|------|--------|--------|----------|------|
-| 标准边框 | 优秀 | 中等 | 简单 | 优秀 |
-| 渐变实现 | 良好 | 高 | 中等 | 良好 |
-| Transform缩放 | 良好 | 高 | 中等 | 优秀 |
-| Box-shadow | 良好 | 高 | 简单 | 中等 |
-| SVG线条 | 良好 | 中等 | 复杂 | 良好 |
-| 伪元素 | 优秀 | 高 | 中等 | 优秀 |
+| 方法          | 兼容性 | 灵活性 | 实现难度 | 性能 |
+| ------------- | ------ | ------ | -------- | ---- |
+| 标准边框      | 优秀   | 中等   | 简单     | 优秀 |
+| 渐变实现      | 良好   | 高     | 中等     | 良好 |
+| Transform缩放 | 良好   | 高     | 中等     | 优秀 |
+| Box-shadow    | 良好   | 高     | 简单     | 中等 |
+| SVG线条       | 良好   | 中等   | 复杂     | 良好 |
+| 伪元素        | 优秀   | 高     | 中等     | 优秀 |
 
 ## 浏览器兼容性提示
 

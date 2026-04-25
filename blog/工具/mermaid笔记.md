@@ -18,8 +18,6 @@ date: 2020-07-30 23:52:11
 
 ![](./mermaid笔记/2020-07-30-23-56-15.png)
 
-
-
 ## Hexo支持mermaid
 
 1. `yarn add hexo-filter-mermaid-diagrams`
@@ -32,6 +30,7 @@ mermaid:
     theme: forest
     cdn: //cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js
 ```
+
 3. 在主题找到资源加载文件`layout/_partial/head.ejs`添加代码
 
 ```html
@@ -39,16 +38,13 @@ mermaid:
 <script src="<%= theme.mermaid.cdn %>"></script>
 <script>
     if (window.mermaid) {
-        mermaid.initialize({ theme: '<%= theme.mermaid.theme %>' })
+        mermaid.initialize({ theme: '<%= theme.mermaid.theme %>' });
     }
 </script>
 <% } %>
 ```
 
-
-
 ## 类图
-
 
 ```mermaid
 classDiagram
@@ -70,6 +66,7 @@ Mermaid 是一个用于生成图表和流程图的标记语言，基于 JavaScri
 ---
 
 ### 1. **流程图 (Flowchart)**
+
 ```mermaid
 graph TD;
     A[开始] --> B{条件};
@@ -78,7 +75,9 @@ graph TD;
     C --> E[结束];
     D --> E;
 ```
+
 **语法说明：**
+
 - `graph TD`：定义垂直方向（Top-Down）的流程图。
 - `A[开始]`：节点用方括号 `[]` 表示。
 - `-->`：箭头表示流程方向。
@@ -87,21 +86,25 @@ graph TD;
 ---
 
 ### 2. **序列图 (Sequence Diagram)**
+
 ```mermaid
 sequenceDiagram
-    
+
     Alice->>Bob: 你好！
     Bob-->>Alice: 你好，Alice！
     Bob->>John: 你好吗？
     John-->>Bob: 很好！
 ```
+
 **语法说明：**
+
 - `->>`：实线箭头（有箭头）。
 - `-->>`：虚线箭头（有箭头）。
 
 ---
 
 ### 3. **甘特图 (Gantt Chart)**
+
 ```mermaid
 gantt
     title 项目计划
@@ -111,7 +114,9 @@ gantt
     设计       :a2, after a1, 5d
     编码       :a3, after a2, 14d
 ```
+
 **语法说明：**
+
 - `dateFormat`：定义日期格式。
 - `section`：分组任务。
 - `after`：表示任务依赖关系。
@@ -119,6 +124,7 @@ gantt
 ---
 
 ### 4. **类图 (Class Diagram)**
+
 ```mermaid
 classDiagram
     class Animal {
@@ -130,13 +136,16 @@ classDiagram
     }
     Animal <|-- Dog
 ```
+
 **语法说明：**
+
 - `+`：表示公共属性/方法。
 - `<|--`：表示继承关系。
 
 ---
 
 ### 5. **饼图 (Pie Chart)**
+
 ```mermaid
 pie
     title 浏览器市场份额
@@ -149,6 +158,7 @@ pie
 ---
 
 ### 6. **状态图 (State Diagram)**
+
 ```mermaid
 stateDiagram
     direction LR
@@ -160,6 +170,7 @@ stateDiagram
 ---
 
 ### 7. **实体关系图 (ER Diagram)**
+
 ```mermaid
 erDiagram
     CUSTOMER ||--o{ ORDER : places
@@ -169,6 +180,7 @@ erDiagram
 ---
 
 ### 注意事项：
+
 1. Mermaid 代码需要放在 Markdown 的代码块中，并标注语言为 `mermaid`。
 2. 部分工具（如 GitHub、VS Code 的 Markdown 预览）需要插件支持。
 3. 方向定义：
@@ -183,6 +195,3 @@ erDiagram
 http://lightzhan.xyz/index.php/2020/05/10/markdown-mermaid-tutorial-2/
 
 http://lightzhan.xyz/index.php/2020/04/06/markdown-mermaid-tutorial/
-
-
-

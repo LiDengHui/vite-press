@@ -1,16 +1,13 @@
 # vite press 插件
 
-
-
 ## 时间线
-
 
 采用了 [@HanochMa/vitepress-markdown-timeline](https://github.com/HanochMa/vitepress-markdown-timeline) 的项目
 
 Demo：https://hanochma.github.io/daily/2023-04
 
-
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D vitepress-markdown-timeline
 ```
@@ -26,8 +23,8 @@ npm install vitepress-markdown-timeline
 ```sh [bun]
 bun add -D vitepress-markdown-timeline
 ```
-:::
 
+:::
 
 在 `config.mts` 中注册 markdown 解析插件
 
@@ -37,16 +34,15 @@ import timeline from "vitepress-markdown-timeline"; // [!code focus]
 export default {
   markdown: { // [!code focus]
     //行号显示
-    lineNumbers: true, 
+    lineNumbers: true,
 
     //时间线 // [!code focus:5]
     config: (md) => {
       md.use(timeline);
     },
-  }, 
+  },
 }
 ```
-
 
 在 `.vitepress/theme/index.ts` 中引入时间线样式
 
@@ -72,23 +68,16 @@ export default {
 
 ```md
 ::: timeline 2023-04-24
+
 - 一个非常棒的开源项目 H5-Dooring 目前 star 3.1k
-  - 开源地址 https://github.com/MrXujiang/h5-Dooring
-  - 基本介绍 http://h5.dooring.cn/doc/zh/guide/
+    - 开源地址 https://github.com/MrXujiang/h5-Dooring
+    - 基本介绍 http://h5.dooring.cn/doc/zh/guide/
 - 《深入浅出webpack》 http://webpack.wuhaolin.cn/
-:::
+  :::
 
 ::: timeline 2023-04-23
 :::
-
 ```
-
-
-
-
-
-
-
 
 ## 谷歌分析
 
@@ -96,8 +85,8 @@ export default {
 
 这里我们用 [@ZhongxuYang/vitepress-plugin-google-analytics](https://github.com/ZhongxuYang/vitepress-plugin-google-analytics) 的插件
 
-
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D vitepress-plugin-google-analytics
 ```
@@ -113,8 +102,8 @@ npm install vitepress-plugin-google-analytics
 ```sh [bun]
 bun add -D vitepress-plugin-google-analytics
 ```
-:::
 
+:::
 
 在 `.vitepress/theme/index.ts` 中引入
 
@@ -133,23 +122,14 @@ export default {
 }
 ```
 
-
-
-
-
-
-
-
-
 ## 图片缩放
 
 Vuepress是可以直接安装插件 [medium-zoom](https://github.com/francoischalifour/medium-zoom) 的，非常好用
 
 但是Vitepress直接用不了，在 [vitepress的issues中找到了方法#854](https://github.com/vuejs/vitepress/issues/854)
 
-
-
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D medium-zoom
 ```
@@ -165,9 +145,8 @@ npm install medium-zoom
 ```sh [bun]
 bun add -D medium-zoom
 ```
+
 :::
-
-
 
 在 `.vitepress/theme/index.ts` 添加如下代码，并保存
 
@@ -208,11 +187,11 @@ export default {
 /* .vitepress/theme/style/var.css */
 
 .medium-zoom-overlay {
-  z-index: 30;
+    z-index: 30;
 }
 
 .medium-zoom-image {
-  z-index: 9999 !important;/* 给的值是21，但是实测盖不住，直接999 */
+    z-index: 9999 !important; /* 给的值是21，但是实测盖不住，直接999 */
 }
 ```
 
@@ -222,15 +201,7 @@ export default {
 有个小bug，每次修改完需要刷新才能起效，不过不影响使用
 :::
 
-[//]: # (![]&#40;./vitepress plugin/img_test.jpg&#41;)
-
-
-
-
-
-
-
-
+[//]: # '![](./vitepress plugin/img_test.jpg)'
 
 ## 看板娘
 
@@ -238,8 +209,8 @@ export default {
 
 这里使用 [@xinlei3166/vitepress-theme-website](https://github.com/xinlei3166/vitepress-theme-website) 的 [Live2D](https://www.live2d.com/zh-CHS/) 插件
 
-
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D vitepress-theme-website
 ```
@@ -255,9 +226,8 @@ npm install vitepress-theme-website
 ```sh [bun]
 bun add -D vitepress-theme-website
 ```
+
 :::
-
-
 
 在 `.vitepress/theme/index.ts` 粘贴下面代码并保存
 
@@ -307,18 +277,12 @@ useLive2d({
 })
 ```
 
-
-
-
-
-
-
-
 ## 浏览量
 
 基本上使用的是 [不蒜子](http://busuanzi.ibruce.info/)，免费的且足够好用
 
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D busuanzi.pure.js
 ```
@@ -334,9 +298,8 @@ npm install busuanzi.pure.js
 ```sh [bun]
 bun add -D busuanzi.pure.js
 ```
+
 :::
-
-
 
 ```ts{4-5,10-16}
 // .vitepress/theme/index.ts
@@ -355,7 +318,7 @@ export default {
       }
     }
   },
-  
+
 }
 ```
 
@@ -366,22 +329,17 @@ export default {
 :::
 
 ```html
-本站总访问量 <span id="busuanzi_value_site_pv" /> 次
-本站访客数 <span id="busuanzi_value_site_uv" /> 人次
+本站总访问量 <span id="busuanzi_value_site_pv" /> 次 本站访客数 <span id="busuanzi_value_site_uv" /> 人次
 ```
 
 但是这也不好看啊，那就根据自己需求选择封装吧
 
 ::: info 封装演示
 
-* 仅首页显示：[组件使用示例]
+- 仅首页显示：[组件使用示例]
 
-* 所有页面底部：[插槽使用示例]
+- 所有页面底部：[插槽使用示例]
   :::
-
-
-
-
 
 ## 自动侧边栏
 
@@ -390,6 +348,7 @@ export default {
 安装文档：https://vitepress-sidebar.jooy2.com/guide/getting-started
 
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D vitepress-sidebar
 ```
@@ -401,8 +360,8 @@ yarn add -D vitepress-sidebar
 ```sh [npm]
 npm i -D vitepress-sidebar
 ```
-:::
 
+:::
 
 在 `configs.mts` 中引入配置，可以根据 [作者api文档](https://vitepress-sidebar.jooy2.com/guide/api) 按需修改
 
@@ -474,8 +433,6 @@ stackblitz演示：https://stackblitz.com/edit/vite-y1rga7
 
 ![](./vitepress plugin/sidebar.png)
 
-
-
 ## Todo
 
 为什么Vitepress没有任务列表，在 [issues#1923](https://github.com/vuejs/vitepress/issues/1923) 和 [issues#413](https://github.com/vuejs/vitepress/issues/413) 里找到了这个问题
@@ -486,13 +443,10 @@ Vitepress并不需要这个，也可以通过 [markdown-it](https://markdown-it.
 看到推荐的 [markdown-it-task-lists](https://www.npmjs.com/package/markdown-it-task-lists) 年久失修，找了一下可以使用 [markdown-it-task-checkbox](https://github.com/linsir/markdown-it-task-checkbox) 实现
 :::
 
-
-
-
 我们需要用到另一款插件：[markdown-it-task-checkbox](https://github.com/linsir/markdown-it-task-checkbox)
 
-
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D markdown-it-task-checkbox
 ```
@@ -508,8 +462,8 @@ npm install markdown-it-task-checkbox --save
 ```sh [bun]
 bun add -D markdown-it-task-checkbox
 ```
-:::
 
+:::
 
 以下配置方式由 [Aurorxa](https://github.com/Aurorxa) 提供
 
@@ -527,6 +481,7 @@ export default defineConfig({
 ```
 
 ::: details 关于引用报错但未爆红
+
 > 无法找到模块“markdown-it-task-checkbox”的声明文件。“/node_modules/.pnpm/markdown-it-task-checkbox@1.0.6/node_modules/markdown-it-task-checkbox/index.js”隐式拥有 "any" 类型。
 >
 > 尝试使用 `npm i --save-dev @types/markdown-it-task-checkbox` (如果存在)，或者添加一个包含 `declare module 'markdown-it-task-checkbox';` 的新声明(.d.ts)文件ts(7016)
@@ -539,8 +494,6 @@ export default defineConfig({
 
 粘贴 `declare module 'markdown-it-task-checkbox';` 代码保存
 :::
-
-
 
 输入：
 
@@ -561,71 +514,71 @@ export default defineConfig({
 ```css
 /* checkbox 颜色设置 */
 li.task-list-item {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  /* margin: 2px 0 0; */
-  list-style: inherit;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    /* margin: 2px 0 0; */
+    list-style: inherit;
 }
 
 /* Target the last child element to push it to the next line */
 li.task-list-item ul:last-child {
-  flex-basis: 100%;
-  margin-right: 0;
+    flex-basis: 100%;
+    margin-right: 0;
 }
 
-li.task-list-item input[type="checkbox"] {
-  position: relative;
-  width: 13px;
-  height: 13px;
-  line-height: 12px;
-  margin-right: 8px;
-  border: 1px solid #949494;
+li.task-list-item input[type='checkbox'] {
+    position: relative;
+    width: 13px;
+    height: 13px;
+    line-height: 12px;
+    margin-right: 8px;
+    border: 1px solid #949494;
 
-  -webkit-appearance: none;
-  appearance: none;
-  -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: none;
 }
 
-li.task-list-item input[type="checkbox"]:after {
-  position: absolute;
-  top: 0;
-  color: #000;
-  width: 13px;
-  height: 13px;
-  display: inline-block;
-  visibility: visible;
-  padding-left: 0;
-  text-align: center;
-  content: " ";
-  border-radius: 3px;
+li.task-list-item input[type='checkbox']:after {
+    position: absolute;
+    top: 0;
+    color: #000;
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+    visibility: visible;
+    padding-left: 0;
+    text-align: center;
+    content: ' ';
+    border-radius: 3px;
 }
 
-li.task-list-item input[type="checkbox"]:checked {
-  background-color: var(--vp-c-brand);
+li.task-list-item input[type='checkbox']:checked {
+    background-color: var(--vp-c-brand);
 }
 
-li.task-list-item input[type="checkbox"]:checked::after {
-  content: "✓";
-  color: #fff;
-  line-height: 13px;
-  font-size: 10px;
-  font-weight: 700;
-  text-align: center;
+li.task-list-item input[type='checkbox']:checked::after {
+    content: '✓';
+    color: #fff;
+    line-height: 13px;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
 }
 
 .timeline-dot {
-  color: #7f8c8d;
+    color: #7f8c8d;
 }
 
 .task-list {
-  margin: 0 !important;
+    margin: 0 !important;
 }
 
 li.task-list-item p {
-  display: flex;
-  margin: 0;
-  align-items: center;
+    display: flex;
+    margin: 0;
+    align-items: center;
 }
 ```
 
@@ -638,11 +591,9 @@ li.task-list-item p {
 
 当然你也可以直接直接使用 [emoji表情](https://www.emojiall.com/zh-hant/) ，懒人方式
 
-* ✅ 吃饭
+- ✅ 吃饭
 
-* ⬜ 睡觉
-
-
+- ⬜ 睡觉
 
 ## 代码组图标
 
@@ -651,6 +602,7 @@ li.task-list-item p {
 参照教程安装：https://vpgi.vercel.app/
 
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D vitepress-plugin-group-icons
 ```
@@ -666,8 +618,8 @@ npm install vitepress-plugin-group-icons
 ```sh [bun]
 bun add -D vitepress-plugin-group-icons
 ```
-:::
 
+:::
 
 然后在 `config.mts` 中配置
 
@@ -710,7 +662,6 @@ export default {
 }
 ```
 
-
 使用时，请确保代码后有对应的文字触发
 
 ````md{2,6,10}
@@ -733,37 +684,37 @@ bun -v
 
 ```ts
 export const builtInIcons: Record<string, string> = {
-  // package manager
-  pnpm: 'logos:pnpm',
-  npm: 'logos:npm-icon',
-  yarn: 'logos:yarn',
-  bun: 'logos:bun',
-  // framework
-  vue: 'logos:vue',
-  svelte: 'logos:svelte-icon',
-  angular: 'logos:angular-icon',
-  react: 'logos:react',
-  next: 'logos:nextjs-icon',
-  nuxt: 'logos:nuxt-icon',
-  solid: 'logos:solidjs-icon',
-  // bundler
-  rollup: 'logos:rollupjs',
-  webpack: 'logos:webpack',
-  vite: 'logos:vitejs',
-  esbuild: 'logos:esbuild',
-}
+    // package manager
+    pnpm: 'logos:pnpm',
+    npm: 'logos:npm-icon',
+    yarn: 'logos:yarn',
+    bun: 'logos:bun',
+    // framework
+    vue: 'logos:vue',
+    svelte: 'logos:svelte-icon',
+    angular: 'logos:angular-icon',
+    react: 'logos:react',
+    next: 'logos:nextjs-icon',
+    nuxt: 'logos:nuxt-icon',
+    solid: 'logos:solidjs-icon',
+    // bundler
+    rollup: 'logos:rollupjs',
+    webpack: 'logos:webpack',
+    vite: 'logos:vitejs',
+    esbuild: 'logos:esbuild'
+};
 ```
 
 那么如何自定义呢，我们先在 [iconify](https://icon-sets.iconify.design/) 中找到中意的图标
 
 ::: tip 说明
-* 本地图标格式：只能使用相对路径
 
-* 远程图标格式：必须是 `logos:***`
+- 本地图标格式：只能使用相对路径
+
+- 远程图标格式：必须是 `logos:***`
   :::
 
 图标名复制后，可以在 `config.mts` 中配置
-
 
 ```ts{3,15-20}
 // .vitepress/config.mts
@@ -797,6 +748,7 @@ export default defineConfig({
 来吧看看，效果如何
 
 ::: code-group
+
 ```ts [ts]
 console.log("I'm TypeScript");
 ```
@@ -811,18 +763,18 @@ Markdown图标演示
 
 ```css [css]
 h1 {
-  background: red;
+    background: red;
 }
 ```
 
 :::
-
 
 ## 禁用F12
 
 使用的是 [@cellinlab/vitepress-protect-plugin](https://github.com/cellinlab/vitepress-protect-plugin/)
 
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D vitepress-protect-plugin
 ```
@@ -838,8 +790,8 @@ npm install vitepress-protect-plugin
 ```sh [bun]
 bun add -D vitepress-protect-plugin
 ```
-:::
 
+:::
 
 然后在 `config.mts` 中配置，不用的功能不配置即可
 
@@ -863,7 +815,6 @@ export default defineConfig({
 
 ## 切换路由进度条
 
-
 当你切换页面，顶部会显示进度条，使用的是 [@Skyleen77/nprogress-v2](https://github.com/Skyleen77/nprogress-v2)
 
 ::: tip 说明
@@ -873,6 +824,7 @@ export default defineConfig({
 先安装 `nprogress-v2`
 
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D nprogress-v2
 ```
@@ -888,6 +840,7 @@ npm install nprogress-v2
 ```sh [bun]
 bun add -D nprogress-v2
 ```
+
 :::
 
 然后再 `index.ts` 中配置，即可生效
@@ -910,14 +863,12 @@ if (inBrowser) {
 }
 ```
 
-
-
 ## Mermaid
 
 根据 [VitePress Plugin Mermaid插件官网](https://emersonbottero.github.io/vitepress-plugin-mermaid/) 的教程安装依赖
 
-
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D vitepress-plugin-mermaid
 ```
@@ -933,8 +884,8 @@ npm i -D vitepress-plugin-mermaid
 ```sh [bun]
 bun add -D vitepress-plugin-mermaid
 ```
-:::
 
+:::
 
 在 `config.mts` 中进行配置
 
@@ -953,7 +904,7 @@ export default withMermaid( // [!code ++:13]
     },
     // optionally set additional config for plugin itself with MermaidPluginConfig
     mermaidPlugin: {
-      class: "mermaid my-class", // set additional css classes for parent container 
+      class: "mermaid my-class", // set additional css classes for parent container
     },
 
   })
@@ -964,6 +915,7 @@ export default withMermaid( // [!code ++:13]
 如果报错了页面打不开，你还需要安装如下几个依赖
 
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D @braintree/sanitize-url cytoscape cytoscape-cose-bilkent dayjs debug
 ```
@@ -979,13 +931,14 @@ npm i -D @braintree/sanitize-url cytoscape cytoscape-cose-bilkent dayjs debug
 ```sh [bun]
 bun add -D @braintree/sanitize-url cytoscape cytoscape-cose-bilkent dayjs debug
 ```
-:::
 
+:::
 
 :::: details 不想安装这么多依赖？你可以这样配置
 仅安装mermaid
 
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D mermaid
 ```
@@ -1001,8 +954,8 @@ npm i -D mermaid
 ```sh [bun]
 bun add -D mermaid
 ```
-:::
 
+:::
 
 ```ts{1,7,11-17}
 import { MermaidMarkdown, MermaidPlugin } from 'vitepress-plugin-mermaid';
@@ -1011,7 +964,7 @@ export default defineConfig({
 
   markdown: {
     config(md) {
-      md.use(MermaidMarkdown); 
+      md.use(MermaidMarkdown);
     },
   },
   vite: {
@@ -1030,8 +983,6 @@ export default defineConfig({
 
 ::::
 
-
-
 输入：
 
 ````
@@ -1047,7 +998,6 @@ flowchart LR
 flowchart LR
   Start --> Stop
 ```
-
 
 输入：
 
@@ -1056,28 +1006,28 @@ flowchart LR
 graph LR
     A[Java 数据类型] --> B[原始数据类型]
     A[Java 数据类型] --> C[引用数据类型]
-    
+
     B --> D[整数类型]
     B --> E[浮点类型]
     B --> F[字符类型]
     B --> G[布尔类型]
-    
+
     D --> H[int]
     D --> I[long]
     D --> J[short]
     D --> K[byte]
-    
+
     E --> L[float]
     E --> M[double]
-    
+
     F --> N[char]
-    
+
     G --> O[boolean]
-    
+
     C --> P[类]
     C --> Q[接口]
     C --> R[数组]
-
+```
 ````
 
 输出：
@@ -1086,24 +1036,24 @@ graph LR
 graph LR
     A[Java 数据类型] --> B[原始数据类型]
     A[Java 数据类型] --> C[引用数据类型]
-    
+
     B --> D[整数类型]
     B --> E[浮点类型]
     B --> F[字符类型]
     B --> G[布尔类型]
-    
+
     D --> H[int]
     D --> I[long]
     D --> J[short]
     D --> K[byte]
-    
+
     E --> L[float]
     E --> M[double]
-    
+
     F --> N[char]
-    
+
     G --> O[boolean]
-    
+
     C --> P[类]
     C --> Q[接口]
     C --> R[数组]
@@ -1112,30 +1062,27 @@ graph LR
 
 更多使用方式，请查看 [VitePress Plugin Mermaid官网](https://emersonbottero.github.io/vitepress-plugin-mermaid/guide/more-examples.html)
 
-
 ## 评论
 
 从个人角度而言，[Giscus](https://giscus.app/zh-CN) 最佳，就用它演示，其他的这里就不赘述了
 
 ::: details 为什么使用 Giscus
 
-|                      评论系统                       |                                   说明                                   |
-|:-----------------------------------------------:|:----------------------------------------------------------------------:|
-| [Valine](https://valine.js.org/quickstart.html) |                    不用登录账号即可评论，但容易产生垃圾评论，其次没有评论提醒通知                     |
-|        [Waline](https://waline.js.org/)         |                  是Valine的升级版，登录后方可评论，有通知，但是需要自己部署服务端                   |
-|        [Twikoo](https://twikoo.js.org/)         |                  不用登录账号即可评论，但容易产生垃圾评论，有通知，但是需要自己部署服务端                  |
-|        [Artalk](https://artalk.js.org/)         |                     可设置是否启用登录账号后评论，有通知，但是需要自己部署服务端                     |
+|                    评论系统                     |                                                         说明                                                          |
+| :---------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: |
+| [Valine](https://valine.js.org/quickstart.html) |                            不用登录账号即可评论，但容易产生垃圾评论，其次没有评论提醒通知                             |
+|        [Waline](https://waline.js.org/)         |                           是Valine的升级版，登录后方可评论，有通知，但是需要自己部署服务端                            |
+|        [Twikoo](https://twikoo.js.org/)         |                       不用登录账号即可评论，但容易产生垃圾评论，有通知，但是需要自己部署服务端                        |
+|        [Artalk](https://artalk.js.org/)         |                             可设置是否启用登录账号后评论，有通知，但是需要自己部署服务端                              |
 |        [utteranc](https://utteranc.es/)         | GitHub登录后方可评论，评论数据在 GitHub issues 中，评论后有邮件通知，无需部署服务端，但UI样式一般，且移动端不显示头像 |
-|       [gitalk](https://gitalk.github.io/)       |  GitHub登录后方可评论，评论数据在 GitHub issues 中，评论后有邮件通知，无需部署服务端，UI样式一般，评论不支持点赞   |
-|       ⭐[Giscus](https://giscus.app/zh-CN)       |     GitHub登录后方可评论，评论数据在 GitHub Discussions 中，评论后有邮件通知，无需部署服务端，UI爱了     |
+|       [gitalk](https://gitalk.github.io/)       |    GitHub登录后方可评论，评论数据在 GitHub issues 中，评论后有邮件通知，无需部署服务端，UI样式一般，评论不支持点赞    |
+|      ⭐[Giscus](https://giscus.app/zh-CN)       |           GitHub登录后方可评论，评论数据在 GitHub Discussions 中，评论后有邮件通知，无需部署服务端，UI爱了            |
 
 :::
 
 ::: details 关于 [@xinlei3166](https://github.com/xinlei3166/) 的 waline 插件
 
-
 在使用看板娘发时候就已经装好了，直接引用就行了
-
 
 ```ts{4,11-13}
 // .vitepress/theme/index.ts
@@ -1161,7 +1108,6 @@ export default {
 所以要用 [waline](https://waline.js.org/) 话就 [参考官方的教程](https://waline.js.org/guide/get-started/)
 :::
 
-
 ### 安装giscus
 
 Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
@@ -1170,10 +1116,7 @@ Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
 
 点击 `Install` 安装
 
-
 ![](./giscus/giscus-01.png)
-
-
 
 选择 `Only select repositories`，再指定一个你想开启讨论的仓库
 
@@ -1189,8 +1132,6 @@ Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
 完成后可以在个人头像-设置-应用 `Applications` 中看到
 :::
 
-
-
 ### 开启讨论
 
 因为giscus会把评论数据都放到讨论 `discussions` 中
@@ -1198,7 +1139,6 @@ Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
 我们进入要开启讨论的仓库，点设置 - 勾选讨论 `Settings - discussions`
 
 ![](./giscus/giscus-03.png)
-
 
 ### 生成数据
 
@@ -1213,23 +1153,22 @@ Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
 ::: details 关于讨论的类型，分类如下
 查看了一下 [Github的讨论文档](https://docs.github.com/zh/discussions/managing-discussions-for-your-community/managing-categories-for-discussions#about-categories-for-discussions)
 
-|      类别       |  中文   |     说明      |
-|:-------------:|:-----:|:-----------:|
-| Announcements |  公告   | 每次评论都会推送所有人 |
-|    General    |  常规   |    开放式讨论    |
-|     Ideas     |  想法   |    开放式讨论    |
-|     Polls     |  投票   |   可投票与讨论    |
-|      Q&A      |  问答   |    问答形式     |
-| Show and tell | 展示和说明 |    开放式讨论    |
+|     类别      |    中文    |          说明          |
+| :-----------: | :--------: | :--------------------: |
+| Announcements |    公告    | 每次评论都会推送所有人 |
+|    General    |    常规    |       开放式讨论       |
+|     Ideas     |    想法    |       开放式讨论       |
+|     Polls     |    投票    |      可投票与讨论      |
+|      Q&A      |    问答    |        问答形式        |
+| Show and tell | 展示和说明 |       开放式讨论       |
+
 :::
 
 ![](./giscus/giscus-05.png)
 
-
 下方就自动生成了你的关键数据
 
 ![](./giscus/giscus-06.png)
-
 
 其中 `data-repo` 、 `data-repo-id` 、 `data-category` 和 `data-category-id` 这4个是我们的关键数据
 
@@ -1252,15 +1191,14 @@ Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
 </script>
 ```
 
-
 ### 安装使用
 
 有能力的可以用官方给的js数据封装
 
 我这里用 [@T-miracle/vitepress-plugin-comment-with-giscus](https://github.com/T-miracle/vitepress-plugin-comment-with-giscus) 的插件
 
-
 ::: code-group
+
 ```sh [pnpm]
 pnpm add -D vitepress-plugin-comment-with-giscus
 ```
@@ -1276,8 +1214,8 @@ npm install vitepress-plugin-comment-with-giscus
 ```sh [bun]
 bun add -D vitepress-plugin-comment-with-giscus
 ```
-:::
 
+:::
 
 在 `.vitepress/theme/index.ts` 中填入下面代码
 
@@ -1296,7 +1234,7 @@ export default {
     // Get frontmatter and route
     const { frontmatter } = useData();
     const route = useRoute();
-        
+
     // giscus配置
     giscusTalk({
       repo: 'your github repository', //仓库
@@ -1306,7 +1244,7 @@ export default {
       mapping: 'pathname',
       inputPosition: 'bottom',
       lang: 'zh-CN',
-      }, 
+      },
       {
         frontmatter, route
       },
@@ -1329,4 +1267,5 @@ export default {
 comment: false
 ---
 ```
+
 :::

@@ -307,4 +307,3 @@ java BeanLifecycleDemo
 - 依赖注入通常发生在初始化前
 - BeanPostProcessor 是 Spring 统一扩展能力的重要入口
 - 销毁阶段对于资源释放同样关键
-

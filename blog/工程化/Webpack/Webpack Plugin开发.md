@@ -2,7 +2,6 @@
 
 Webpack 插件开发的核心在于理解其**插件架构（Tapable）** 和 **构建生命周期（钩子）**。下面详细解析插件属性对象、常用钩子及其阶段：
 
-
 ## 一、Webpack 插件基本结构
 
 一个 Webpack 插件是一个包含 `apply(compiler)` 方法的 JavaScript 类/函数：
@@ -19,8 +18,6 @@ class MyPlugin {
 
 module.exports = MyPlugin;
 ```
-
-
 
 ## 二、插件属性对象详解
 
@@ -41,32 +38,30 @@ module.exports = MyPlugin;
     - `assets`：最终生成的资源对象 `{ filename: source }`
     - `hooks`：编译过程钩子（如模块优化、资源生成）
 
-
 ## 三、核心生命周期钩子详解
 
 ### 1. Compiler Hooks（全局钩子）
 
-| 钩子名称          | 类型              | 触发时机               | 用途示例              |
-|---------------|-----------------|--------------------|-------------------|
-| `environment` | SyncHook        | 环境初始化后             | 设置全局变量            |
-| `compile`     | SyncHook        | 开始编译前              | 修改 entry 配置       |
-| `compilation` | SyncHook        | 创建 compilation 对象后 | 注册 compilation 钩子 |
-| `emit`        | AsyncSeriesHook | 生成资源到输出目录**前**     | 修改最终 assets（关键！）  |
-| `afterEmit`   | AsyncSeriesHook | 资源已写入磁盘            | 清理临时文件            |
-| `done`        | SyncHook        | 构建完成               | 输出构建统计信息          |
-| `failed`      | SyncHook        | 构建失败时              | 错误通知              |
+| 钩子名称      | 类型            | 触发时机                 | 用途示例                  |
+| ------------- | --------------- | ------------------------ | ------------------------- |
+| `environment` | SyncHook        | 环境初始化后             | 设置全局变量              |
+| `compile`     | SyncHook        | 开始编译前               | 修改 entry 配置           |
+| `compilation` | SyncHook        | 创建 compilation 对象后  | 注册 compilation 钩子     |
+| `emit`        | AsyncSeriesHook | 生成资源到输出目录**前** | 修改最终 assets（关键！） |
+| `afterEmit`   | AsyncSeriesHook | 资源已写入磁盘           | 清理临时文件              |
+| `done`        | SyncHook        | 构建完成                 | 输出构建统计信息          |
+| `failed`      | SyncHook        | 构建失败时               | 错误通知                  |
 
 ### 2. Compilation Hooks（单次编译钩子）
 
-| 钩子名称               | 类型              | 触发时机               | 用途示例          |
-|--------------------|-----------------|--------------------|---------------|
-| `buildModule`      | SyncHook        | 开始构建模块前            | 修改模块加载器       |
-| `succeedModule`    | SyncHook        | 模块构建成功             | 模块分析统计        |
-| `finishModules`    | SyncHook        | 所有模块构建完成           | 模块依赖分析        |
-| `optimizeChunks`   | SyncBailHook    | 优化 chunks（拆分/合并）   | 自定义 chunk 策略  |
-| `processAssets`    | AsyncSeriesHook | 处理 assets **最常用！** | 修改/添加资源文件     |
+| 钩子名称           | 类型            | 触发时机                 | 用途示例          |
+| ------------------ | --------------- | ------------------------ | ----------------- |
+| `buildModule`      | SyncHook        | 开始构建模块前           | 修改模块加载器    |
+| `succeedModule`    | SyncHook        | 模块构建成功             | 模块分析统计      |
+| `finishModules`    | SyncHook        | 所有模块构建完成         | 模块依赖分析      |
+| `optimizeChunks`   | SyncBailHook    | 优化 chunks（拆分/合并） | 自定义 chunk 策略 |
+| `processAssets`    | AsyncSeriesHook | 处理 assets **最常用！** | 修改/添加资源文件 |
 | `additionalAssets` | AsyncSeriesHook | 添加额外资源             | 插入 license 文件 |
-
 
 ## 四、关键阶段解读
 
@@ -88,20 +83,22 @@ module.exports = MyPlugin;
 
 5. **资源生成**
     - 核心钩子：`processAssets`（Webpack 5+）
-   ```javascript
-   compiler.hooks.thisCompilation.tap('Plugin', (compilation) => {
-     compilation.hooks.processAssets.tap(
-       { name: 'Plugin', stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONS },
-       (assets) => {
-         // 修改 assets 对象（添加/删除/替换文件）
-         assets['new-file.txt'] = {
-           source: () => 'Hello World',
-           size: () => 11
-         };
-       }
-     );
-   });
-   ```
+
+    ```javascript
+    compiler.hooks.thisCompilation.tap('Plugin', (compilation) => {
+        compilation.hooks.processAssets.tap(
+            { name: 'Plugin', stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONS },
+            (assets) => {
+                // 修改 assets 对象（添加/删除/替换文件）
+                assets['new-file.txt'] = {
+                    source: () => 'Hello World',
+                    size: () => 11
+                };
+            }
+        );
+    });
+    ```
+
     - 阶段常量（控制执行顺序）：  
       `PROCESS_ASSETS_STAGE_ADDITIONAL` → 添加额外资源  
       `PROCESS_ASSETS_STAGE_OPTIMIZE` → 优化已存在资源  
@@ -111,48 +108,49 @@ module.exports = MyPlugin;
     - 钩子：`emit`（最后修改机会）→ `afterEmit` → `done`
     - 注意：`emit` 阶段文件**未写入磁盘**，只能修改内存中的 assets
 
-
 ## 五、实战技巧
 
 1. **异步钩子处理**
-   ```javascript
-   compiler.hooks.emit.tapAsync('Plugin', (compilation, callback) => {
-     setTimeout(() => {
-       // 异步操作
-       callback(); // 必须调用！
-     }, 1000);
-   });
-   ```
+
+    ```javascript
+    compiler.hooks.emit.tapAsync('Plugin', (compilation, callback) => {
+        setTimeout(() => {
+            // 异步操作
+            callback(); // 必须调用！
+        }, 1000);
+    });
+    ```
 
 2. **修改已有资源**
-   ```javascript
-   compilation.hooks.processAssets.tap({...}, (assets) => {
-     const source = assets['main.js'].source();
-     assets['main.js'] = new webpack.sources.RawSource(
-       '/* Banner */\n' + source
-     );
-   });
-   ```
+
+    ```javascript
+    compilation.hooks.processAssets.tap({...}, (assets) => {
+      const source = assets['main.js'].source();
+      assets['main.js'] = new webpack.sources.RawSource(
+        '/* Banner */\n' + source
+      );
+    });
+    ```
 
 3. **错误处理**
-   ```javascript
-   compiler.hooks.failed.tap('Plugin', (error) => {
-     console.error('构建失败:', error);
-   });
-   ```
+
+    ```javascript
+    compiler.hooks.failed.tap('Plugin', (error) => {
+        console.error('构建失败:', error);
+    });
+    ```
 
 4. **自定义钩子**（高级）
-   ```javascript
-   // 在插件中创建钩子
-   class MyPlugin {
-     apply(compiler) {
-       compiler.hooks.myCustomHook = new SyncHook(['data']);
-     }
-   }
-   // 其他插件中调用
-   compiler.hooks.myCustomHook.call({ some: 'data' });
-   ```
-
+    ```javascript
+    // 在插件中创建钩子
+    class MyPlugin {
+        apply(compiler) {
+            compiler.hooks.myCustomHook = new SyncHook(['data']);
+        }
+    }
+    // 其他插件中调用
+    compiler.hooks.myCustomHook.call({ some: 'data' });
+    ```
 
 ## 六、常用插件参考
 

@@ -1,4 +1,4 @@
-##  JavaScript 属性描述符(Property Descriptors)详解
+## JavaScript 属性描述符(Property Descriptors)详解
 
 属性描述符是 JavaScript 中用于定义或修改对象属性行为的元数据对象，它提供了对属性更精细的控制能力。
 
@@ -38,24 +38,24 @@
 
 ## 通用参数（两种描述符共有）
 
-| 参数 | 类型 | 默认值 | 作用 |
-|------|------|--------|------|
-| `enumerable` | boolean | `false` | 控制属性是否出现在 `for...in` 循环和 `Object.keys()` 中 |
-| `configurable` | boolean | `false` | 控制属性描述符能否被修改，属性能否被删除 |
+| 参数           | 类型    | 默认值  | 作用                                                    |
+| -------------- | ------- | ------- | ------------------------------------------------------- |
+| `enumerable`   | boolean | `false` | 控制属性是否出现在 `for...in` 循环和 `Object.keys()` 中 |
+| `configurable` | boolean | `false` | 控制属性描述符能否被修改，属性能否被删除                |
 
 ## 数据描述符特有参数
 
-| 参数 | 类型 | 默认值 | 作用 |
-|------|------|--------|------|
-| `value` | any | `undefined` | 属性的值 |
-| `writable` | boolean | `false` | 控制属性值是否可以被赋值运算符(`=`)改变 |
+| 参数       | 类型    | 默认值      | 作用                                    |
+| ---------- | ------- | ----------- | --------------------------------------- |
+| `value`    | any     | `undefined` | 属性的值                                |
+| `writable` | boolean | `false`     | 控制属性值是否可以被赋值运算符(`=`)改变 |
 
 ## 存取描述符特有参数
 
-| 参数    | 类型       | 默认值         | 作用                    |
-|-------|----------|-------------|-----------------------|
+| 参数  | 类型     | 默认值      | 作用                                       |
+| ----- | -------- | ----------- | ------------------------------------------ |
 | `get` | Function | `undefined` | 获取属性值时调用的函数，返回值将作为属性值 |
-| `set` | Function | `undefined` | 设置属性值时调用的函数，接收新值作为参数  |
+| `set` | Function | `undefined` | 设置属性值时调用的函数，接收新值作为参数   |
 
 ## 实际应用示例
 
@@ -64,10 +64,10 @@
 ```javascript
 const obj = {};
 Object.defineProperty(obj, 'constant', {
-  value: 42,
-  writable: false,
-  enumerable: true,
-  configurable: false
+    value: 42,
+    writable: false,
+    enumerable: true,
+    configurable: false
 });
 
 obj.constant = 100; // 静默失败（严格模式会报错）
@@ -81,13 +81,13 @@ const obj = {};
 let _private = 0;
 
 Object.defineProperty(obj, 'value', {
-  get() {
-    return _private;
-  },
-  set(newVal) {
-    if (newVal > 0) _private = newVal;
-  },
-  enumerable: true
+    get() {
+        return _private;
+    },
+    set(newVal) {
+        if (newVal > 0) _private = newVal;
+    },
+    enumerable: true
 });
 ```
 
@@ -95,14 +95,14 @@ Object.defineProperty(obj, 'value', {
 
 ```javascript
 const circle = {
-  radius: 5
+    radius: 5
 };
 
 Object.defineProperty(circle, 'area', {
-  get() {
-    return Math.PI * this.radius * this.radius;
-  },
-  enumerable: true
+    get() {
+        return Math.PI * this.radius * this.radius;
+    },
+    enumerable: true
 });
 
 console.log(circle.area); // 78.53981633974483

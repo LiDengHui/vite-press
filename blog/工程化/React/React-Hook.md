@@ -8,14 +8,12 @@ Hook 是React 16.8的新增特性, 它可以在不编写class的情况下使用s
 
 Hooks增加了函数式组件中`state`的使用,在之前函数式组件是无法拥有自己的状态的,只能通过 **props** 以及 **context** 来渲染自己的UI, 而在业务逻辑中, 有些场景必须要使用到 state, 那么 我们就只能将函数式组件定义为class 组件.而现在通过 Hook, 我们可以轻松的在函数式组件中保护我们的状态, 不需要更改为class组件
 
-
 ## 存在问题Class
 
 1. 组件间复用状态逻辑很难
 2. 复杂组件变得难以理解,高阶组件和函数组件的嵌套过深
 3. class组件存在this指向的问题
 4. 难以记忆生命周期
-
 
 ## Hooks解决的问题
 
@@ -47,28 +45,28 @@ Reack Hooks 全局维护了一个workInProgressHook变量, 每一次调用 Hooks
 
 ```ts
 function createWorkInProgressHook(): Hook {
-  if (workInProgressHook === null) {
-    // This is the first hook in the list
-    if (firstWorkInProgressHook === null) {
-      isReRender = false;
-      firstWorkInProgressHook = workInProgressHook = createHook();
+    if (workInProgressHook === null) {
+        // This is the first hook in the list
+        if (firstWorkInProgressHook === null) {
+            isReRender = false;
+            firstWorkInProgressHook = workInProgressHook = createHook();
+        } else {
+            // There's already a work-in-progress. Reuse it.
+            isReRender = true;
+            workInProgressHook = firstWorkInProgressHook;
+        }
     } else {
-      // There's already a work-in-progress. Reuse it.
-      isReRender = true;
-      workInProgressHook = firstWorkInProgressHook;
+        if (workInProgressHook.next === null) {
+            isReRender = false;
+            // Append to the end of the list
+            workInProgressHook = workInProgressHook.next = createHook();
+        } else {
+            // There's already a work-in-progress. Reuse it.
+            isReRender = true;
+            workInProgressHook = workInProgressHook.next;
+        }
     }
-  } else {
-    if (workInProgressHook.next === null) {
-      isReRender = false;
-      // Append to the end of the list
-      workInProgressHook = workInProgressHook.next = createHook();
-    } else {
-      // There's already a work-in-progress. Reuse it.
-      isReRender = true;
-      workInProgressHook = workInProgressHook.next;
-    }
-  }
-  return workInProgressHook;
+    return workInProgressHook;
 }
 ```
 
@@ -76,17 +74,17 @@ Hooks 的串联不是一个数组, 是一个链式的数据结构, 从跟节点 
 
 ## class 与 hooks的生命周期对应关系
 
-| class组件                  | Hooks组件              |
-|:-------------------------|:---------------------|
-| constructor              | useState             |
-| getDerivedStateFromProps | useState里面的update函数  |
-| shouldComponentUpdate    | useMemo              |
+| class组件                | Hooks组件                |
+| :----------------------- | :----------------------- |
+| constructor              | useState                 |
+| getDerivedStateFromProps | useState里面的update函数 |
+| shouldComponentUpdate    | useMemo                  |
 | render                   | 函数本身                 |
-| componentDidMount        | useLayoutEffect      |
-| componentDidUpdate       | useEffect            |
-| componentWillUnmount     | useEffect里面返回的函数     |
-| componentDidCatch        | 无                    |
-| getDerivedStateFromError | 无                    |
+| componentDidMount        | useLayoutEffect          |
+| componentDidUpdate       | useEffect                |
+| componentWillUnmount     | useEffect里面返回的函数  |
+| componentDidCatch        | 无                       |
+| getDerivedStateFromError | 无                       |
 
 ## setState
 
@@ -101,8 +99,8 @@ setState(Object.assign(state, { name: '123' })); // 并不会改变 state中的n
 setState({
     ...state,
     ...{
-        name: '123',
-    },
+        name: '123'
+    }
 });
 ```
 
@@ -111,109 +109,110 @@ setState({
 该 Hook 接收一个包含命令式、且可能有副作用代码的函数。useEffect 的函数会在组件渲染到屏幕之后执行。
 
 ```jsx
- useEffect(() => {
-      const subscription = props.source.subscribe();
-      return () => {
+useEffect(() => {
+    const subscription = props.source.subscribe();
+    return () => {
         // 清除订阅
         subscription.unsubscribe();
-      };
-    },[state]);
+    };
+}, [state]);
 ```
 
 当第二个参数不填，默认为所有state，当state更新都，先执行fn返回函数，后执行fn
 当第二个参数为[], 取消所有组件监控，当组件更新，先执行fn返回函数，后执行fn
 当第二个参数填一个state，则当前state更新则，先执行fn返回函数，后执行fn
 
-## useRef() 
+## useRef()
 
 1. 保存dom元素
 
 ```jsx
 function TextInputWithFocusButton() {
-          const inputEl = useRef(null);
-          const onButtonClick = () => {
-            // `current` 指向已挂载到 DOM 上的文本输入元素
-            inputEl.current.focus();
-          };
-          return (
-            <>
-              <input ref={inputEl} type="text" />
-              <button onClick={onButtonClick}>Focus the input</button>
-            </>
-          );
-        }
+    const inputEl = useRef(null);
+    const onButtonClick = () => {
+        // `current` 指向已挂载到 DOM 上的文本输入元素
+        inputEl.current.focus();
+    };
+    return (
+        <>
+            <input ref={inputEl} type="text" />
+            <button onClick={onButtonClick}>Focus the input</button>
+        </>
+    );
+}
 ```
 
 2. 保存可变值 但不会渲染到页面上
-        
+
 ```js
 function TextInputWithFocusButton() {
-          const inputEl = useRef(null);
-          const save = useRef({name:'123'});
-          const onButtonClick = () => {
-            // `current` 指向已挂载到 DOM 上的文本输入元素
-            save.current.value = inputEl.current.value;
-          };
-          return (
-            <>
-              <input ref={inputEl} type="text" />
-              <button onClick={onButtonClick}>Focus the input</button>
-            </>
-          );
-        }
+    const inputEl = useRef(null);
+    const save = useRef({ name: '123' });
+    const onButtonClick = () => {
+        // `current` 指向已挂载到 DOM 上的文本输入元素
+        save.current.value = inputEl.current.value;
+    };
+    return (
+        <>
+            <input ref={inputEl} type="text" />
+            <button onClick={onButtonClick}>Focus the input</button>
+        </>
+    );
+}
 ```
 
 ## useContext(myContent)
-    
+
      跨多层组件传值，有父组件向子组件，必须与createContext结合使用
+
 ```jsx
 const value = useContext(MyContext);
 ```
+
 ```jsx
-    const themes = {
+const themes = {
     light: {
-        foreground: "#000000",
-        background: "#eeeeee"
-        },
+        foreground: '#000000',
+        background: '#eeeeee'
+    },
     dark: {
-        foreground: "#ffffff",
-        background: "#222222"
-        }
-    };
+        foreground: '#ffffff',
+        background: '#222222'
+    }
+};
 
-    const ThemeContext = React.createContext(themes.light);
+const ThemeContext = React.createContext(themes.light);
 
-    function App() {
-      return (
+function App() {
+    return (
         <ThemeContext.Provider value={themes.dark}>
-          <Toolbar />
+            <Toolbar />
         </ThemeContext.Provider>
-      );
-    }
+    );
+}
 
-    function Toolbar(props) {
-      return (
+function Toolbar(props) {
+    return (
         <div>
-          <ThemedButton />
+            <ThemedButton />
         </div>
-      );
-    }
+    );
+}
 
-    function ThemedButton() {
-      const theme = useContext(ThemeContext);
-      return (
-        <button style={{ background: theme.background, color: theme.foreground }}>
-          I am styled by theme context!
-        </button>
-      );
-    }
+function ThemedButton() {
+    const theme = useContext(ThemeContext);
+    return (
+        <button style={{ background: theme.background, color: theme.foreground }}>I am styled by theme context!</button>
+    );
+}
 ```
+
 ## useMemo(()=>{},[默认可以不写])
 
-  ```jsx
-  const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
-
+```jsx
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 ```
+
 渲染过程中执行,与useEffect不同
 
 1. 不给第二个参数，一定执行，每次都渲染视图
@@ -222,13 +221,10 @@ const value = useContext(MyContext);
 
 ## useCallback(()=>{}, []);
 
- ```jsx
-   const memoizedCallback = useCallback(
-      () => {
-        doSomething(a, b);
-      },
-      [a, b],
-    );
+```jsx
+const memoizedCallback = useCallback(() => {
+    doSomething(a, b);
+}, [a, b]);
 ```
 
 和useMemo一样，但是返回的是个函数，函数每次渲染都会执行，但值不变;
@@ -237,39 +233,37 @@ const value = useContext(MyContext);
 2. 第二个参数为[], 值不变
 3. 第二个参数为[a],只有当数据a变化的时候才进行值的变化
 
-
 ## forwordRef((props, ref) => {})
 
 将组件内的domRef直接暴露到组件本身上
 
 ```jsx
- const FancyButton = React.forwardRef((props, ref) => (
-      <button ref={ref} className="FancyButton">
+const FancyButton = React.forwardRef((props, ref) => (
+    <button ref={ref} className="FancyButton">
         {props.children}
-      </button>
-    ));
+    </button>
+));
 
-    // 你可以直接获取 DOM button 的 ref：
-    const ref = React.createRef();
-    <FancyButton ref={ref}>Click me!</FancyButton>;
-
+// 你可以直接获取 DOM button 的 ref：
+const ref = React.createRef();
+<FancyButton ref={ref}>Click me!</FancyButton>;
 ```
 
 ## useImperativeHandle(ref, ()=> {}, [])
 
 可以在你使用ref时自定义暴露给父组件实例的值。最好与forwardRef结合使用
-```jsx
 
-    function FancyInput(props, ref) {
-      const inputRef = useRef();
-      useImperativeHandle(ref, () => ({
+```jsx
+function FancyInput(props, ref) {
+    const inputRef = useRef();
+    useImperativeHandle(ref, () => ({
         focus: () => {
-          inputRef.current.focus();
+            inputRef.current.focus();
         }
-      }));
-      return <input ref={inputRef} />;
-    }
-    FancyInput = forwardRef(FancyInput);
+    }));
+    return <input ref={inputRef} />;
+}
+FancyInput = forwardRef(FancyInput);
 ```
 
 第三个参数，监控state的变化
@@ -284,8 +278,5 @@ const value = useContext(MyContext);
 2. 就是一个普通函数
 
 ## useReducer(reducer,初始值，initFn) return [state, dispatch]
-
-
-
 
 ![20190805095713.png](https://raw.githubusercontent.com/LiDengHui/images/master/img20190805095713.png)

@@ -334,4 +334,3 @@ badBody=error:missing id
 - `HandlerAdapter` 负责统一调用适配
 - 参数解析、返回值处理、异常处理都是独立阶段
 - 拦截器属于 Spring MVC 链路，过滤器更偏 Servlet 容器层
-

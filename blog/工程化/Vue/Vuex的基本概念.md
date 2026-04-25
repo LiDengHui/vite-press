@@ -1,4 +1,5 @@
 # Vuex 的基本概念
+
 Vuex 是 Vue.js 的官方状态管理库，它的核心作用是集中管理和维护应用的状态（例如，用户登录状态、主题色、购物车数据等），并通过**单向数据流**确保数据的可预测性和一致性。Vuex 使得不同组件之间的状态共享变得更加容易和清晰。
 
 ## Vuex 的原理
@@ -17,9 +18,9 @@ Vuex 的 `state` 是响应式的，意味着当 `state` 发生变化时，所有
 
 ```javascript
 const store = new Vuex.Store({
-  state: {
-    count: 0
-  }
+    state: {
+        count: 0
+    }
 });
 ```
 
@@ -27,26 +28,26 @@ const store = new Vuex.Store({
 
 **Getters** 是 Vuex 中的计算属性，用来从 `state` 中派生出一些状态数据。你可以将 `getters` 看作是 `state` 的 **过滤器** 或 **计算值**。
 
-* **作用**：`getters` 用于获取 `state` 的数据，并可以对数据进行计算或转换。
-* **响应式**：`getters` 也是响应式的，当 `state` 改变时，`getters` 会自动重新计算。
+- **作用**：`getters` 用于获取 `state` 的数据，并可以对数据进行计算或转换。
+- **响应式**：`getters` 也是响应式的，当 `state` 改变时，`getters` 会自动重新计算。
 
 ### 2.1 **定义方式**
 
 ```javascript
 const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  getters: {
-    // 计算 `count` 的平方
-    squaredCount(state) {
-      return state.count * state.count;
+    state: {
+        count: 0
+    },
+    getters: {
+        // 计算 `count` 的平方
+        squaredCount(state) {
+            return state.count * state.count;
+        }
     }
-  }
 });
 ```
 
-* 你可以通过 `store.getters.squaredCount` 来访问该值。
+- 你可以通过 `store.getters.squaredCount` 来访问该值。
 
 ## 3. **Mutations（突变）**
 
@@ -54,30 +55,30 @@ const store = new Vuex.Store({
 
 ### 3.1 **为什么要使用 Mutations？**
 
-* **追踪变更**：每个 mutation 都是同步的，并且是可追踪的。因此，开发者可以在开发过程中轻松地进行状态追踪。
-* **调试**：使用 mutation 使得状态变化可预测。开发者可以记录每次变更的发生，轻松地回溯和查看历史。
+- **追踪变更**：每个 mutation 都是同步的，并且是可追踪的。因此，开发者可以在开发过程中轻松地进行状态追踪。
+- **调试**：使用 mutation 使得状态变化可预测。开发者可以记录每次变更的发生，轻松地回溯和查看历史。
 
 ### 3.2 **定义方式**
 
 ```javascript
 const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    // 增加计数器
-    increment(state) {
-      state.count++;
+    state: {
+        count: 0
     },
-    // 减少计数器
-    decrement(state) {
-      state.count--;
+    mutations: {
+        // 增加计数器
+        increment(state) {
+            state.count++;
+        },
+        // 减少计数器
+        decrement(state) {
+            state.count--;
+        }
     }
-  }
 });
 ```
 
-* 你可以通过 `store.commit('increment')` 来提交 `mutation`，从而更新 `state`。
+- 你可以通过 `store.commit('increment')` 来提交 `mutation`，从而更新 `state`。
 
 ## 4. **Actions（动作）**
 
@@ -85,32 +86,32 @@ const store = new Vuex.Store({
 
 ### 4.1 **为什么要使用 Actions？**
 
-* **异步操作**：`mutations` 必须是同步的，而 `actions` 允许你进行异步操作，并在异步操作完成后再提交 `mutation`。
-* **业务逻辑**：`actions` 通常用于执行应用的逻辑，例如数据请求、异步计时等。
+- **异步操作**：`mutations` 必须是同步的，而 `actions` 允许你进行异步操作，并在异步操作完成后再提交 `mutation`。
+- **业务逻辑**：`actions` 通常用于执行应用的逻辑，例如数据请求、异步计时等。
 
 ### 4.2 **定义方式**
 
 ```javascript
 const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment(state) {
-      state.count++;
+    state: {
+        count: 0
+    },
+    mutations: {
+        increment(state) {
+            state.count++;
+        }
+    },
+    actions: {
+        async incrementAsync({ commit }) {
+            setTimeout(() => {
+                commit('increment');
+            }, 1000);
+        }
     }
-  },
-  actions: {
-    async incrementAsync({ commit }) {
-      setTimeout(() => {
-        commit('increment');
-      }, 1000);
-    }
-  }
 });
 ```
 
-* 你可以通过 `store.dispatch('incrementAsync')` 来调用 `action`，触发异步操作。
+- 你可以通过 `store.dispatch('incrementAsync')` 来调用 `action`，触发异步操作。
 
 ## 5. **模块化（Modules）**
 
@@ -118,37 +119,37 @@ Vuex 允许将 **store** 分割成多个模块，每个模块都有自己的 `st
 
 ### 5.1 **模块化的好处**
 
-* 在大型项目中，随着项目变得越来越复杂，`store` 可能会非常庞大。使用模块化可以避免 `store` 过于臃肿。
-* 每个模块可以有自己的状态、变更和行为，使得代码更加清晰、可维护。
+- 在大型项目中，随着项目变得越来越复杂，`store` 可能会非常庞大。使用模块化可以避免 `store` 过于臃肿。
+- 每个模块可以有自己的状态、变更和行为，使得代码更加清晰、可维护。
 
 ### 5.2 **定义方式**
 
 ```javascript
 const store = new Vuex.Store({
-  modules: {
-    counter: {
-      state: {
-        count: 0
-      },
-      mutations: {
-        increment(state) {
-          state.count++;
+    modules: {
+        counter: {
+            state: {
+                count: 0
+            },
+            mutations: {
+                increment(state) {
+                    state.count++;
+                }
+            },
+            actions: {
+                incrementAsync({ commit }) {
+                    setTimeout(() => {
+                        commit('increment');
+                    }, 1000);
+                }
+            }
         }
-      },
-      actions: {
-        incrementAsync({ commit }) {
-          setTimeout(() => {
-            commit('increment');
-          }, 1000);
-        }
-      }
     }
-  }
 });
 ```
 
-* 通过 `store.state.counter.count` 访问模块状态。
-* 通过 `store.dispatch('counter/incrementAsync')` 调用模块中的 `action`。
+- 通过 `store.state.counter.count` 访问模块状态。
+- 通过 `store.dispatch('counter/incrementAsync')` 调用模块中的 `action`。
 
 ## Vuex 的工作流程
 
@@ -161,17 +162,17 @@ const store = new Vuex.Store({
 
 Vuex 的设计理念是 **单向数据流** 和 **集中式状态管理**，通过以下特点来保证数据流的清晰性：
 
-* **单一数据源**：应用中的所有状态都存储在一个单一的 `store` 中。
-* **只有 mutation 能改变 state**：通过 mutation 来同步修改状态，确保数据的可追踪性。
-* **Actions 用于处理异步操作**：所有异步操作都通过 actions 来处理，从而确保 `mutation` 是同步的。
+- **单一数据源**：应用中的所有状态都存储在一个单一的 `store` 中。
+- **只有 mutation 能改变 state**：通过 mutation 来同步修改状态，确保数据的可追踪性。
+- **Actions 用于处理异步操作**：所有异步操作都通过 actions 来处理，从而确保 `mutation` 是同步的。
 
 ## 总结
 
 Vuex 通过集中式管理和单向数据流确保了应用的状态和行为的可预测性。其基本原理包括：
 
-* **State**：应用的状态数据。
-* **Getters**：派生状态，用于计算和过滤。
-* **Mutations**：用于同步修改状态的唯一方法。
-* **Actions**：用于处理异步操作，并最终提交 `mutation`。
+- **State**：应用的状态数据。
+- **Getters**：派生状态，用于计算和过滤。
+- **Mutations**：用于同步修改状态的唯一方法。
+- **Actions**：用于处理异步操作，并最终提交 `mutation`。
 
 Vuex 的设计理念保证了应用的状态始终清晰和可维护，尤其适用于中大型 Vue 应用的状态管理。

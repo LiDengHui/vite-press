@@ -1,4 +1,3 @@
-module "*.svg" {
+module '*.svg' {
     export default string;
 }
-

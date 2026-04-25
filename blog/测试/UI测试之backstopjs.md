@@ -1,11 +1,11 @@
 ---
 title: UI测试之backstopjs
 tags:
-  - 测试
+    - 测试
 categories:
-  - 技术文档
-  - 前端
-  - 测试
+    - 技术文档
+    - 前端
+    - 测试
 date: 2020-08-14 23:14:15
 description: 用来比较实际做出来的项目与UX的设计图的差异
 ---
@@ -25,6 +25,7 @@ npm install backstopjs
 ```bash
 backstop init
 ```
+
 会在根目录下生成一个`backstop.json`文件
 
 ```json
@@ -83,6 +84,7 @@ backstop init
     "debugWindow": false
 }
 ```
+
 | 字段               | 说明        |
 | ------------------ | ----------- |
 | viewports          | 环境尺寸    |
@@ -90,6 +92,7 @@ backstop init
 | scenarios[n].url   | 配置比较url |
 
 ## 运行测试
+
 ```console
 backstop test
 ```
@@ -143,6 +146,7 @@ backstop test
 ```
 
 ## 补充完设计图再次运行
+
 ```bash
 backstop test
 ```

@@ -1,6 +1,7 @@
 ### Flex 布局属性
 
 #### **一、容器属性（父元素）**
+
 1. **`display`**
     - 定义容器为 flex 布局
     - 值：
@@ -54,6 +55,7 @@
 ---
 
 #### **二、项目属性（子元素）**
+
 1. **`order`**
     - 定义项目的排列顺序（数值越小越靠前）
     - 默认值：`0`
@@ -88,43 +90,46 @@
 ---
 
 ### **使用示例**
+
 ```html
 <div class="container">
-  <div class="item item1">1</div>
-  <div class="item item2">2</div>
-  <div class="item item3">3</div>
+    <div class="item item1">1</div>
+    <div class="item item2">2</div>
+    <div class="item item3">3</div>
 </div>
 ```
 
 ```css
 .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: stretch;
-  height: 300px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    height: 300px;
 }
 
 .item1 {
-  flex: 1; /* 占满剩余空间 */
-  align-self: flex-start; /* 顶部对齐 */
+    flex: 1; /* 占满剩余空间 */
+    align-self: flex-start; /* 顶部对齐 */
 }
 
 .item2 {
-  flex: 0 0 200px; /* 固定宽度200px，不放大/缩小 */
+    flex: 0 0 200px; /* 固定宽度200px，不放大/缩小 */
 }
 
 .item3 {
-  order: -1; /* 排在最前面 */
+    order: -1; /* 排在最前面 */
 }
 ```
 
 ### **核心概念**
+
 - **主轴（Main Axis）**：由 `flex-direction` 定义的方向（水平/垂直）。
 - **交叉轴（Cross Axis）**：与主轴垂直的方向。
 
 > 💡 **最佳实践**：
+>
 > - 使用 `flex: 1` 实现自适应布局
 > - 用 `justify-content: space-between` 实现导航栏均匀分布
 > - `align-items: center` 实现垂直居中

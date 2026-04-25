@@ -14,10 +14,10 @@
 ```javascript
 // 注册自定义指令 v-focus
 Vue.directive('focus', {
-  // 当绑定的元素插入到 DOM 中时
-  mounted(el) {
-    el.focus(); // 自动为元素添加焦点
-  }
+    // 当绑定的元素插入到 DOM 中时
+    mounted(el) {
+        el.focus(); // 自动为元素添加焦点
+    }
 });
 ```
 
@@ -25,7 +25,8 @@ Vue.directive('focus', {
 
 ```vue
 <template>
-  <input v-focus /> <!-- 该输入框加载时会自动获取焦点 -->
+    <input v-focus />
+    <!-- 该输入框加载时会自动获取焦点 -->
 </template>
 ```
 
@@ -43,15 +44,15 @@ Vue.directive('focus', {
 ```javascript
 // 注册自定义指令 v-check
 Vue.directive('check', {
-  // 当指令所在元素的值发生变化时
-  updated(el, binding) {
-    // 根据绑定值的真假来改变背景色
-    if (binding.value) {
-      el.style.backgroundColor = 'green'; // 如果值为 true，设置背景色为绿色
-    } else {
-      el.style.backgroundColor = 'red'; // 如果值为 false，设置背景色为红色
+    // 当指令所在元素的值发生变化时
+    updated(el, binding) {
+        // 根据绑定值的真假来改变背景色
+        if (binding.value) {
+            el.style.backgroundColor = 'green'; // 如果值为 true，设置背景色为绿色
+        } else {
+            el.style.backgroundColor = 'red'; // 如果值为 false，设置背景色为红色
+        }
     }
-  }
 });
 ```
 
@@ -59,19 +60,19 @@ Vue.directive('check', {
 
 ```vue
 <template>
-  <div>
-    <div v-check="isChecked">This div's background color will change based on `isChecked`.</div>
-    <button @click="isChecked = !isChecked">Toggle Check</button>
-  </div>
+    <div>
+        <div v-check="isChecked">This div's background color will change based on `isChecked`.</div>
+        <button @click="isChecked = !isChecked">Toggle Check</button>
+    </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      isChecked: true // 初始值为 true，背景色为绿色
-    };
-  }
+    data() {
+        return {
+            isChecked: true // 初始值为 true，背景色为绿色
+        };
+    }
 };
 </script>
 ```
@@ -80,14 +81,14 @@ export default {
 
 ## **3. 其他常见的自定义指令用法**
 
-* **`v-highlight`**：高亮显示文本。
-* **`v-tooltip`**：鼠标悬浮时显示提示框。
-* **`v-animate`**：动态控制元素的样式或执行动画。
+- **`v-highlight`**：高亮显示文本。
+- **`v-tooltip`**：鼠标悬浮时显示提示框。
+- **`v-animate`**：动态控制元素的样式或执行动画。
 
 ## **总结**
 
-* 自定义指令可以通过 `Vue.directive` 注册，在其生命周期钩子（如 `mounted`、`updated`）中进行 DOM 操作。
-* `v-focus` 使元素在页面加载时自动获取焦点。
-* `v-check` 使元素的样式或行为基于绑定的值进行动态变化。
+- 自定义指令可以通过 `Vue.directive` 注册，在其生命周期钩子（如 `mounted`、`updated`）中进行 DOM 操作。
+- `v-focus` 使元素在页面加载时自动获取焦点。
+- `v-check` 使元素的样式或行为基于绑定的值进行动态变化。
 
 通过这些自定义指令，你可以扩展 Vue 的功能，实现更加灵活的用户交互和视觉效果。

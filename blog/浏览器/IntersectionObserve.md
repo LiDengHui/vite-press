@@ -16,14 +16,14 @@ const observer = new IntersectionObserver(callback, options);
 
 ```javascript
 const callback = (entries, observer) => {
-  entries.forEach(entry => {
-    // 每个entry描述一个观察到的目标元素的交叉状态
-    if (entry.isIntersecting) {
-      // 元素进入视口
-    } else {
-      // 元素离开视口
-    }
-  });
+    entries.forEach((entry) => {
+        // 每个entry描述一个观察到的目标元素的交叉状态
+        if (entry.isIntersecting) {
+            // 元素进入视口
+        } else {
+            // 元素离开视口
+        }
+    });
 };
 ```
 
@@ -31,9 +31,9 @@ const callback = (entries, observer) => {
 
 ```javascript
 const options = {
-  root: null, // 观察的根元素，null表示视口
-  rootMargin: '0px', // 根元素的margin，可以提前或延迟触发
-  threshold: 0.5 // 触发回调的阈值，可以是数组[0, 0.25, 0.5, 0.75, 1]
+    root: null, // 观察的根元素，null表示视口
+    rootMargin: '0px', // 根元素的margin，可以提前或延迟触发
+    threshold: 0.5 // 触发回调的阈值，可以是数组[0, 0.25, 0.5, 0.75, 1]
 };
 ```
 
@@ -59,17 +59,17 @@ observer.disconnect(); // 停止所有观察
 const lazyImages = document.querySelectorAll('img.lazy');
 
 const imageObserver = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const img = entry.target;
-      img.src = img.dataset.src;
-      img.classList.remove('lazy');
-      observer.unobserve(img);
-    }
-  });
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            observer.unobserve(img);
+        }
+    });
 });
 
-lazyImages.forEach(img => imageObserver.observe(img));
+lazyImages.forEach((img) => imageObserver.observe(img));
 ```
 
 ### 2. 无限滚动
@@ -79,9 +79,9 @@ const sentinel = document.querySelector('#sentinel');
 const container = document.querySelector('#container');
 
 const observer = new IntersectionObserver((entries) => {
-  if (entries[0].isIntersecting) {
-    loadMoreItems(); // 加载更多内容
-  }
+    if (entries[0].isIntersecting) {
+        loadMoreItems(); // 加载更多内容
+    }
 });
 
 observer.observe(sentinel);
@@ -90,32 +90,38 @@ observer.observe(sentinel);
 ### 3. 广告曝光统计
 
 ```javascript
-const adObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const adId = entry.target.dataset.adId;
-      trackAdImpression(adId); // 发送广告曝光统计
-    }
-  });
-}, { threshold: 0.5 });
+const adObserver = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const adId = entry.target.dataset.adId;
+                trackAdImpression(adId); // 发送广告曝光统计
+            }
+        });
+    },
+    { threshold: 0.5 }
+);
 
-document.querySelectorAll('.ad').forEach(ad => adObserver.observe(ad));
+document.querySelectorAll('.ad').forEach((ad) => adObserver.observe(ad));
 ```
 
 ### 4. 动画触发
 
 ```javascript
-const animateObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('animate');
-      animateObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
+const animateObserver = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                animateObserver.unobserve(entry.target);
+            }
+        });
+    },
+    { threshold: 0.1 }
+);
 
-document.querySelectorAll('.animate-on-scroll').forEach(el => {
-  animateObserver.observe(el);
+document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+    animateObserver.observe(el);
 });
 ```
 
@@ -124,10 +130,8 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => {
 ```javascript
 const header = document.querySelector('header');
 const stickyObserver = new IntersectionObserver(
-  ([e]) => e.intersectionRatio < 1 
-    ? header.classList.add('sticky')
-    : header.classList.remove('sticky'),
-  { threshold: [1] }
+    ([e]) => (e.intersectionRatio < 1 ? header.classList.add('sticky') : header.classList.remove('sticky')),
+    { threshold: [1] }
 );
 
 stickyObserver.observe(document.querySelector('#header-sentinel'));

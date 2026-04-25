@@ -2,34 +2,32 @@
     "name": "vite-press",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "keywords": [],
+    "license": "ISC",
+    "author": "",
     "type": "module",
+    "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "vitepress dev .",
         "build": "vitepress build . && echo `date +%s` > .vitepress/dist/version.txt",
         "preview": "vitepress preview .",
         "debug": "node node_modules/vitepress/dist/node/cli.js dev .",
+        "format": "oxfmt --write .",
         "deploy:pinia": "npm run build && dhlx deploy -m dev",
         "deploy:git": "cross-env DEPLOY_TYPE=git  npm run build && dhlx gh-pages -i .vitepress/dist",
         "deploy": "npm run deploy:pinia && npm run deploy:git"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "overrides": {
-        "vite": "npm:rolldown-vite@latest"
-    },
     "devDependencies": {
-        "@braintree/sanitize-url": "^7.0.0",
+        "@braintree/sanitize-url": "^7.1.2",
         "@dhlx/delay": "^0.0.5",
         "@dhlx/vitepress-plugin-drawio": "^0.0.10",
         "@dhlx/vitepress-plugin-mindmap": "^0.0.4",
-        "@types/node": "^25.2.1",
+        "@types/node": "^25.6.0",
         "cross-env": "^10.1.0",
-        "cytoscape": "^3.28.0",
+        "cytoscape": "^3.33.2",
         "cytoscape-cose-bilkent": "^4.1.0",
-        "dayjs": "^1.11.0",
+        "dayjs": "^1.11.20",
         "debug": "^4.3.0",
         "install": "^0.13.0",
         "markdown-it-drawio-viewer": "^1.5.0",
@@ -38,23 +36,34 @@
         "markmap-common": "^0.18.9",
         "markmap-lib": "^0.18.12",
         "medium-zoom": "^1.1.0",
-        "mermaid": "^11.12.2",
-        "npm": "^11.9.0",
+        "mermaid": "^11.14.0",
+        "npm": "^11.13.0",
         "nprogress-v2": "^1.1.10",
-        "oxc-minify": "^0.112.0",
-        "prettier": "^3.8.1",
-        "rollup-plugin-visualizer": "^6.0.5",
-        "sass-embedded": "^1.97.3",
+        "oxc-minify": "^0.127.0",
+        "oxfmt": "^0.31.0",
+        "rollup-plugin-visualizer": "^7.0.1",
+        "sass-embedded": "^1.99.0",
         "vite-plugin-compression": "^0.5.1",
         "vite-plugin-imagemin": "^0.6.1",
-        "vite-plugin-vue-devtools": "^8.0.6",
-        "vitepress": "^2.0.0-alpha.9",
+        "vite-plugin-vue-devtools": "^8.1.1",
+        "vitepress": "2.0.0-alpha.17",
         "vitepress-markdown-timeline": "^1.2.2",
         "vitepress-plugin-comment-with-giscus": "^1.1.15",
         "vitepress-plugin-lightbox": "^1.0.3",
         "vitepress-plugin-mermaid2": "^0.0.3",
         "vitepress-protect-plugin": "^1.0.6",
         "vitepress-sidebar": "^1.33.1",
-        "vue": "^3.5.27"
+        "vue": "^3.5.33"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "pngquant-bin",
+            "optipng-bin",
+            "gifsicle-bin",
+            "mozjpeg-bin"
+        ]
+    },
+    "overrides": {
+        "vite": "npm:rolldown-vite@latest"
     }
 }

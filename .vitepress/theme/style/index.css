@@ -1,9 +1,9 @@
-@import "./var.css";
-@import "./task-list.css";
+@import './var.css';
+@import './task-list.css';
 
 /*@font-face {*/
-    /*font-family: "pigeon";*/
-    /*src: url("/fonts/pigeon.ttf") format("truetype");*/
+/*font-family: "pigeon";*/
+/*src: url("/fonts/pigeon.ttf") format("truetype");*/
 /*    font-weight: normal;*/
 /*    font-style: normal;*/
 /*}*/

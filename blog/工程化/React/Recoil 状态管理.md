@@ -6,14 +6,14 @@ Recoil 状态管理
 
 ## ✅ Recoil 核心概念回顾
 
-| 概念                  | 说明                                 |
-|---------------------|------------------------------------|
-| `atom`              | 原子状态，是全局状态的最小单位。可被多个组件共享。          |
+| 概念                | 说明                                                           |
+| ------------------- | -------------------------------------------------------------- |
+| `atom`              | 原子状态，是全局状态的最小单位。可被多个组件共享。             |
 | `selector`          | 派生状态，可以从一个或多个 atom 派生，具有缓存能力，支持读写。 |
-| `useRecoilState`    | 读取 + 设置 atom                       |
-| `useRecoilValue`    | 只读取 atom 或 selector                |
-| `useSetRecoilState` | 只设置 atom                           |
-| `RecoilRoot`        | 包裹在应用最外层，提供上下文环境                   |
+| `useRecoilState`    | 读取 + 设置 atom                                               |
+| `useRecoilValue`    | 只读取 atom 或 selector                                        |
+| `useSetRecoilState` | 只设置 atom                                                    |
+| `RecoilRoot`        | 包裹在应用最外层，提供上下文环境                               |
 
 ---
 
@@ -36,20 +36,20 @@ Recoil 状态管理
 import { atom } from 'recoil';
 
 export type Todo = {
-  id: string;
-  title: string;
-  completed: boolean;
-  createdAt: number;
+    id: string;
+    title: string;
+    completed: boolean;
+    createdAt: number;
 };
 
 export const todoListState = atom<Todo[]>({
-  key: 'todoListState',
-  default: [],
+    key: 'todoListState',
+    default: []
 });
 
 export const todoFilterState = atom<'all' | 'completed' | 'uncompleted'>({
-  key: 'todoFilterState',
-  default: 'all',
+    key: 'todoFilterState',
+    default: 'all'
 });
 ```
 
@@ -63,20 +63,20 @@ import { selector } from 'recoil';
 import { todoListState, todoFilterState } from '../atoms/todoListState';
 
 export const filteredTodoListState = selector({
-  key: 'filteredTodoListState',
-  get: ({ get }) => {
-    const filter = get(todoFilterState);
-    const list = get(todoListState);
+    key: 'filteredTodoListState',
+    get: ({ get }) => {
+        const filter = get(todoFilterState);
+        const list = get(todoListState);
 
-    switch (filter) {
-      case 'completed':
-        return list.filter((item) => item.completed);
-      case 'uncompleted':
-        return list.filter((item) => !item.completed);
-      default:
-        return list;
+        switch (filter) {
+            case 'completed':
+                return list.filter((item) => item.completed);
+            case 'uncompleted':
+                return list.filter((item) => !item.completed);
+            default:
+                return list;
+        }
     }
-  },
 });
 ```
 
@@ -92,26 +92,23 @@ import { todoListState } from '../atoms/todoListState';
 import { v4 as uuidv4 } from 'uuid';
 
 export const AddTodo = () => {
-  const setTodoList = useSetRecoilState(todoListState);
+    const setTodoList = useSetRecoilState(todoListState);
 
-  const addTodo = (title: string) => {
-    setTodoList((oldList) => [
-      ...oldList,
-      { id: uuidv4(), title, completed: false, createdAt: Date.now() },
-    ]);
-  };
+    const addTodo = (title: string) => {
+        setTodoList((oldList) => [...oldList, { id: uuidv4(), title, completed: false, createdAt: Date.now() }]);
+    };
 
-  return (
-    <input
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' && e.currentTarget.value.trim()) {
-          addTodo(e.currentTarget.value.trim());
-          e.currentTarget.value = '';
-        }
-      }}
-      placeholder="Add todo"
-    />
-  );
+    return (
+        <input
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' && e.currentTarget.value.trim()) {
+                    addTodo(e.currentTarget.value.trim());
+                    e.currentTarget.value = '';
+                }
+            }}
+            placeholder="Add todo"
+        />
+    );
 };
 ```
 
@@ -122,17 +119,17 @@ import { useRecoilValue } from 'recoil';
 import { filteredTodoListState } from '../selectors/filteredTodoList';
 
 export const TodoList = () => {
-  const todos = useRecoilValue(filteredTodoListState);
+    const todos = useRecoilValue(filteredTodoListState);
 
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li key={todo.id}>
-          {todo.title} {todo.completed ? '(Done)' : ''}
-        </li>
-      ))}
-    </ul>
-  );
+    return (
+        <ul>
+            {todos.map((todo) => (
+                <li key={todo.id}>
+                    {todo.title} {todo.completed ? '(Done)' : ''}
+                </li>
+            ))}
+        </ul>
+    );
 };
 ```
 
@@ -143,15 +140,21 @@ import { useRecoilState } from 'recoil';
 import { todoFilterState } from '../atoms/todoListState';
 
 export const FilterControl = () => {
-  const [filter, setFilter] = useRecoilState(todoFilterState);
+    const [filter, setFilter] = useRecoilState(todoFilterState);
 
-  return (
-    <div>
-      <button onClick={() => setFilter('all')} disabled={filter === 'all'}>全部</button>
-      <button onClick={() => setFilter('completed')} disabled={filter === 'completed'}>已完成</button>
-      <button onClick={() => setFilter('uncompleted')} disabled={filter === 'uncompleted'}>未完成</button>
-    </div>
-  );
+    return (
+        <div>
+            <button onClick={() => setFilter('all')} disabled={filter === 'all'}>
+                全部
+            </button>
+            <button onClick={() => setFilter('completed')} disabled={filter === 'completed'}>
+                已完成
+            </button>
+            <button onClick={() => setFilter('uncompleted')} disabled={filter === 'uncompleted'}>
+                未完成
+            </button>
+        </div>
+    );
 };
 ```
 
@@ -183,8 +186,8 @@ src/
 import { atomFamily } from 'recoil';
 
 export const todoListFamily = atomFamily<Todo[], string>({
-  key: 'todoListFamily',
-  default: [],
+    key: 'todoListFamily',
+    default: []
 });
 ```
 
@@ -196,11 +199,11 @@ export const todoListFamily = atomFamily<Todo[], string>({
 
 ```ts
 export const todoListAsyncState = selector({
-  key: 'todoListAsyncState',
-  get: async () => {
-    const response = await fetch('/api/todos');
-    return await response.json();
-  },
+    key: 'todoListAsyncState',
+    get: async () => {
+        const response = await fetch('/api/todos');
+        return await response.json();
+    }
 });
 ```
 
@@ -210,19 +213,14 @@ export const todoListAsyncState = selector({
 
 ```ts
 export const useTodoActions = () => {
-  const setTodos = useSetRecoilState(todoListState);
+    const setTodos = useSetRecoilState(todoListState);
 
-  const toggleTodo = (id: string) =>
-    setTodos((todos) =>
-      todos.map((t) =>
-        t.id === id ? { ...t, completed: !t.completed } : t
-      )
-    );
+    const toggleTodo = (id: string) =>
+        setTodos((todos) => todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)));
 
-  const deleteTodo = (id: string) =>
-    setTodos((todos) => todos.filter((t) => t.id !== id));
+    const deleteTodo = (id: string) => setTodos((todos) => todos.filter((t) => t.id !== id));
 
-  return { toggleTodo, deleteTodo };
+    return { toggleTodo, deleteTodo };
 };
 ```
 
@@ -232,7 +230,7 @@ export const useTodoActions = () => {
 
 在大型项目中，使用 Recoil 具有以下优势：
 
-* 状态管理简单直观（尤其在组件粒度状态较多时）
-* 支持异步和派生状态，适合复杂计算
-* 可以和 React 并发特性天然兼容
-* 结合 `atomFamily` 和 `selectorFamily` 支持模块化设计
+- 状态管理简单直观（尤其在组件粒度状态较多时）
+- 支持异步和派生状态，适合复杂计算
+- 可以和 React 并发特性天然兼容
+- 结合 `atomFamily` 和 `selectorFamily` 支持模块化设计

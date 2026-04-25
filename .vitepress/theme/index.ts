@@ -1,37 +1,37 @@
 import DefaultTheme from 'vitepress/theme';
+import type { Theme } from 'vitepress';
 import './style/index.css';
-// 只需添加以下一行代码，引入时间线样式
-import { Theme } from 'vitepress';
+import 'vitepress-markdown-timeline/dist/theme/index.css';
 
 import Layout from './Layout.vue';
-
 import ArticleList from './components/ArticleList.vue';
 
 if (!import.meta.env.SSR) {
-    // 刷新检测
     let currentVersion = '';
 
     const checkVersion = async () => {
-        const res = await fetch('/version.txt?t=' + Date.now());
-        const newVersion = await res.text();
-        if (!currentVersion) currentVersion = newVersion;
-        else if (currentVersion !== newVersion) {
-            if (confirm('发现新版本，是否刷新？')) {
-                // 3. 双保险：添加时间戳参数
-                location.href = location.href.split('?')[0] + '?t=' + Date.now();
+        try {
+            const res = await fetch(`/version.txt?t=${Date.now()}`);
+            const newVersion = await res.text();
+            if (!currentVersion) {
+                currentVersion = newVersion;
+            } else if (currentVersion !== newVersion) {
+                if (confirm('发现新版本，是否刷新？')) {
+                    location.href = `${location.href.split('?')[0]}?t=${Date.now()}`;
+                }
             }
+        } catch {
+            // 静默忽略网络错误，避免阻塞页面
         }
     };
 
-    // 每 5 分钟检查一次
-    setInterval(checkVersion, 1 * 60 * 1000);
+    setInterval(checkVersion, 60 * 1000);
 }
 
 export default {
     extends: DefaultTheme,
     Layout,
-    enhanceApp(ctx) {
-        ctx.app.component('ArticleList', ArticleList);
-    },
-    setup() {}
-} as Theme;
+    enhanceApp({ app }) {
+        app.component('ArticleList', ArticleList);
+    }
+} satisfies Theme;

@@ -16,30 +16,30 @@ Babel 插件其实就是一个 **函数**，返回一个包含 **`visitor`** 对
 
 ```js
 module.exports = function myBabelPlugin(babel) {
-  return {
-    visitor: {
-      Identifier(path) {
-        console.log(path.node.name);
-      }
-    }
-  };
+    return {
+        visitor: {
+            Identifier(path) {
+                console.log(path.node.name);
+            }
+        }
+    };
 };
 ```
 
-* `babel`: 是 Babel 提供的工具对象，通常从中解构 `types` (`babel.types`)，用于生成和判断 AST 节点。
-* `visitor`: 是一个对象，定义了每个节点类型（如 `Identifier`, `FunctionDeclaration`）的处理函数。
+- `babel`: 是 Babel 提供的工具对象，通常从中解构 `types` (`babel.types`)，用于生成和判断 AST 节点。
+- `visitor`: 是一个对象，定义了每个节点类型（如 `Identifier`, `FunctionDeclaration`）的处理函数。
 
 ---
 
 ### 2. 插件对象支持的属性
 
-| 属性名                 | 类型       | 说明                     |
-|---------------------|----------|------------------------|
+| 属性名              | 类型     | 说明                                    |
+| ------------------- | -------- | --------------------------------------- |
 | `visitor`           | Object   | 必填。定义 AST 节点类型对应的处理方法。 |
-| `name`              | string   | 插件名（推荐）。便于调试和错误提示。     |
-| `pre`               | Function | 在插件运行前调用，初始化状态等。       |
-| `post`              | Function | 所有节点访问完毕后调用，清理资源等。     |
-| `manipulateOptions` | Function | 用于操作 Babel 配置选项。       |
+| `name`              | string   | 插件名（推荐）。便于调试和错误提示。    |
+| `pre`               | Function | 在插件运行前调用，初始化状态等。        |
+| `post`              | Function | 所有节点访问完毕后调用，清理资源等。    |
+| `manipulateOptions` | Function | 用于操作 Babel 配置选项。               |
 
 ---
 
@@ -104,18 +104,18 @@ visitor: {
 
 ```js
 module.exports = function (babel) {
-  const { types: t } = babel;
+    const { types: t } = babel;
 
-  return {
-    name: "transform-var-to-let",
-    visitor: {
-      VariableDeclaration(path) {
-        if (path.node.kind === "var") {
-          path.node.kind = "let";
+    return {
+        name: 'transform-var-to-let',
+        visitor: {
+            VariableDeclaration(path) {
+                if (path.node.kind === 'var') {
+                    path.node.kind = 'let';
+                }
+            }
         }
-      }
-    }
-  };
+    };
 };
 ```
 
@@ -125,12 +125,12 @@ module.exports = function (babel) {
 
 Babel 插件可以分为几类：
 
-| 类型              | 示例                                      | 说明        |
-|-----------------|-----------------------------------------|-----------|
-| 转换插件（Transform） | @babel/plugin-transform-arrow-functions | 转换语法、功能   |
+| 类型                  | 示例                                    | 说明               |
+| --------------------- | --------------------------------------- | ------------------ |
+| 转换插件（Transform） | @babel/plugin-transform-arrow-functions | 转换语法、功能     |
 | 语法插件（Syntax）    | @babel/plugin-syntax-dynamic-import     | 仅解析语法，不转换 |
-| 宏插件（Macro）      | babel-plugin-macros                     | 处理编译期宏逻辑  |
-| 开发插件（Custom）    | 你自定义的插件                                 | 只用于项目定制   |
+| 宏插件（Macro）       | babel-plugin-macros                     | 处理编译期宏逻辑   |
+| 开发插件（Custom）    | 你自定义的插件                          | 只用于项目定制     |
 
 ---
 
@@ -141,9 +141,9 @@ Babel 插件可以分为几类：
 ```js
 // babel.config.js
 module.exports = {
-  plugins: [
-    './my-plugin.js' // 相对路径或 npm 包
-  ]
+    plugins: [
+        './my-plugin.js' // 相对路径或 npm 包
+    ]
 };
 ```
 
@@ -151,9 +151,9 @@ module.exports = {
 
 ## 🧪 插件调试技巧
 
-* 使用 [AST Explorer](https://astexplorer.net/) 观察 AST 树结构。
-* 给插件加 `console.log()` 来追踪节点访问顺序。
-* 熟悉 Babel 提供的 `path.replaceWith`, `path.remove`, `path.insertBefore` 等 API。
+- 使用 [AST Explorer](https://astexplorer.net/) 观察 AST 树结构。
+- 给插件加 `console.log()` 来追踪节点访问顺序。
+- 熟悉 Babel 提供的 `path.replaceWith`, `path.remove`, `path.insertBefore` 等 API。
 
 ---
 

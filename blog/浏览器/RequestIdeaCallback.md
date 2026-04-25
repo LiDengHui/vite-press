@@ -3,6 +3,7 @@
 ---
 
 ### **基本语法**
+
 ```javascript
 const requestId = requestIdleCallback(callback[, options])
 ```
@@ -10,6 +11,7 @@ const requestId = requestIdleCallback(callback[, options])
 ---
 
 ### **参数说明**
+
 1. **`callback`**（必需）  
    当浏览器空闲时调用的函数，接收一个参数 `deadline`：
     - **`deadline.timeRemaining()`**  
@@ -25,20 +27,21 @@ const requestId = requestIdleCallback(callback[, options])
 ---
 
 ### **使用示例**
+
 ```javascript
 // 定义空闲任务
 function idleTask(deadline) {
-  // 检查剩余时间或超时状态
-  while (deadline.timeRemaining() > 0 || deadline.didTimeout) {
-    if (tasks.length === 0) return;
-    const task = tasks.pop();
-    executeTask(task); // 执行具体任务
-  }
+    // 检查剩余时间或超时状态
+    while (deadline.timeRemaining() > 0 || deadline.didTimeout) {
+        if (tasks.length === 0) return;
+        const task = tasks.pop();
+        executeTask(task); // 执行具体任务
+    }
 
-  // 若还有任务，继续调度
-  if (tasks.length > 0) {
-    requestIdleCallback(idleTask, { timeout: 2000 }); // 设置2秒超时
-  }
+    // 若还有任务，继续调度
+    if (tasks.length > 0) {
+        requestIdleCallback(idleTask, { timeout: 2000 }); // 设置2秒超时
+    }
 }
 
 // 初始调度
@@ -48,6 +51,7 @@ requestIdleCallback(idleTask);
 ---
 
 ### **取消空闲回调**
+
 ```javascript
 cancelIdleCallback(requestId); // 传入 requestIdleCallback 返回的ID
 ```
@@ -55,6 +59,7 @@ cancelIdleCallback(requestId); // 传入 requestIdleCallback 返回的ID
 ---
 
 ### **适用场景**
+
 - 日志上报、数据分析
 - 非关键资源的预加载
 - 后台数据缓存
@@ -63,6 +68,7 @@ cancelIdleCallback(requestId); // 传入 requestIdleCallback 返回的ID
 ---
 
 ### **注意事项**
+
 1. **避免操作 DOM**  
    空闲回调可能发生在渲染帧之间，直接操作 DOM 可能导致布局抖动。若需更新 UI，应结合 `requestAnimationFrame`。
 2. **超时机制慎用**  
@@ -73,19 +79,20 @@ cancelIdleCallback(requestId); // 传入 requestIdleCallback 返回的ID
    支持 Chrome、Firefox、Edge，但不支持 Safari。可使用 [polyfill](https://github.com/aFarkas/requestIdleCallback) 或降级方案：
 
 ```javascript
-window.requestIdleCallback = window.requestIdleCallback || 
+window.requestIdleCallback = window.requestIdleCallback ||
  (cb) => setTimeout(() => cb({ timeRemaining: () => 1 }), 0);
 ```
 
 ---
 
 ### **与 `requestAnimationFrame` 对比**
-| 特性           | `requestIdleCallback` | `requestAnimationFrame` |
-|--------------|-----------------------|-------------------------|
-| **触发时机**     | 浏览器空闲时                | 下一帧渲染前                  |
-| **适用任务**     | 非关键、可延迟任务             | 动画、布局更新等关键任务            |
-| **执行频率**     | 不固定（取决于空闲时间）          | 每帧一次（通常 60fps）          |
-| **是否可能阻塞渲染** | 否                     | 是（若任务过长）                |
+
+| 特性                 | `requestIdleCallback`    | `requestAnimationFrame`  |
+| -------------------- | ------------------------ | ------------------------ |
+| **触发时机**         | 浏览器空闲时             | 下一帧渲染前             |
+| **适用任务**         | 非关键、可延迟任务       | 动画、布局更新等关键任务 |
+| **执行频率**         | 不固定（取决于空闲时间） | 每帧一次（通常 60fps）   |
+| **是否可能阻塞渲染** | 否                       | 是（若任务过长）         |
 
 ---
 

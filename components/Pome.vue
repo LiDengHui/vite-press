@@ -12,11 +12,8 @@
         <p>举头望明月</p>
         <p>低头思故乡</p>
     </div>
-
 </template>
 <style>
-
-
 .poem {
     color: #333;
     font-size: 1.4em;
@@ -25,16 +22,13 @@
     margin: 30px auto;
 }
 .year {
-    text-orientation: upright;  /* 字符全部直立 */
+    text-orientation: upright; /* 字符全部直立 */
     text-combine-upright: all; /* 如"2023"会水平显示 */
-
 }
 .author {
     text-align: end;
     color: #aaa;
     font-size: 0.8em;
 }
-
 </style>
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>

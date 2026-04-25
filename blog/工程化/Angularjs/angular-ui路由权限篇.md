@@ -6,7 +6,7 @@ tags:
     - 框架
     - angularjs
 categories: 技术文档
-description: 前端框架angularjs-ui路由权限的三种方法 
+description: 前端框架angularjs-ui路由权限的三种方法
 ---
 
 ## 事件捕获

@@ -12,12 +12,12 @@
 
 ```vue
 <template>
-  <div>
-    <keep-alive>
-      <component :is="currentComponent" />
-    </keep-alive>
-    <button @click="switchComponent">切换组件</button>
-  </div>
+    <div>
+        <keep-alive>
+            <component :is="currentComponent" />
+        </keep-alive>
+        <button @click="switchComponent">切换组件</button>
+    </div>
 </template>
 
 <script>
@@ -25,21 +25,21 @@ import FirstComponent from './FirstComponent.vue';
 import SecondComponent from './SecondComponent.vue';
 
 export default {
-  data() {
-    return {
-      currentComponent: 'FirstComponent'
-    };
-  },
-  components: {
-    FirstComponent,
-    SecondComponent
-  },
-  methods: {
-    switchComponent() {
-      this.currentComponent = this.currentComponent === 'FirstComponent' ? 'SecondComponent' : 'FirstComponent';
+    data() {
+        return {
+            currentComponent: 'FirstComponent'
+        };
+    },
+    components: {
+        FirstComponent,
+        SecondComponent
+    },
+    methods: {
+        switchComponent() {
+            this.currentComponent = this.currentComponent === 'FirstComponent' ? 'SecondComponent' : 'FirstComponent';
+        }
     }
-  }
-}
+};
 </script>
 ```
 
@@ -49,8 +49,8 @@ export default {
 
 `keep-alive` 有两个常用的属性：
 
-* **`include`**：指定一个字符串、正则表达式或数组，只有匹配的组件会被缓存。
-* **`exclude`**：指定一个字符串、正则表达式或数组，匹配的组件将不会被缓存。
+- **`include`**：指定一个字符串、正则表达式或数组，只有匹配的组件会被缓存。
+- **`exclude`**：指定一个字符串、正则表达式或数组，匹配的组件将不会被缓存。
 
 ```vue
 <keep-alive :include="['FirstComponent']">
@@ -66,39 +66,39 @@ export default {
 
 ### 2.1 **`activated`**
 
-* `activated` 钩子在组件被激活时触发（即从缓存中恢复）。
-* 它的执行时机是组件被从 `keep-alive` 中恢复出来后，这个钩子会比 `created` 和 `mounted` 先触发。
+- `activated` 钩子在组件被激活时触发（即从缓存中恢复）。
+- 它的执行时机是组件被从 `keep-alive` 中恢复出来后，这个钩子会比 `created` 和 `mounted` 先触发。
 
 ```vue
 <script>
 export default {
-  activated() {
-    console.log('组件已激活');
-  }
-}
+    activated() {
+        console.log('组件已激活');
+    }
+};
 </script>
 ```
 
 ### 2.2 **`deactivated`**
 
-* `deactivated` 钩子在组件被缓存时触发（即从视图中移除，但未销毁）。
-* 它的执行时机是组件被隐藏或从 DOM 中移除时，但 `keep-alive` 会保留组件的状态。
+- `deactivated` 钩子在组件被缓存时触发（即从视图中移除，但未销毁）。
+- 它的执行时机是组件被隐藏或从 DOM 中移除时，但 `keep-alive` 会保留组件的状态。
 
 ```vue
 <script>
 export default {
-  deactivated() {
-    console.log('组件已被缓存');
-  }
-}
+    deactivated() {
+        console.log('组件已被缓存');
+    }
+};
 </script>
 ```
 
 ## 3. **与 `keep-alive` 相关的生命周期钩子总结**
 
-* `created` 和 `mounted`：在组件首次创建并挂载时调用，不会因为 `keep-alive` 的缓存而被跳过。
-* `activated`：当组件从 `keep-alive` 中恢复时调用，相当于组件重新显示。
-* `deactivated`：当组件被缓存时调用，通常用于释放资源、暂停定时器等操作。
+- `created` 和 `mounted`：在组件首次创建并挂载时调用，不会因为 `keep-alive` 的缓存而被跳过。
+- `activated`：当组件从 `keep-alive` 中恢复时调用，相当于组件重新显示。
+- `deactivated`：当组件被缓存时调用，通常用于释放资源、暂停定时器等操作。
 
 ## 4. **性能考虑**
 
@@ -106,13 +106,13 @@ export default {
 
 ## 5. **使用 `keep-alive` 的最佳实践**
 
-* **缓存页面状态**：在需要缓存页面的场景中非常有用，尤其是在 Tab 页、列表页等切换频繁的场景。
-* **减少不必要的缓存**：避免过多的组件被缓存，尽量使用 `include` 或 `exclude` 来有选择地缓存组件。
-* **清理资源**：在 `deactivated` 钩子中清理定时器、取消网络请求等资源，以避免内存泄漏。
+- **缓存页面状态**：在需要缓存页面的场景中非常有用，尤其是在 Tab 页、列表页等切换频繁的场景。
+- **减少不必要的缓存**：避免过多的组件被缓存，尽量使用 `include` 或 `exclude` 来有选择地缓存组件。
+- **清理资源**：在 `deactivated` 钩子中清理定时器、取消网络请求等资源，以避免内存泄漏。
 
 ## 总结
 
-* `keep-alive` 用于缓存组件，避免频繁的销毁和创建，提升性能。
-* `activated` 和 `deactivated` 是与 `keep-alive` 相关的生命周期钩子，分别在组件从缓存中恢复和被缓存时触发。
-* `include` 和 `exclude` 属性可以控制哪些组件需要被缓存。
-* 使用时需要注意性能和资源的管理，避免过度缓存导致性能问题。
+- `keep-alive` 用于缓存组件，避免频繁的销毁和创建，提升性能。
+- `activated` 和 `deactivated` 是与 `keep-alive` 相关的生命周期钩子，分别在组件从缓存中恢复和被缓存时触发。
+- `include` 和 `exclude` 属性可以控制哪些组件需要被缓存。
+- 使用时需要注意性能和资源的管理，避免过度缓存导致性能问题。

@@ -1,9 +1,9 @@
 ---
 title: PHP
 tags:
-  - PHP
+    - PHP
 categories:
-  - 后端
+    - 后端
 date: 2020-08-01 15:49:52
 ---
 
@@ -19,7 +19,6 @@ XAMPP
 
 ![](PHP/2020-08-01-17-21-35.png)
 
-
 ## 命令
 
 ```bash
@@ -34,13 +33,14 @@ sudo apachectl restart
 2. proftpd
 
 在`/Applications/XAMPP/xamppfiles/etc/proftpd.conf`中添加
+
 ```text
 
 DefaultAddress 192.168.31.36
 ```
 
-
 ### 先安装composer
+
 ```bash
 
 curl -s http://getcomposer.org/installer | php
@@ -49,11 +49,13 @@ mv composer.phar /usr/local/bin/composer
 ```
 
 ### 进入web目录，在终端执行
+
 ```bash
 composer global require "fxp/composer-asset-plugin"
 ```
 
 ### 创建目录
+
 ```bash
 
 composer create-project --prefer-dist yiisoft/yii2-app-basic yii

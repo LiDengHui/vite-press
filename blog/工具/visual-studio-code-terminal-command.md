@@ -1,12 +1,11 @@
 ---
 title: visual studio code terminal command
 tags:
-  - 开发
+    - 开发
 categories: 技术文档
 description: vs code 新一代前段开发神器
 date: 2016-11-07 17:32:11
 ---
-
 
 之前一直用sublime text 但是sublime text在linux 上的中文输入问题一直让人很蛋疼，前两天刚看了一个博客发现了一个和sublime text 差不多的一个开发编辑器。于是就打算试试，感觉还不错就推荐一下
 
@@ -17,12 +16,12 @@ date: 2016-11-07 17:32:11
 > linux 直接使用 `code {文件名}`打开对应的文件
 
 > mac 上没有 `code` 命令需要自己安装
-    
-  1. 按下`Command + Shift + P`
 
-  2. 输入`shell`
+1. 按下`Command + Shift + P`
 
-  3. 选择`Shell Command : Install code in PATH`，这样自动安装`code`命令行启动
+2. 输入`shell`
+
+3. 选择`Shell Command : Install code in PATH`，这样自动安装`code`命令行启动
 
 ## root启动
 

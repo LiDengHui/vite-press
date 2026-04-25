@@ -8,22 +8,20 @@ Asyncchronous Interator， 异步执行语句 for..await... of
 特殊对象
 next() => {value, done} done 布尔类型
 
-
 创建一个迭代器
 
 const createIterator = (items) => {
-  const keys = Object(items)
-  const len = keys.length;
-  let pointer = 0;
-  return {
-    next() {
-      const done = pointer>=len;
-      const value= !done? items[keys[pointer++]: undefined;
-    },
-    return { value, done}
-  }
+const keys = Object(items)
+const len = keys.length;
+let pointer = 0;
+return {
+next() {
+const done = pointer>=len;
+const value= !done? items[keys[pointer++]: undefined;
+},
+return { value, done}
 }
-
+}
 
 const it1 = createIterator([1,2,3]);
 
@@ -33,12 +31,12 @@ Symbol.iterator for ...of ...
 
 Generator 特殊函数 yield 表达式
 
-function * fn() {
-  console.log("正常函数我会执行")
-  yield 1;
-  yield 2;
-  yield 3;
-  console.log(执行完了)
+function \* fn() {
+console.log("正常函数我会执行")
+yield 1;
+yield 2;
+yield 3;
+console.log(执行完了)
 }
 
 console.log(iteratorFn.next());
@@ -54,11 +52,10 @@ Promise.finally();
 
 ## Rest / Spread
 
-
-
 ## 对象浅拷贝
 
 正则表达式
+
 ```js
 const  dateStr= “2030-08-01”；
 
@@ -93,23 +90,22 @@ const result = reg.exec(str);
 console.log(result)
 ```
 
-
 ## 后行断言 反向断言 (?<=patterm>)
+
 ```js
 const reg2 = /(?<=\D>\d+)/;
-console.log(reg2.exec(str))
-
+console.log(reg2.exec(str));
 ```
 
 ## dotAll方式
 
 回车符以外的单字符
+
 ```js
 const str = 'yi\ndeng';
 
-console.log(/yi.deng/,test(str));// false
+console.log(/yi.deng/, test(str)); // false
 ```
-
 
 允许行终止符的出现
 `console.log(/yi.deng/s,test(str));// false`
@@ -117,16 +113,13 @@ console.log(/yi.deng/,test(str));// false
 汉字匹配
 
 ```html
-const oldReg=/[\u4e00-\u9fa5]/; 
-
-const str = ""
-
-const newReg=/\p{Script=Han}/u;
+const oldReg=/[\u4e00-\u9fa5]/; const str = "" const newReg=/\p{Script=Han}/u;
 ```
 
 非转译序列的模板字符串
+
 ```js
 // unicode转译 \x 十六进制转译
 
-String.row('\u{54}')
+String.row('\u{54}');
 ```

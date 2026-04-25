@@ -6,7 +6,6 @@
 
 正对上面的问题, 往往需要IOC模式, 一般使用DI(Dependency Injection) 依赖注入的方式实现.
 
-
 以订单为例子, 先看美誉依赖注入的情况.
 
 ```js
@@ -20,7 +19,7 @@ class Order {
 }
 
 // 订单类 controllers/OrderController.js
-const Order = require("./Order.js");
+const Order = require('./Order.js');
 
 class OrderController {
     constructor() {
@@ -33,7 +32,7 @@ class OrderController {
 }
 
 // router/index.js
-const OrderController = require("./OrderController.js");
+const OrderController = require('./OrderController.js');
 const orderController = new OrderController();
 ```
 
@@ -52,7 +51,7 @@ class Order {
 }
 
 // 订单类 controllers/OrderController.js
-const Order = require("./Order.js");
+const Order = require('./Order.js');
 
 class OrderController {
     constructor(order) {
@@ -65,8 +64,8 @@ class OrderController {
 }
 
 // router/index.js
-const Order = require("../model/Order.js");
-const OrderController = require("./OrderController.js");
+const Order = require('../model/Order.js');
+const OrderController = require('./OrderController.js');
 const orderController = new OrderController(new Order());
 ```
 
@@ -74,7 +73,7 @@ const orderController = new OrderController(new Order());
 
 优点: 通过依赖注入高层模块与底层模块耦合度降低,因此底层模块发生变化时,我们不需要了解底层模块发生的变化, 只需要管理router中依赖的路径.
 
-不足: 
+不足:
 
     我们所有依赖的模块都在router中引入,明显增加了router模块的复杂性, 我们需要一个专门管理注入及被注入的容器. 即我们常说的IOC 容器.
 
@@ -95,7 +94,7 @@ class IOC {
     use(key) {
         const item = this.controller.get(key);
         if (!item) {
-            throw new Error("error");
+            throw new Error('error');
         }
 
         if (item.single && !item.instance) {
@@ -106,15 +105,15 @@ class IOC {
     }
 }
 // router/index.js
-const Order = require("../model/Order.js");
-const OrderController = require("./OrderController.js");
+const Order = require('../model/Order.js');
+const OrderController = require('./OrderController.js');
 
-ioc.bind("order", (...args) => new Order(...args));
-ioc.bind("orderController", (...args) => new OrderController(ioc.use("order")));
+ioc.bind('order', (...args) => new Order(...args));
+ioc.bind('orderController', (...args) => new OrderController(ioc.use('order')));
 
 // router.js
-const ioc = require("../ioc.js");
-const orderController = ioc.use("orderController");
+const ioc = require('../ioc.js');
+const orderController = ioc.use('orderController');
 ```
 
 上面就是一个简单的ICO 容器实现, 通过bind方法将模块间的依赖绑定到容器中,通过use方法判断模块是否存在,

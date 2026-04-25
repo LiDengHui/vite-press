@@ -14,11 +14,11 @@ The compiler may still choose to ignore the hint based on its optimization heuri
 
 For the specific call expression visitor shown:
 
-
 ```rust
 #[inline]
 fn visit_mut_call_expr(&mut self, node: &mut CallExpr) {
 <CallExpr as VisitMutWith<Self>>::visit_mut_children_with(node, self)
 }
 ```
+
 The inline hint helps ensure that visiting each CallExpr node in the AST doesn't incur unnecessary function call overhead, which is critical for compiler performance.

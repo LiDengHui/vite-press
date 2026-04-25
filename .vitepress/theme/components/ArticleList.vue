@@ -1,46 +1,46 @@
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
-import pages from '../../pages.data.json'
+import { ref, onMounted, nextTick } from 'vue';
+import { data as pages } from '../../utils/posts.data';
 
 function formatDay(ts: number) {
-    if (!ts) return '无时间'
-    const d = new Date(ts)
+    if (!ts) return '无时间';
+    const d = new Date(ts);
     return d.toLocaleDateString('zh-CN', {
         year: 'numeric',
         month: '2-digit',
-        day: '2-digit',
-    })
+        day: '2-digit'
+    });
 }
 
-type PageItem = { title: string; url: string; lastUpdated: number }
+type PageItem = { title: string; url: string; lastUpdated: number };
 const groupedByDate = pages.reduce<Record<string, PageItem[]>>((acc, page) => {
-    const day = formatDay(page.lastUpdated)
-    if (!acc[day]) acc[day] = []
-    acc[day].push(page)
-    return acc
-}, {})
+    const day = formatDay(page.lastUpdated);
+    if (!acc[day]) acc[day] = [];
+    acc[day].push(page);
+    return acc;
+}, {});
 
-const sortedDates = Object.keys(groupedByDate).sort((a, b) => (a < b ? 1 : -1))
+const sortedDates = Object.keys(groupedByDate).sort((a, b) => (a < b ? 1 : -1));
 
-const visibleItems = ref(new Set<string>())
+const visibleItems = ref(new Set<string>());
 
 onMounted(() => {
     nextTick(() => {
-        const items = document.querySelectorAll('.my-timeline-item')
+        const items = document.querySelectorAll('.my-timeline-item');
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        visibleItems.value.add(entry.target.getAttribute('data-date') || '')
-                        observer.unobserve(entry.target)
+                        visibleItems.value.add(entry.target.getAttribute('data-date') || '');
+                        observer.unobserve(entry.target);
                     }
-                })
+                });
             },
             { threshold: 0.1 }
-        )
-        items.forEach((el) => observer.observe(el))
-    })
-})
+        );
+        items.forEach((el) => observer.observe(el));
+    });
+});
 </script>
 
 <template>
@@ -60,11 +60,7 @@ onMounted(() => {
                 </div>
                 <div class="my-timeline-right">
                     <ul class="my-article-list">
-                        <li
-                            v-for="post in groupedByDate[date]"
-                            :key="post.url"
-                            class="my-article-item"
-                        >
+                        <li v-for="post in groupedByDate[date]" :key="post.url" class="my-article-item">
                             <a :href="post.url" class="my-article-title">{{ post.title }}</a>
                         </li>
                     </ul>

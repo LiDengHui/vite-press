@@ -1,11 +1,11 @@
 ---
 title: Reflect
 tags:
-  - js
+    - js
 categories:
-  - 技术文档
-  - 前端
-  - js
+    - 技术文档
+    - 前端
+    - js
 date: 2020-09-10 21:52:52
 ---
 
@@ -31,19 +31,23 @@ var type = Object.prototype.toString.call(youngest);
 var youngest = Reflect.apply(Math.min, Math, ages);
 var oldest = Reflect.apply(Math.max, Math, ages);
 var type = Reflect.apply(Object.prototype.toString, youngest);
-
 ```
+
 Reflect.apply 相比 Function#apply 真正的好处在于其防御性: 任何代码都可以简单的修改函数 call 和 apply 方法,这使你应为崩溃的代码的可怕的变通方法而卡住. 这在一般情况喜爱并不是大问题, 但下面的代码可能真的存在
 
 ```js
 function totalNumbers() {
-  return Array.prototype.reduce.call(arguments, function (total, next) {
-    return total + next;
-  }, 0);
+    return Array.prototype.reduce.call(
+        arguments,
+        function (total, next) {
+            return total + next;
+        },
+        0
+    );
 }
 totalNumbers.apply = function () {
-  throw new Error('Aha got you!');
-}
+    throw new Error('Aha got you!');
+};
 
 totalNumbers.apply(null, [1, 2, 3, 4]); // throws Error('Aha got you!');
 
@@ -63,15 +67,13 @@ Reflect.apply(totalNumbers, null, [1, 2, 3, 4]) === 10;
 
 ```js
 class Greeting {
-
     constructor(name) {
         this.name = name;
     }
 
     greet() {
-      return `Hello ${name}`;
+        return `Hello ${name}`;
     }
-
 }
 
 // ES5 方式的工厂方法：
@@ -88,33 +90,32 @@ function greetingFactory(name) {
 
 // 或者，省略第三个参数，会缺省使用第一个参数。
 function greetingFactory(name) {
-  return Reflect.construct(Greeting, [name]);
+    return Reflect.construct(Greeting, [name]);
 }
 
 // 超级简单的 ES6 一行工厂函数！
 const greetingFactory = (name) => Reflect.construct(Greeting, [name]);
-
 ```
 
 # Reflect.defineProperty(target, propertyKey, attributes)
 
-Reflect.defineProperty 和 Object.defineProperty 很想,用于定义属性的元数据(metadata).这个方法更适合,因为 Object.* 隐含着表示方法作用于对象字面量(其实是双抽象字面量构造函数), 而 Reflect.defineProperty 只表示现在做的反射有关,更具语义化
+Reflect.defineProperty 和 Object.defineProperty 很想,用于定义属性的元数据(metadata).这个方法更适合,因为 Object.\* 隐含着表示方法作用于对象字面量(其实是双抽象字面量构造函数), 而 Reflect.defineProperty 只表示现在做的反射有关,更具语义化
 特别需要注意的是, 和 Object.defineProperty 一样,对于非法的 target, Reflect.defineProperty 会抛出 TypeError 异常, 例如 Number 或 String 类型(Reflect.defineProperty(1, 'foo')). 这是好事, 对于错误类型抛出异常而不是安静的失败,可以提醒你出现了问题
 
 ```js
 function MyDate() {
-  /*…*/
+    /*…*/
 }
 
 // 奇怪的老方式，因为这里使用 Object.defineProperty 为 Function 定义属性
 // （为什么没有 Function.defineProperty ？）
 Object.defineProperty(MyDate, 'now', {
-  value: () => currentms
+    value: () => currentms
 });
 
 // 新方式，并不奇怪，因为 Reflect 做的是反射.
 Reflect.defineProperty(MyDate, 'now', {
-  value: () => currentms
+    value: () => currentms
 });
 ```
 
@@ -123,13 +124,13 @@ Reflect.defineProperty(MyDate, 'now', {
 这个接口,可以视为 Object.getOwnPropertyDescriptor的替代,用于获取属性的描述元数据
 
 主要的区别在于 Object.getOwnPropertyDescriptor(1,"foo")只会静静的的失败,返回 undefined
-而 Reflect.getOwnPropertyDescriptor(1, "foo") 会抛出 TypeError 
+而 Reflect.getOwnPropertyDescriptor(1, "foo") 会抛出 TypeError
 
 ```js
 var myObject = {};
 Object.defineProperty(myObject, 'hidden', {
-  value: true,
-  enumerable: false,
+    value: true,
+    enumerable: false
 });
 var theDescriptor = Reflect.getOwnPropertyDescriptor(myObject, 'hidden');
 assert.deepEqual(theDescriptor, { value: true, enumerable: true });
@@ -138,9 +139,8 @@ assert.deepEqual(theDescriptor, { value: true, enumerable: true });
 var theDescriptor = Object.getOwnPropertyDescriptor(myObject, 'hidden');
 assert.deepEqual(theDescriptor, { value: true, enumerable: true });
 
-assert(Object.getOwnPropertyDescriptor(1, 'foo') === undefined)
+assert(Object.getOwnPropertyDescriptor(1, 'foo') === undefined);
 Reflect.getOwnPropertyDescriptor(1, 'foo'); // 抛出 TypeError
-
 ```
 
 # Reflect.deleteProperty(target, propertyKey)
@@ -159,7 +159,6 @@ assert(myObj.hasOwnProperty('foo') === false);
 myObj = { foo: 'bar' };
 Reflect.deleteProperty(myObj, 'foo');
 assert(myObj.hasOwnProperty('foo') === false);
-
 ```
 
 # Reflect.getPrototypeOf(target)
@@ -218,7 +217,7 @@ var myNonExtensibleObject = Object.preventExtensions({});
 assert(Reflect.isExtensible(myObject) === true);
 assert(Reflect.isExtensible(myNonExtensibleObject) === false);
 Reflect.isExtensible(1); // 抛出 TypeError
-Reflect.isExtensible(false);  // 抛出 TypeError
+Reflect.isExtensible(false); // 抛出 TypeError
 
 // 使用 Object.isExtensible
 assert(Object.isExtensible(myObject) === true);
@@ -226,12 +225,11 @@ assert(Object.isExtensible(myNonExtensibleObject) === false);
 
 // ES5 Object.isExtensible 语义
 Object.isExtensible(1); // 在老的浏览器抛出 TypeError
-Object.isExtensible(false);  // 在老的浏览器抛出 TypeError
+Object.isExtensible(false); // 在老的浏览器抛出 TypeError
 
 // ES6 Object.isExtensible 语义
 assert(Object.isExtensible(1) === false); // 只在新的浏览器上通过
 assert(Object.isExtensible(false) === false); // 只在新的浏览器上通过
-
 ```
 
 # Reflect.preventExtensions(target)
@@ -273,12 +271,12 @@ Reflect.get 参数,在 target[propertyKey] 是一个 getter 函数时,会作为 
 
 ```js
 var myObject = {
-  foo: 1,
-  bar: 2,
-  get baz() {
-    return this.foo + this.bar;
-  },
-}
+    foo: 1,
+    bar: 2,
+    get baz() {
+        return this.foo + this.bar;
+    }
+};
 
 assert(Reflect.get(myObject, 'foo') === 1);
 assert(Reflect.get(myObject, 'bar') === 2);
@@ -286,8 +284,8 @@ assert(Reflect.get(myObject, 'baz') === 3);
 assert(Reflect.get(myObject, 'baz', myObject) === 3);
 
 var myReceiverObject = {
-  foo: 4,
-  bar: 4,
+    foo: 4,
+    bar: 4
 };
 assert(Reflect.get(myObject, 'baz', myReceiverObject) === 8);
 
@@ -296,21 +294,21 @@ Reflect.get(1, 'foo'); // throws TypeError
 Reflect.get(false, 'foo'); // throws TypeError
 
 // 老方式并不会报错：
-assert(1['foo'] === undefined);
+assert((1)['foo'] === undefined);
 assert(false['foo'] === undefined);
-
 ```
+
 # Reflect.set(target, propertyKey,V [, receiver ]
 
 和 Reflect.get 一样, 在 target[propertyKey]是 setter 函数时 将 receiver参数作为 this 使用
 
 ```js
 var myObject = {
-  foo: 1,
-  set bar(value) {
-    return this.foo = value;
-  },
-}
+    foo: 1,
+    set bar(value) {
+        return (this.foo = value);
+    }
+};
 
 assert(myObject.foo === 1);
 assert(Reflect.set(myObject, 'foo', 2));
@@ -321,7 +319,7 @@ assert(Reflect.set(myObject, 'bar', myObject) === 4);
 assert(myObject.foo === 4);
 
 var myReceiverObject = {
-  foo: 0,
+    foo: 0
 };
 assert(Reflect.set(myObject, 'bar', 1, myReceiverObject));
 assert(myObject.foo === 4);
@@ -332,9 +330,9 @@ Reflect.set(1, 'foo', {}); // 抛出 TypeError
 Reflect.set(false, 'foo', {}); // 抛出 TypeError
 
 // 老方式不报错：
-1['foo'] = {};
+(1)['foo'] = {};
 false['foo'] = {};
-assert(1['foo'] === undefined);
+assert((1)['foo'] === undefined);
 assert(false['foo'] === undefined);
 ```
 
@@ -344,20 +342,20 @@ assert(false['foo'] === undefined);
 
 ```js
 myObject = {
-  foo: 1,
+    foo: 1
 };
 Object.setPrototypeOf(myObject, {
-  get bar() {
-    return 2;
-  },
-  baz: 3,
+    get bar() {
+        return 2;
+    },
+    baz: 3
 });
 
 // 没有 Reflect.has
-assert(('foo' in myObject) === true);
-assert(('bar' in myObject) === true);
-assert(('baz' in myObject) === true);
-assert(('bing' in myObject) === false);
+assert('foo' in myObject === true);
+assert('bar' in myObject === true);
+assert('baz' in myObject === true);
+assert('bing' in myObject === false);
 
 // 使用 Reflect.has:
 assert(Reflect.has(myObject, 'foo') === true);
@@ -372,10 +370,10 @@ Reflect.ownKeys 实现了[[OwnPropertyKeys]], 而后者是 Object.getOwnProperty
 
 ```js
 var myObject = {
-  foo: 1,
-  bar: 2,
-  [Symbol.for('baz')]: 3,
-  [Symbol.for('bing')]: 4,
+    foo: 1,
+    bar: 2,
+    [Symbol.for('baz')]: 3,
+    [Symbol.for('bing')]: 4
 };
 
 assert.deepEqual(Object.getOwnPropertyNames(myObject), ['foo', 'bar']);

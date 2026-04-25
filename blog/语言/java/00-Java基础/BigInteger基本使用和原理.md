@@ -1,7 +1,9 @@
 # BigInteger 的基本使用与原理
 
 ## 一、BigInteger 是什么？
+
 `BigInteger` 是 Java 中用于表示**任意大小整数**的类（位于 `java.math` 包中）。它解决了基本数据类型（如 `int`、`long`）的数值范围限制：
+
 - `int`：`-2^31` 到 `2^31-1`（约 ±21 亿）
 - `long`：`-2^63` 到 `2^63-1`（约 ±9e18）
   **当数值超过这些范围时，必须使用 `BigInteger`**。
@@ -9,7 +11,9 @@
 ---
 
 ## 二、基本使用
+
 ### 1. 创建 BigInteger 对象
+
 ```java
 // 方式1：通过字符串（最常用）
 BigInteger big1 = new BigInteger("123456789012345678901234567890");
@@ -23,6 +27,7 @@ BigInteger big3 = new BigInteger(bytes);
 ```
 
 ### 2. 常用运算方法
+
 ```java
 BigInteger a = new BigInteger("100");
 BigInteger b = new BigInteger("25");
@@ -54,6 +59,7 @@ boolean isEqual = a.equals(b); // false
 ```
 
 ### 3. 类型转换
+
 ```java
 long val = big2.longValue(); // 转为 long（可能丢失精度）
 int intVal = big2.intValue(); // 转为 int（可能丢失精度）
@@ -64,7 +70,9 @@ String hex = big1.toString(16); // 转为十六进制字符串
 ---
 
 ## 三、核心原理
+
 ### 1. 内部存储结构
+
 - **基于 `int[]` 数组**：`BigInteger` 将大整数拆分成多个 32 位整数（称为 `mag` 数组）存储。
 - **符号单独存储**：通过 `int signum` 字段表示正负（`1`=正，`-1`=负，`0`=零）。
 - **示例**：  
@@ -73,6 +81,7 @@ String hex = big1.toString(16); // 转为十六进制字符串
   `mag = [0x12, 0x34, 0x56, 0x78, 0x90]`（实际为紧凑二进制形式）。
 
 ### 2. 关键算法优化
+
 1. **加法/减法**：  
    模拟手工竖式计算，处理进位/借位，时间复杂度 **O(n)**。
 
@@ -87,7 +96,9 @@ String hex = big1.toString(16); // 转为十六进制字符串
 
 4. **模运算**：  
    通过 **Barrett Reduction** 或 **Montgomery Multiplication** 优化模幂运算（用于密码学）。
+
 ### 3. 不可变性（Immutable）
+
 - 所有运算**返回新对象**，原始对象不变。
 - 优点：线程安全、易于缓存。
 - 缺点：频繁运算可能产生大量临时对象。
@@ -95,6 +106,7 @@ String hex = big1.toString(16); // 转为十六进制字符串
 ---
 
 ## 四、性能注意事项
+
 1. **运算速度远慢于基本类型**：  
    一次 `BigInteger.add()` 可能比 `int` 加法慢 **100~1000 倍**。
 2. **内存占用较高**：  
@@ -106,12 +118,14 @@ String hex = big1.toString(16); // 转为十六进制字符串
 ---
 
 ## 五、典型应用场景
+
 1. 密码学（RSA 密钥、大素数生成）
 2. 高精度科学计算
 3. 金融领域（超大金额计算）
 4. 算法竞赛（处理超出 `long` 范围的问题）
 
 ## 示例代码：计算 100!（阶乘）
+
 ```java
 public main() {
     BigInteger factorial = BigInteger.ONE;

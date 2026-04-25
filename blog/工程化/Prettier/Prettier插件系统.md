@@ -1,4 +1,3 @@
-
 # Prettier插件系统
 
 在 Prettier 中编写插件时，插件 **输出的是一个对象**，这个对象结构决定了 Prettier 如何使用你的插件。下面我将详细描述这个对象的各个属性和它们的作用。
@@ -9,11 +8,11 @@
 
 ```js
 module.exports = {
-  languages,     // 声明支持的语言类型（如 JS, CSS, Markdown）
-  parsers,       // 提供语法解析器，将源代码转换为 AST
-  printers,      // 提供打印器，将 AST 转换为字符串
-  options,       // 自定义 Prettier 配置项（非必选）
-  defaultOptions // 设置插件默认选项值（非必选）
+    languages, // 声明支持的语言类型（如 JS, CSS, Markdown）
+    parsers, // 提供语法解析器，将源代码转换为 AST
+    printers, // 提供打印器，将 AST 转换为字符串
+    options, // 自定义 Prettier 配置项（非必选）
+    defaultOptions // 设置插件默认选项值（非必选）
 };
 ```
 
@@ -27,13 +26,13 @@ module.exports = {
 
 ```js
 languages: [
-  {
-    name: "JavaScript",
-    parsers: ["babel"],   // 对应 parsers 中的 key
-    extensions: [".js"],  // 哪些扩展名会被使用这个 parser 处理
-    linguistLanguageId: 183, // 可选，用于 GitHub 语言高亮
-  }
-]
+    {
+        name: 'JavaScript',
+        parsers: ['babel'], // 对应 parsers 中的 key
+        extensions: ['.js'], // 哪些扩展名会被使用这个 parser 处理
+        linguistLanguageId: 183 // 可选，用于 GitHub 语言高亮
+    }
+];
 ```
 
 ---
@@ -57,7 +56,7 @@ parsers: {
 
 #### 常见场景：
 
-* 通常我们会基于 Prettier 官方的 parser 扩展，比如 `parser-babel`，然后在 `parse()` 中对 AST 做处理。
+- 通常我们会基于 Prettier 官方的 parser 扩展，比如 `parser-babel`，然后在 `parse()` 中对 AST 做处理。
 
 ---
 
@@ -104,7 +103,7 @@ Prettier 将自动识别这些配置项并添加到 CLI、配置文件中。
 
 ```js
 defaultOptions: {
-  removeConsole: true
+    removeConsole: true;
 }
 ```
 
@@ -113,47 +112,47 @@ defaultOptions: {
 ## ✅ 示例：完整导出对象（只处理 console.log）
 
 ```js
-const { parsers: babelParsers } = require("prettier/parser-babel");
-const traverse = require("@babel/traverse").default;
-const { types: t } = require("@babel/core");
+const { parsers: babelParsers } = require('prettier/parser-babel');
+const traverse = require('@babel/traverse').default;
+const { types: t } = require('@babel/core');
 
 function removeConsoleLogs(ast) {
-  traverse(ast, {
-    ExpressionStatement(path) {
-      const expr = path.node.expression;
-      if (
-        t.isCallExpression(expr) &&
-        t.isMemberExpression(expr.callee) &&
-        expr.callee.object.name === "console" &&
-        expr.callee.property.name === "log"
-      ) {
-        path.remove();
-      }
-    }
-  });
-  return ast;
+    traverse(ast, {
+        ExpressionStatement(path) {
+            const expr = path.node.expression;
+            if (
+                t.isCallExpression(expr) &&
+                t.isMemberExpression(expr.callee) &&
+                expr.callee.object.name === 'console' &&
+                expr.callee.property.name === 'log'
+            ) {
+                path.remove();
+            }
+        }
+    });
+    return ast;
 }
 
 module.exports = {
-  languages: [
-    {
-      name: "JavaScript",
-      parsers: ["babel"],
-      extensions: [".js", ".jsx"]
+    languages: [
+        {
+            name: 'JavaScript',
+            parsers: ['babel'],
+            extensions: ['.js', '.jsx']
+        }
+    ],
+    parsers: {
+        babel: {
+            ...babelParsers.babel,
+            parse(text, parsers, options) {
+                const ast = babelParsers.babel.parse(text, parsers, options);
+                return removeConsoleLogs(ast);
+            },
+            astFormat: 'estree', // 复用 Prettier 内置的打印器
+            locStart: babelParsers.babel.locStart,
+            locEnd: babelParsers.babel.locEnd
+        }
     }
-  ],
-  parsers: {
-    babel: {
-      ...babelParsers.babel,
-      parse(text, parsers, options) {
-        const ast = babelParsers.babel.parse(text, parsers, options);
-        return removeConsoleLogs(ast);
-      },
-      astFormat: "estree", // 复用 Prettier 内置的打印器
-      locStart: babelParsers.babel.locStart,
-      locEnd: babelParsers.babel.locEnd
-    }
-  }
 };
 ```
 
@@ -161,13 +160,13 @@ module.exports = {
 
 ## 🔍 总结（各字段作用速查表）
 
-| 属性名              | 类型       | 作用说明            |
-|------------------|----------|-----------------|
+| 属性名           | 类型     | 作用说明                       |
+| ---------------- | -------- | ------------------------------ |
 | `languages`      | `Array`  | 声明支持的语言类型与文件扩展名 |
-| `parsers`        | `Object` | 将源代码字符串解析成 AST  |
-| `printers`       | `Object` | 将 AST 转回代码字符串   |
-| `options`        | `Object` | 定义插件可配置项        |
-| `defaultOptions` | `Object` | 插件配置项的默认值       |
+| `parsers`        | `Object` | 将源代码字符串解析成 AST       |
+| `printers`       | `Object` | 将 AST 转回代码字符串          |
+| `options`        | `Object` | 定义插件可配置项               |
+| `defaultOptions` | `Object` | 插件配置项的默认值             |
 
 ---
 

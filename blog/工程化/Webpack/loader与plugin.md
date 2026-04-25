@@ -1,11 +1,11 @@
 ---
 title: loader与plugin的区别
 tags:
-  - webpack
+    - webpack
 categories:
-  - 技术文档
-  - 前端
-  - webpack
+    - 技术文档
+    - 前端
+    - webpack
 date: 2020-09-21 22:38:08
 ---
 
@@ -23,7 +23,7 @@ date: 2020-09-21 22:38:08
 
 ## 常用的Plugin
 
-* CommonsChunkPlugin 创建一个公用的chunk,常用于将第三坊lib抽取公用js, 例如:
+- CommonsChunkPlugin 创建一个公用的chunk,常用于将第三坊lib抽取公用js, 例如:
 
 ```js
 entry : {
@@ -33,12 +33,12 @@ entry : {
 
 new CommonsChunkPlugin({
   name: 'vendor',
-  filename: 'vendor.js', 
+  filename: 'vendor.js',
   minChunks:Infinity
 })
 ```
 
-* HotModuelReplacementPlugin 启动热更新
+- HotModuelReplacementPlugin 启动热更新
 
 ## 常用的loader
 
@@ -56,6 +56,7 @@ style-loader 将css内容输出到页面的style标签中
 {test: /\.css$/, loader: "style!css}
 
 ```
+
 style!css 类似一种输出重定向, css-loader的输出会作为 style-loader的输入
 
 如果使用了css预处理. 比如less , 那么只需要在最后加上less的loader

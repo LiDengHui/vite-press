@@ -1,36 +1,31 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-const showButton = ref(false)
+const showButton = ref(false);
 
 const checkScroll = () => {
-    showButton.value = window.scrollY > 300
-}
+    showButton.value = window.scrollY > 300;
+};
 
 const scrollToTop = () => {
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
-    })
-}
+    });
+};
 
 onMounted(() => {
-    window.addEventListener('scroll', checkScroll)
-})
+    window.addEventListener('scroll', checkScroll);
+});
 
 onBeforeUnmount(() => {
-    window.removeEventListener('scroll', checkScroll)
-})
+    window.removeEventListener('scroll', checkScroll);
+});
 </script>
 
 <template>
     <transition name="fade">
-        <button
-            v-if="showButton"
-            class="back-to-top"
-            @click="scrollToTop"
-            aria-label="回到顶部"
-        >
+        <button v-if="showButton" class="back-to-top" @click="scrollToTop" aria-label="回到顶部">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -69,7 +64,7 @@ onBeforeUnmount(() => {
 }
 
 .back-to-top:hover {
-    color:var(--vp-button-alt-hover-text);
+    color: var(--vp-button-alt-hover-text);
     background-color: var(--vp-button-alt-hover-bg);
     transform: translateY(-2px);
 }

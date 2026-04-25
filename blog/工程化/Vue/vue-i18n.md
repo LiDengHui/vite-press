@@ -19,7 +19,7 @@
 ```
 
 ```ts
-t('greet', { name: 'Alice' })
+t('greet', { name: 'Alice' });
 ```
 
 ### 3) 列表插值（List interpolation）
@@ -29,7 +29,7 @@ t('greet', { name: 'Alice' })
 ```
 
 ```ts
-t('order', ['Apple', 3])
+t('order', ['Apple', 3]);
 ```
 
 ### 4) 字面量插值（Literal interpolation）
@@ -67,9 +67,9 @@ t('order', ['Apple', 3])
 ```
 
 ```ts
-t('car', 0) // no cars
-t('car', 1) // one car
-t('car', 5) // 5 cars（结合参数）
+t('car', 0); // no cars
+t('car', 1); // one car
+t('car', 5); // 5 cars（结合参数）
 ```
 
 不同语言复数规则差异很大，国际化项目里要特别小心。
@@ -81,7 +81,7 @@ t('car', 5) // 5 cars（结合参数）
 ```
 
 ```ts
-t('apple', 3, { count: 3 })
+t('apple', 3, { count: 3 });
 ```
 
 ### 9) HTML 文本（不推荐放复杂 HTML）

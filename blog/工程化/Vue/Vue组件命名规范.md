@@ -9,12 +9,12 @@
 ```vue
 <!-- 好的命名 -->
 <template>
-  <MyComponent />
+    <MyComponent />
 </template>
 
 <script>
 export default {
-  name: 'MyComponent',
+    name: 'MyComponent'
 };
 </script>
 ```
@@ -25,8 +25,8 @@ export default {
 
 组件名称应简洁明了，能够表达该组件的功能或用途。避免使用过于抽象或无意义的名称。
 
-* **好命名：** `Button`, `UserProfile`, `Navbar`
-* **差命名：** `MyComponent`, `ComponentA`
+- **好命名：** `Button`, `UserProfile`, `Navbar`
+- **差命名：** `MyComponent`, `ComponentA`
 
 ## 3. **避免重复的命名**
 
@@ -35,7 +35,7 @@ export default {
 ```vue
 <!-- 错误命名 -->
 <template>
-  <Transition />
+    <Transition />
 </template>
 ```
 
@@ -43,20 +43,20 @@ export default {
 
 为了便于查找和维护，组件文件名和组件名称应该保持一致。文件名可以使用 **PascalCase** 或 **kebab-case**，但建议保持一致。
 
-* 组件文件名使用 **PascalCase**：`MyComponent.vue`
-* 组件文件名使用 **kebab-case**：`my-component.vue`
+- 组件文件名使用 **PascalCase**：`MyComponent.vue`
+- 组件文件名使用 **kebab-case**：`my-component.vue`
 
 这取决于你项目中已有的命名约定，尽量保持一致。
 
 ```vue
 <!-- 正确命名 -->
 <template>
-  <MyButton />
+    <MyButton />
 </template>
 
 <script>
 export default {
-  name: 'MyButton',
+    name: 'MyButton'
 };
 </script>
 ```
@@ -67,9 +67,9 @@ export default {
 
 例如：
 
-* `BaseButton`, `BaseInput`：基础组件
-* `AppHeader`, `AppFooter`：页面布局相关组件
-* `UserProfile`, `UserCard`：功能相关组件
+- `BaseButton`, `BaseInput`：基础组件
+- `AppHeader`, `AppFooter`：页面布局相关组件
+- `UserProfile`, `UserCard`：功能相关组件
 
 ## 6. **子组件名称**
 
@@ -79,10 +79,10 @@ export default {
 
 ```vue
 <template>
-  <MyCard>
-    <MyCardHeader />
-    <MyCardContent />
-  </MyCard>
+    <MyCard>
+        <MyCardHeader />
+        <MyCardContent />
+    </MyCard>
 </template>
 ```
 
@@ -90,8 +90,8 @@ export default {
 
 有时，组件的命名应该与其功能相关。例如：
 
-* 容器组件：用于管理布局和状态的组件，命名时可以加入容器的含义，如 `UserProfileContainer` 或 `DashboardContainer`。
-* 展示组件：只负责显示内容的组件，命名时可以加上 `Display` 或 `View` 作为后缀，如 `UserProfileView` 或 `DashboardDisplay`。
+- 容器组件：用于管理布局和状态的组件，命名时可以加入容器的含义，如 `UserProfileContainer` 或 `DashboardContainer`。
+- 展示组件：只负责显示内容的组件，命名时可以加上 `Display` 或 `View` 作为后缀，如 `UserProfileView` 或 `DashboardDisplay`。
 
 ## 8. **避免使用技术实现的描述**
 
@@ -101,9 +101,9 @@ export default {
 
 对于某些特殊功能的组件，可以使用描述性的名称，例如：
 
-* **表单相关组件：** `FormInput`, `FormSelect`
-* **按钮相关组件：** `SubmitButton`, `ResetButton`
-* **弹窗组件：** `ModalDialog`, `AlertBox`
+- **表单相关组件：** `FormInput`, `FormSelect`
+- **按钮相关组件：** `SubmitButton`, `ResetButton`
+- **弹窗组件：** `ModalDialog`, `AlertBox`
 
 ## 10. **命名约定的一致性**
 
@@ -113,9 +113,8 @@ export default {
 
 ## 总结：
 
-* 使用 **PascalCase** 命名组件。
-* 组件名称应简短、清晰，具有描述性。
-* 文件名与组件名一致，推荐使用 **PascalCase** 或 **kebab-case**。
-* 使用前缀来区分组件类型，避免命名冲突。
-* 避免描述实现细节，关注组件的功能。
-
+- 使用 **PascalCase** 命名组件。
+- 组件名称应简短、清晰，具有描述性。
+- 文件名与组件名一致，推荐使用 **PascalCase** 或 **kebab-case**。
+- 使用前缀来区分组件类型，避免命名冲突。
+- 避免描述实现细节，关注组件的功能。

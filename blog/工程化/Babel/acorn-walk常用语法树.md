@@ -12,10 +12,10 @@
 
 ### 参数说明：
 
-* `node`：AST 根节点。
-* `visitors`：一个对象，键是节点类型（如 `'VariableDeclaration'`），值是对应的回调函数。
-* `baseVisitor`（可选）：自定义的基础遍历逻辑，一般用默认的即可。
-* `state`（可选）：遍历过程中传递的共享状态对象。
+- `node`：AST 根节点。
+- `visitors`：一个对象，键是节点类型（如 `'VariableDeclaration'`），值是对应的回调函数。
+- `baseVisitor`（可选）：自定义的基础遍历逻辑，一般用默认的即可。
+- `state`（可选）：遍历过程中传递的共享状态对象。
 
 ### 示例：
 
@@ -26,9 +26,9 @@ import { simple } from 'acorn-walk';
 const ast = parse('let x = 42');
 
 simple(ast, {
-  VariableDeclaration(node) {
-    console.log('Found a variable declaration:', node);
-  }
+    VariableDeclaration(node) {
+        console.log('Found a variable declaration:', node);
+    }
 });
 ```
 
@@ -41,7 +41,7 @@ simple(ast, {
 ### 回调签名：
 
 ```js
-(node, state, ancestors)
+(node, state, ancestors);
 ```
 
 ### 示例：
@@ -50,10 +50,13 @@ simple(ast, {
 import { ancestor } from 'acorn-walk';
 
 ancestor(ast, {
-  Identifier(node, state, ancestors) {
-    console.log('Identifier:', node.name);
-    console.log('Ancestors:', ancestors.map(a => a.type));
-  }
+    Identifier(node, state, ancestors) {
+        console.log('Identifier:', node.name);
+        console.log(
+            'Ancestors:',
+            ancestors.map((a) => a.type)
+        );
+    }
 });
 ```
 
@@ -69,7 +72,7 @@ ancestor(ast, {
 import { full } from 'acorn-walk';
 
 full(ast, (node) => {
-  console.log('Node type:', node.type);
+    console.log('Node type:', node.type);
 });
 ```
 
@@ -85,8 +88,11 @@ full(ast, (node) => {
 import { fullAncestor } from 'acorn-walk';
 
 fullAncestor(ast, (node, state, ancestors) => {
-  console.log('Node:', node.type);
-  console.log('Ancestors:', ancestors.map(a => a.type));
+    console.log('Node:', node.type);
+    console.log(
+        'Ancestors:',
+        ancestors.map((a) => a.type)
+    );
 });
 ```
 
@@ -130,8 +136,9 @@ TypeName(node, state, c) { ... }
 
 ## ✅ 常见用途
 
-* 静态代码分析（如检测 console.log）
-* 构建代码转译工具（如 Babel 插件）
-* 实现 Linter 规则
-* 编辑器中的语法高亮或跳转功能
+- 静态代码分析（如检测 console.log）
+- 构建代码转译工具（如 Babel 插件）
+- 实现 Linter 规则
+- 编辑器中的语法高亮或跳转功能
+
 ---

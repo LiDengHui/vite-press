@@ -297,4 +297,3 @@ responseCode=4040,message=user not found,traceId=...
 - 全局异常处理能把错误处理从业务逻辑里抽离出来
 - TraceId 是跨层排障的重要基础设施
 - 参数校验、配置管理、安全意识都属于工程实践能力的一部分
-

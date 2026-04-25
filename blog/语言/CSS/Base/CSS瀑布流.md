@@ -21,22 +21,22 @@
 ```css
 /* 多列方式 */
 .container {
-  column-count: 4; /* 列数 */
-  column-gap: 15px;
+    column-count: 4; /* 列数 */
+    column-gap: 15px;
 }
 
 .item {
-  break-inside: avoid; /* 防止元素被分割到不同列 */
-  margin-bottom: 15px;
+    break-inside: avoid; /* 防止元素被分割到不同列 */
+    margin-bottom: 15px;
 }
 
 /* 或使用CSS Grid */
 .container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 15px;
-  grid-auto-flow: dense;
-   /**
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+    grid-auto-flow: dense;
+    /**
     `grid-auto-flow` 属性控制自动放置的算法，可选值包括：
   - `row`：默认值，按行依次填充。
   - `column`：按列依次填充。
@@ -52,34 +52,34 @@
 
 ```javascript
 function waterfall(container, itemClass, columnCount) {
-  const containerEl = document.querySelector(container);
-  const items = document.querySelectorAll(itemClass);
-  const gap = 15; // 间距
-  
-  // 初始化列高度数组
-  const colHeights = new Array(columnCount).fill(0);
-  const containerWidth = containerEl.offsetWidth;
-  const itemWidth = (containerWidth - (columnCount - 1) * gap) / columnCount;
-  
-  items.forEach(item => {
-    // 设置元素宽度
-    item.style.width = `${itemWidth}px`;
-    
-    // 找到高度最小的列
-    const minHeight = Math.min(...colHeights);
-    const minIndex = colHeights.indexOf(minHeight);
-    
-    // 设置元素位置
-    item.style.position = 'absolute';
-    item.style.left = `${minIndex * (itemWidth + gap)}px`;
-    item.style.top = `${minHeight}px`;
-    
-    // 更新列高度
-    colHeights[minIndex] += item.offsetHeight + gap;
-  });
-  
-  // 设置容器高度
-  containerEl.style.height = `${Math.max(...colHeights)}px`;
+    const containerEl = document.querySelector(container);
+    const items = document.querySelectorAll(itemClass);
+    const gap = 15; // 间距
+
+    // 初始化列高度数组
+    const colHeights = new Array(columnCount).fill(0);
+    const containerWidth = containerEl.offsetWidth;
+    const itemWidth = (containerWidth - (columnCount - 1) * gap) / columnCount;
+
+    items.forEach((item) => {
+        // 设置元素宽度
+        item.style.width = `${itemWidth}px`;
+
+        // 找到高度最小的列
+        const minHeight = Math.min(...colHeights);
+        const minIndex = colHeights.indexOf(minHeight);
+
+        // 设置元素位置
+        item.style.position = 'absolute';
+        item.style.left = `${minIndex * (itemWidth + gap)}px`;
+        item.style.top = `${minHeight}px`;
+
+        // 更新列高度
+        colHeights[minIndex] += item.offsetHeight + gap;
+    });
+
+    // 设置容器高度
+    containerEl.style.height = `${Math.max(...colHeights)}px`;
 }
 
 // 使用示例
@@ -96,9 +96,9 @@ window.addEventListener('resize', () => waterfall('.container', '.item', 4));
 ```javascript
 // 使用Masonry示例
 var msnry = new Masonry('.grid', {
-  itemSelector: '.grid-item',
-  columnWidth: 200,
-  gutter: 10
+    itemSelector: '.grid-item',
+    columnWidth: 200,
+    gutter: 10
 });
 ```
 
@@ -106,14 +106,14 @@ var msnry = new Masonry('.grid', {
 
 ```javascript
 function responsiveWaterfall() {
-  const container = document.querySelector('.container');
-  const screenWidth = window.innerWidth;
-  let columns = 4;
-  
-  if (screenWidth < 768) columns = 2;
-  else if (screenWidth < 1024) columns = 3;
-  
-  waterfall('.container', '.item', columns);
+    const container = document.querySelector('.container');
+    const screenWidth = window.innerWidth;
+    let columns = 4;
+
+    if (screenWidth < 768) columns = 2;
+    else if (screenWidth < 1024) columns = 3;
+
+    waterfall('.container', '.item', columns);
 }
 
 window.addEventListener('resize', responsiveWaterfall);
@@ -122,9 +122,9 @@ window.addEventListener('resize', responsiveWaterfall);
 ## 优化考虑
 
 1. **图片懒加载**：对于图片较多的瀑布流，实现懒加载
-   ```html
-   <img data-src="real-image.jpg" src="placeholder.jpg" class="lazyload">
-   ```
+    ```html
+    <img data-src="real-image.jpg" src="placeholder.jpg" class="lazyload" />
+    ```
 
 ```javascript
 // 优化后的代码
@@ -132,17 +132,17 @@ const lazyImages = document.querySelectorAll('.lazyload');
 
 // 创建单个IntersectionObserver实例（减少内存占用）
 const observer = new IntersectionObserver(
-        (entries) => {
-           entries.forEach((entry) => {
-              // 使用requestAnimationFrame优化滚动性能
-              if (entry.isIntersecting) {
-                 requestAnimationFrame(() => {
+    (entries) => {
+        entries.forEach((entry) => {
+            // 使用requestAnimationFrame优化滚动性能
+            if (entry.isIntersecting) {
+                requestAnimationFrame(() => {
                     const img = entry.target;
                     // 添加错误处理和备用方案
                     img.onerror = () => {
-                       console.warn('Lazy load failed:', img.dataset.src);
-                       img.classList.add('lazyload-error');
-                       observer.unobserve(img);
+                        console.warn('Lazy load failed:', img.dataset.src);
+                        img.classList.add('lazyload-error');
+                        observer.unobserve(img);
                     };
 
                     // 使用srcset支持响应式图片
@@ -155,33 +155,34 @@ const observer = new IntersectionObserver(
 
                     // 停止观察已加载图片
                     observer.unobserve(img);
-                 });
-              }
-           });
-        },
-        {
-           // 添加配置选项
-           rootMargin: '100px 0px', // 提前100px加载
-           threshold: 0.01 // 至少1%可见
-        }
+                });
+            }
+        });
+    },
+    {
+        // 添加配置选项
+        rootMargin: '100px 0px', // 提前100px加载
+        threshold: 0.01 // 至少1%可见
+    }
 );
 
 // 批量观察元素（减少函数调用）
 lazyImages.forEach((img) => {
-   // 预加载占位符检查
-   if (!img.dataset.src || img.complete) return;
-   observer.observe(img);
+    // 预加载占位符检查
+    if (!img.dataset.src || img.complete) return;
+    observer.observe(img);
 });
 ```
 
 2. **滚动加载更多**：
-   ```javascript
-   window.addEventListener('scroll', () => {
-     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
-       // 加载更多内容
-     }
-   });
-   ```
+
+    ```javascript
+    window.addEventListener('scroll', () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+            // 加载更多内容
+        }
+    });
+    ```
 
 3. **性能优化**：
     - 使用防抖(debounce)处理resize事件
@@ -193,19 +194,19 @@ lazyImages.forEach((img) => {
 
 ```css
 .container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-flow: dense;
-  grid-gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-flow: dense;
+    grid-gap: 15px;
 }
 
 .item {
-  /* 不同高度由内容决定 */
+    /* 不同高度由内容决定 */
 }
 
 /* 可以设置不同项目的跨度 */
 .item.tall {
-  grid-row: span 2;
+    grid-row: span 2;
 }
 ```
 

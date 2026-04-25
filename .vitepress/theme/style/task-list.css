@@ -13,7 +13,7 @@ li.task-list-item ul:last-child {
     margin-right: 0;
 }
 
-li.task-list-item input[type="checkbox"] {
+li.task-list-item input[type='checkbox'] {
     position: relative;
     width: 13px;
     height: 13px;
@@ -26,7 +26,7 @@ li.task-list-item input[type="checkbox"] {
     -moz-appearance: none;
 }
 
-li.task-list-item input[type="checkbox"]:after {
+li.task-list-item input[type='checkbox']:after {
     position: absolute;
     top: 0;
     color: #000;
@@ -36,16 +36,16 @@ li.task-list-item input[type="checkbox"]:after {
     visibility: visible;
     padding-left: 0;
     text-align: center;
-    content: " ";
+    content: ' ';
     border-radius: 3px;
 }
 
-li.task-list-item input[type="checkbox"]:checked {
+li.task-list-item input[type='checkbox']:checked {
     background-color: var(--vp-c-brand);
 }
 
-li.task-list-item input[type="checkbox"]:checked::after {
-    content: "✓";
+li.task-list-item input[type='checkbox']:checked::after {
+    content: '✓';
     color: #fff;
     line-height: 13px;
     font-size: 10px;

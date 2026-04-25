@@ -1,11 +1,11 @@
 ---
 title: pm2原理
 tags:
-  - ci
+    - ci
 categories:
-  - 技术文档
-  - 前端
-  - ci
+    - 技术文档
+    - 前端
+    - ci
 date: 2020-09-13 12:28:20
 ---
 
@@ -53,35 +53,37 @@ PM2 是一个带有负载均衡功能的Node应用的进程管理器
 // master
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
- 
+
 if (cluster.isMaster) {
     console.log(numCPUs);
     for (var i = 0; i < numCPUs; i++) {
         var worker = cluster.fork();
     }
 } else {
-    require("./app.js");
+    require('./app.js');
 }
 ```
+
 ```js
 // work
 var http = require('http');
-http.createServer(function(req, res) {
+http.createServer(function (req, res) {
     res.writeHead(200);
-    res.end("hello world\n");
+    res.end('hello world\n');
 }).listen(8000);
 ```
-# 参考链接
-[pm2 原理](https://segmentfault.com/a/1190000021230376)
 
+# 参考链接
+
+[pm2 原理](https://segmentfault.com/a/1190000021230376)
 
 # 架构图
 
- pm2: Process manager for Node apps
+pm2: Process manager for Node apps
 
 ![](./pm2原理/2020-09-28-22-21-51.png)
 
- pm2包括Satan进程,God Deamon 守护进程、进程间的远程调用rpc,cluster等几个概念.pm2中采用God Deamon 守护进程,God进程启动后一直运行, 它相当与cluster中的Master进程,守护者worker进程的正常运行
+pm2包括Satan进程,God Deamon 守护进程、进程间的远程调用rpc,cluster等几个概念.pm2中采用God Deamon 守护进程,God进程启动后一直运行, 它相当与cluster中的Master进程,守护者worker进程的正常运行
 
 # 执行流程
 

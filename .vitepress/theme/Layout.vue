@@ -3,32 +3,29 @@
     <Top />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import DefaultTheme from 'vitepress/theme';
 import Top from './Top.vue';
-import { onMounted, computed } from 'vue';
+import { onMounted } from 'vue';
 import { useData, useRoute, useRouter } from 'vitepress';
 import mediumZoom from 'medium-zoom';
 import giscusTalk from 'vitepress-plugin-comment-with-giscus';
+import { NProgress } from 'nprogress-v2';
 
 const route = useRoute();
 const { Layout } = DefaultTheme;
 const router = useRouter();
-import 'vitepress-markdown-timeline/dist/theme/index.css';
-import { NProgress } from 'nprogress-v2'; // 进度条组件
-// 引入自定义样式文件
-// 渲染思维导图
+const data = useData();
 
-// Setup medium zoom with the desired options
+let timer: ReturnType<typeof setTimeout> | null = null;
 
-let timer = null;
 const routerChange = () => {
     mediumZoom('[data-zoomable]', {
         background: 'transparent'
     });
 
     if (timer) {
-        clearInterval(timer);
+        clearTimeout(timer);
     }
     timer = setTimeout(() => {
         const sidebar = document.querySelector('.VPSidebar');
@@ -40,32 +37,27 @@ const routerChange = () => {
     }, 100);
 };
 
-// Apply medium zoom on load
 onMounted(() => {
     routerChange();
 });
 
 NProgress.configure({ showSpinner: false });
+
 router.onBeforeRouteChange = () => {
-    NProgress.start(); // 开始进度条
+    NProgress.start();
 };
+
 router.onAfterRouteChange = () => {
-    NProgress.done(); // 停止进度条
+    NProgress.done();
     routerChange();
 };
 
-// Subscribe to route changes to re-apply medium zoom effect
-
-// Get frontmatter and route
-const data = useData();
-
-// // giscus配置
 giscusTalk(
     {
-        repo: 'LiDengHui/vite-press', //仓库
-        repoId: 'R_kgDOJVNT_g', //仓库ID
-        category: 'General', // 讨论分类
-        categoryId: 'DIC_kwDOJVNT_s4CrRbn', //讨论分类ID
+        repo: 'LiDengHui/vite-press',
+        repoId: 'R_kgDOJVNT_g',
+        category: 'General',
+        categoryId: 'DIC_kwDOJVNT_s4CrRbn',
         mapping: 'title',
         inputPosition: 'top',
         homePageShowComment: true,
@@ -82,9 +74,6 @@ giscusTalk(
         frontmatter: data.frontmatter,
         route
     },
-    //默认值为true，表示已启用，此参数可以忽略；
-    //如果为false，则表示未启用
-    //您可以使用“comment:true”序言在页面上单独启用它
     true
 );
 </script>

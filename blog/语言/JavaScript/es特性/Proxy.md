@@ -1,7 +1,7 @@
 ---
 title: JS Proxy
 date: 2020-07-20 16:29:13
-tags: ["JS", "前端", "语言"]
+tags: ['JS', '前端', '语言']
 ---
 
 # Proxy
@@ -10,15 +10,15 @@ tags: ["JS", "前端", "语言"]
 
 ```js
 var obj = {
-    a: 1
-}
-  , handles = {
-    get(target, key, context) {
-        console.log("accessing:", key);
-        return target[key];
+        a: 1
     },
-}
-  , {proxy: pobj, revoke: prevoke} = Proxy.revocable(obj, handles)
+    handles = {
+        get(target, key, context) {
+            console.log('accessing:', key);
+            return target[key];
+        }
+    },
+    { proxy: pobj, revoke: prevoke } = Proxy.revocable(obj, handles);
 
 console.log(pobj.a);
 // accessing: a
@@ -26,7 +26,6 @@ console.log(pobj.a);
 
 prevoke();
 
-pobj.a
+pobj.a;
 // Uncaught TypeError: Cannot perform 'get' on a proxy that has been revoked
-
-``````
+```

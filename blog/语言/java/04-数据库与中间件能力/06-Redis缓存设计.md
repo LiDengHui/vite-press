@@ -185,7 +185,7 @@
 
 ### 8.1 模拟缓存穿透
 
-```redis
+```bash
 GET user:999999
 ```
 
@@ -198,7 +198,7 @@ GET user:999999
 
 热点 key：
 
-```redis
+```bash
 GET product:1001
 ```
 
@@ -211,7 +211,7 @@ GET product:1001
 
 如果你批量设置缓存：
 
-```redis
+```bash
 SET item:1 v1 EX 600
 SET item:2 v2 EX 600
 SET item:3 v3 EX 600
@@ -265,4 +265,3 @@ SET item:3 v3 EX 600
 - 热点数据会把单 key 问题放大成系统问题
 - 缓存方案要同时考虑命中率、更新、一致性和故障兜底
 - 过期和淘汰是两个不同维度的策略
-

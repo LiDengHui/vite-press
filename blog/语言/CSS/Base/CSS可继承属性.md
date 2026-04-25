@@ -5,6 +5,7 @@
 ---
 
 ### 📜 文本与字体相关
+
 1. **`color`**：文本颜色
 2. **`font`** 及其子属性：
     - `font-family`：字体系列
@@ -24,6 +25,7 @@
 ---
 
 ### 📝 列表相关
+
 11. **`list-style`** 及其子属性：
     - `list-style-type`：列表标记类型（如 `disc`, `decimal`）
     - `list-style-position`：标记位置（`inside`/`outside`）
@@ -32,6 +34,7 @@
 ---
 
 ### 🖋️ 其他属性
+
 12. **`visibility`**：元素可见性（如 `hidden`）
 13. **`cursor`**：鼠标指针样式（如 `pointer`）
 14. **`quotes`**：引号样式（如 `« " »`）
@@ -39,33 +42,38 @@
 ---
 
 ### ⚠️ 重要注意事项
+
 - **不可继承的常见属性**：  
   `width`/`height`、`margin`/`padding`/`border`、`background`、`position`、`display`、`float`、`overflow`、`z-index` 等布局和盒模型属性**不会继承**。
 
 - **强制继承**：  
   通过 `inherit` 关键字可强制继承父元素的值（即使本身不可继承）：
-  ```css
-  div {
-    background: inherit; /* 强制继承背景 */
-  }
-  ```
+
+    ```css
+    div {
+        background: inherit; /* 强制继承背景 */
+    }
+    ```
 
 - **表单元素例外**：  
   部分表单控件（如 `<input>`、`<textarea>`）默认不继承文本属性，需手动设置：
-  ```css
-  input, button, textarea {
-    font-family: inherit; /* 手动启用继承 */
-    color: inherit;
-  }
-  ```
+    ```css
+    input,
+    button,
+    textarea {
+        font-family: inherit; /* 手动启用继承 */
+        color: inherit;
+    }
+    ```
 
 ---
 
 ### 🌰 继承示例
+
 ```html
 <div style="color: blue; font-size: 20px;">
-  父元素文本
-  <p>子元素自动继承蓝色和20px字体</p>
+    父元素文本
+    <p>子元素自动继承蓝色和20px字体</p>
 </div>
 ```
 

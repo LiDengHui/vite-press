@@ -13,3 +13,6 @@ formula.md
 English
 cache
 test.html
+.vitepress/pages.data.json
+.claude/
+blog/.obsidian/

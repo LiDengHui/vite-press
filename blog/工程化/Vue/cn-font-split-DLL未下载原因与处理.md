@@ -78,12 +78,12 @@ npx cn-font-split i default
 
 ### `allowBuilds` / `onlyBuiltDependencies` 区别（pnpm 10+）
 
-| 名称 | 含义 | 说明 |
-|------|------|------|
-| **onlyBuiltDependencies** | 配置项（白名单） | 写在 `pnpm-workspace.yaml` 或 `.npmrc` 里。**只有**列在此处的包才会在安装时执行生命周期脚本（如 postinstall）；未列出的依赖默认不执行。适合只允许少数信任的包跑脚本。 |
-| **allowBuilds** | 操作/概念 | 不是单独一个配置键，而是「允许某包执行构建脚本」这一行为。通过 `pnpm approve-builds` 或 `pnpm add --allow-build <pkg>` 会把包**写入** `onlyBuiltDependencies`。文档里说的 “use allowBuilds” 即指：用白名单方式允许构建，而白名单就是 onlyBuiltDependencies。 |
-| **dangerouslyAllowAllBuilds** | 配置项（全局放开） | 设为 `true` 时，**所有**依赖都会执行 postinstall 等脚本。安全风险大，不推荐。 |
-| **ignoredBuiltDependencies** | 配置项（黑名单） | 显式禁止执行构建脚本的包列表；与 onlyBuiltDependencies 二选一使用。 |
+| 名称                          | 含义               | 说明                                                                                                                                                                                                                                                         |
+| ----------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **onlyBuiltDependencies**     | 配置项（白名单）   | 写在 `pnpm-workspace.yaml` 或 `.npmrc` 里。**只有**列在此处的包才会在安装时执行生命周期脚本（如 postinstall）；未列出的依赖默认不执行。适合只允许少数信任的包跑脚本。                                                                                        |
+| **allowBuilds**               | 操作/概念          | 不是单独一个配置键，而是「允许某包执行构建脚本」这一行为。通过 `pnpm approve-builds` 或 `pnpm add --allow-build <pkg>` 会把包**写入** `onlyBuiltDependencies`。文档里说的 “use allowBuilds” 即指：用白名单方式允许构建，而白名单就是 onlyBuiltDependencies。 |
+| **dangerouslyAllowAllBuilds** | 配置项（全局放开） | 设为 `true` 时，**所有**依赖都会执行 postinstall 等脚本。安全风险大，不推荐。                                                                                                                                                                                |
+| **ignoredBuiltDependencies**  | 配置项（黑名单）   | 显式禁止执行构建脚本的包列表；与 onlyBuiltDependencies 二选一使用。                                                                                                                                                                                          |
 
 总结：要允许 `cn-font-split` 跑 postinstall，应配置 **onlyBuiltDependencies**（或通过 approve-builds 间接写入）；不要用 dangerouslyAllowAllBuilds。
 
@@ -115,9 +115,9 @@ onlyBuiltDependencies[]=@swc/core
 
 ```json
 {
-  "pnpm": {
-    "onlyBuiltDependencies": ["cn-font-split", "esbuild", "@swc/core"]
-  }
+    "pnpm": {
+        "onlyBuiltDependencies": ["cn-font-split", "esbuild", "@swc/core"]
+    }
 }
 ```
 
@@ -137,11 +137,11 @@ onlyBuiltDependencies[]=@swc/core
 
 ## 小结
 
-| 原因 | 说明 |
-|------|------|
-| postinstall 用 `\|\| node -v` | 下载失败时脚本仍返回 0，安装“成功”但 DLL 未下载 |
-| pnpm 10+ 默认不跑依赖脚本 | 未配置 allowBuilds/onlyBuiltDependencies 时，cn-font-split 的 postinstall 不会执行 |
-| 从 store 恢复不重复跑脚本 | 缓存包可能不再执行 postinstall，DLL 一直缺失 |
-| 网络 / PowerShell | GitHub 或 ungh.cc 不可达，或 init.ps1 执行异常，同样会静默失败 |
+| 原因                          | 说明                                                                               |
+| ----------------------------- | ---------------------------------------------------------------------------------- |
+| postinstall 用 `\|\| node -v` | 下载失败时脚本仍返回 0，安装“成功”但 DLL 未下载                                    |
+| pnpm 10+ 默认不跑依赖脚本     | 未配置 allowBuilds/onlyBuiltDependencies 时，cn-font-split 的 postinstall 不会执行 |
+| 从 store 恢复不重复跑脚本     | 缓存包可能不再执行 postinstall，DLL 一直缺失                                       |
+| 网络 / PowerShell             | GitHub 或 ungh.cc 不可达，或 init.ps1 执行异常，同样会静默失败                     |
 
 **建议**：先执行一次 `npx cn-font-split i default` 确认能下载到 DLL；若需要长期自动下载，再在 `.npmrc` 中配置 `onlyBuiltDependencies=cn-font-split` 并视情况配合 `pnpm rebuild`。

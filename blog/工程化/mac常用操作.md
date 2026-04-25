@@ -1,11 +1,11 @@
 ---
 title: mac常用操作
 tags:
-  - mac
+    - mac
 categories:
-  - 技术文档
-  - 前端
-  - mac
+    - 技术文档
+    - 前端
+    - mac
 date: 2020-09-17 23:23:21
 ---
 

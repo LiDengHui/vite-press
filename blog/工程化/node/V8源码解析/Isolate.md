@@ -18,7 +18,7 @@ Isolate 也是一样, Isolate1和Isolate2哥两拥有各自堆栈的虚拟机实
 
 ## V8的官方定义
 
-Isolate 标示 V8 引擎的Isolate实例, v8 Isolate具有完全独立的状态,一个Isolate 中的对象不得在其他Isolate中使用, 初始化时v8隐式创建一个默认的Isolate. 
+Isolate 标示 V8 引擎的Isolate实例, v8 Isolate具有完全独立的状态,一个Isolate 中的对象不得在其他Isolate中使用, 初始化时v8隐式创建一个默认的Isolate.
 embedder可以创建其他Isolate, 并在多个线程中并行使用他们. 在任何给定实践, Isolate 最多只能接受一个线程的输入.必须使用Locker/UnLocker API进行同步处理
 
 ## 对比Context进行理解

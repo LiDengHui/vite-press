@@ -1,11 +1,11 @@
 # 手动实现Call、Apply、bind
 
-
 在 JavaScript 中，`call`、`apply` 和 `bind` 都是用于改变函数执行时 `this` 指向的方法。下面我将手写实现这三个方法的核心逻辑：
 
 ### 1. 实现 `call` 方法
+
 ```javascript
-Function.prototype.myCall = function(context, ...args) {
+Function.prototype.myCall = function (context, ...args) {
     // 如果 context 为 null 或 undefined，默认指向全局对象（浏览器中为 window）
     context = context || window;
     // 给 context 添加一个唯一属性，值为当前函数（this 指向调用 myCall 的函数）
@@ -20,8 +20,8 @@ Function.prototype.myCall = function(context, ...args) {
 ```
 
 ### 2. 实现 `apply` 方法
-```javascript
 
+```javascript
 Function.prototype.myCall = function (ctx, ...args) {
     ctx = ctx === null || ctx === undefined ? globalThis : Object(ctx);
 
@@ -46,8 +46,9 @@ method.myCall(null, 1, 2);
 ```
 
 ### 3. 实现 `bind` 方法
+
 ```javascript
-Function.prototype.myBind = function(context, ...bindArgs) {
+Function.prototype.myBind = function (context, ...bindArgs) {
     const originalFunc = this;
     // 返回绑定函数
     return function boundFn(...callArgs) {
@@ -64,6 +65,7 @@ Function.prototype.myBind = function(context, ...bindArgs) {
 ```
 
 ### 关键点解析：
+
 1. **`call` 和 `apply`**：
     - 核心逻辑：**将函数临时添加到目标对象上执行**
     - 区别：`call` 接受参数列表，`apply` 接受参数数组
@@ -76,28 +78,30 @@ Function.prototype.myBind = function(context, ...bindArgs) {
     - 合并预绑定参数 `bindArgs` 和调用时参数 `callArgs`
 
 ### 使用示例：
+
 ```javascript
 // 测试 myCall
 function greet(greeting) {
     console.log(`${greeting}, ${this.name}!`);
 }
-const person = { name: "John" };
-greet.myCall(person, "Hello"); // 输出: "Hello, John!"
+const person = { name: 'John' };
+greet.myCall(person, 'Hello'); // 输出: "Hello, John!"
 
 // 测试 myBind
-const boundGreet = greet.myBind(person, "Hi");
+const boundGreet = greet.myBind(person, 'Hi');
 boundGreet(); // 输出: "Hi, John!"
 
 // 测试 new 调用
 function Person(name) {
     this.name = name;
 }
-const BoundPerson = Person.myBind(null, "Alice");
+const BoundPerson = Person.myBind(null, 'Alice');
 const p = new BoundPerson();
 console.log(p.name); // 输出: "Alice"（证明 new 调用生效）
 ```
 
 ### 注意事项：
+
 1. 严格模式下 `context` 为 `null` 时 `this` 指向 `null`
 2. `bind` 返回的函数作为构造函数时，原型链需保持正确（上述实现已处理）
 3. 使用 `Symbol()` 避免属性污染目标对象

@@ -1,27 +1,19 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "ES2024"
-    ],
-    "declaration": true,
-    "declarationMap": true,
-    "esModuleInterop": true,
-    "module": "ES2024",
-    "moduleResolution": "ES2024",
-    "noEmit": false,
-    "outDir": "dist",
-    "rootDir": "src",
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "target": "ES2024",
-    "useDefineForClassFields": true,
-    /* Bundler mode */
-    "resolveJsonModule": true,
-    "isolatedModules": true
-    /* Linting */
-  },
-  "include": [
-    "src/*"
-  ]
+    "compilerOptions": {
+        "target": "ES2024",
+        "lib": ["ES2024", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "preserve",
+        "useDefineForClassFields": true,
+        "types": ["vitepress/client", "node"]
+    },
+    "include": [".vitepress/**/*.ts", ".vitepress/**/*.vue"]
 }

@@ -4,7 +4,6 @@
 
 // next => Promise
 
-
 // 异步代码
 
 // 1. 嵌套回掉
@@ -13,18 +12,16 @@
 
 ```js
 async function fn() {
-  await Promise.resolve();
-  console.log(1);
+    await Promise.resolve();
+    console.log(1);
 }
-
 
 async function add(num) {
-  const a = 1;
-  return num +a;
+    const a = 1;
+    return num + a;
 }
 
-console.log(add(2))
-
+console.log(add(2));
 ```
 
 ## promsie 错误处理
@@ -33,11 +30,9 @@ console.log(add(2))
 
 ## Object.values() vs Object.keys() // 继承来的没有办法
 
-## Object.entries() vs for...in 
-
+## Object.entries() vs for...in
 
 # String Padding
-
 
 1. String.prototype.padStart(targetLength, [padString])
 2. String.prototype.padEnd()
@@ -65,5 +60,3 @@ Atomics.add(intArrBuffer, index,value)
 sub()
 and,or,xor
 compareExchange(intArrBuffer,12,13,33)
-
-

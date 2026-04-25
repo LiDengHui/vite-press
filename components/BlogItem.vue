@@ -24,10 +24,10 @@ defineProps({
                 img: '',
                 description: '',
                 link: '',
-                tags: [],
+                tags: []
             };
-        },
-    },
+        }
+    }
 });
 </script>
 <style scoped>

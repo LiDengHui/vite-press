@@ -22,23 +22,23 @@
 ```ts
 // 这是一个装饰器工厂——有助于将用户参数传给装饰器声明
 function f() {
-  console.log("f(): evaluated");
-  return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
-    console.log("f(): called");
-  }
+    console.log('f(): evaluated');
+    return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
+        console.log('f(): called');
+    };
 }
 
 function g() {
-  console.log("g(): evaluated");
-  return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
-    console.log("g(): called");
-  }
+    console.log('g(): evaluated');
+    return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
+        console.log('g(): called');
+    };
 }
 
 class C {
-  @f()
-  @g()
-  method() {}
+    @f()
+    @g()
+    method() {}
 }
 
 // f(): evaluated
@@ -67,7 +67,11 @@ interface TypedPropertyDescriptor<T> {
 
 declare type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
 declare type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
-declare type MethodDecorator = <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
+declare type MethodDecorator = <T>(
+    target: Object,
+    propertyKey: string | symbol,
+    descriptor: TypedPropertyDescriptor<T>
+) => TypedPropertyDescriptor<T> | void;
 declare type ParameterDecorator = (target: Object, propertyKey: string | symbol, parameterIndex: number) => void;
 ```
 
@@ -79,34 +83,36 @@ declare type ParameterDecorator = (target: Object, propertyKey: string | symbol,
 2. propertyKey: 方法的名称
 3. descriptor: 方法的属性描述符,即Object.getOwnPropertyDescriptor(Employ.prototype, propertyKey)
 
-
 ```ts
 export function logMethod(
-  target: Object,
-  propertyName: string,
-  propertyDescriptor: PropertyDescriptor): PropertyDescriptor {
-  // target === Employee.prototype
-  // propertyName === "greet"
-  // propertyDesciptor === Object.getOwnPropertyDescriptor(Employee.prototype, "greet")
-  const method = propertyDesciptor.value;
+    target: Object,
+    propertyName: string,
+    propertyDescriptor: PropertyDescriptor
+): PropertyDescriptor {
+    // target === Employee.prototype
+    // propertyName === "greet"
+    // propertyDesciptor === Object.getOwnPropertyDescriptor(Employee.prototype, "greet")
+    const method = propertyDesciptor.value;
 
-  propertyDesciptor.value = function (...args: any[]) {
-    // 将 greet 的参数列表转换为字符串
-    const params = args.map(a => JSON.stringify(a)).join();
-    // 调用 greet() 并获取其返回值
-    const result = method.apply(this, args);
-    // 转换结尾为字符串
-    const r = JSON.stringify(result);
-    // 在终端显示函数调用细节
-    console.log(`Call: ${propertyName}(${params}) => ${r}`);
-    // 返回调用函数的结果
-    return result;
-  }
-  return propertyDesciptor;
-};
+    propertyDesciptor.value = function (...args: any[]) {
+        // 将 greet 的参数列表转换为字符串
+        const params = args.map((a) => JSON.stringify(a)).join();
+        // 调用 greet() 并获取其返回值
+        const result = method.apply(this, args);
+        // 转换结尾为字符串
+        const r = JSON.stringify(result);
+        // 在终端显示函数调用细节
+        console.log(`Call: ${propertyName}(${params}) => ${r}`);
+        // 返回调用函数的结果
+        return result;
+    };
+    return propertyDesciptor;
+}
 
 class Employee {
-    constructor(private firstName: string, private lastName: string
+    constructor(
+        private firstName: string,
+        private lastName: string
     ) {}
 
     @logMethod
@@ -118,6 +124,7 @@ class Employee {
 const emp = new Employee('Mohan Ram', 'Ratnakumar');
 emp.greet('hello');
 ```
+
 javascript 编译后是什么样
 
 ```js
@@ -134,21 +141,13 @@ var __decorate =
          * 反之则使用同一描述符。
          */
 
-        var r =
-            c < 3
-                ? target
-                : desc === null
-                ? (desc = Object.getOwnPropertyDescriptor(target, key))
-                : desc;
+        var r = c < 3 ? target : desc === null ? (desc = Object.getOwnPropertyDescriptor(target, key)) : desc;
 
         // 声明存储装饰器的变量
         var d;
 
         // 如果原生反射可用，使用原生反射触发装饰器
-        if (
-            typeof Reflect === "object" &&
-            typeof Reflect.decorate === "function"
-        ) {
+        if (typeof Reflect === 'object' && typeof Reflect.decorate === 'function') {
             r = Reflect.decorate(decorators, target, key, desc);
         } else {
             // 自右向左迭代装饰器
@@ -164,12 +163,7 @@ var __decorate =
                      * 如果传入了 3 个参数，那么应该是属性装饰器，可进行相应的调用。
                      * 如果以上条件皆不满足，返回处理的结果。
                      */
-                    r =
-                        (c < 3
-                            ? d(r)
-                            : c > 3
-                            ? d(target, key, r)
-                            : d(target, key)) || r;
+                    r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
                 }
             }
         }
@@ -178,7 +172,7 @@ var __decorate =
          * 由于只有方法装饰器需要根据应用装饰器的结果修正其属性，
          * 所以最后返回处理好的 r
          */
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        return (c > 3 && r && Object.defineProperty(target, key, r), r);
     };
 
 var Employee = /** @class */ (function () {
@@ -187,23 +181,22 @@ var Employee = /** @class */ (function () {
         this.lastName = lastName;
     }
     Employee.prototype.greet = function (message) {
-        return this.firstName + " " + this.lastName + " says: " + message;
+        return this.firstName + ' ' + this.lastName + ' says: ' + message;
     };
 
     // typescript 调用 `__decorate` 辅助函数，
     // 以便在对象原型上应用装饰器
-    __decorate([logMethod], Employee.prototype, "greet");
+    __decorate([logMethod], Employee.prototype, 'greet');
     return Employee;
 })();
-var emp = new Employee("Mohan Ram", "Ratnakumar");
-emp.greet("hello");
-
+var emp = new Employee('Mohan Ram', 'Ratnakumar');
+emp.greet('hello');
 ```
 
 让我们开始分析`Employee`函数---构造器初始化`name`和`greet`方法,将其传入原型.
 
 ```js
- __decorate([logMethod], Employee.prototype, "greet");
+__decorate([logMethod], Employee.prototype, 'greet');
 ```
 
 这是 TypeScript 自动生成的通用方法，它根据装饰器类型和相应参数处理装饰器函数调用。
@@ -213,7 +206,6 @@ emp.greet("hello");
 在这个例子中，我们仅仅打印了函数调用及其参数、响应。
 
 注意，阅读 `__decorate` 方法中的详细注释可以理解其内部机制。
-
 
 ## 属性装饰器
 
@@ -234,7 +226,7 @@ function logParameter(target: Object, propertyName: string) {
     };
 
     // 属性写入访问器
-    const setter = newVal => {
+    const setter = (newVal) => {
         console.log(`Set: ${propertyName} => ${newVal}`);
         _val = newVal;
     };
@@ -263,17 +255,15 @@ console.log(emp.name);
 // Get: name => Mohan Ram
 // Mohan Ram
 ```
+
 上面的代码中, 我们在装饰器中内省属性的可访问性, 下面是编译后的代码
 
 ```js
 var Employee = /** @class */ (function () {
-    function Employee() {
-    }
-    __decorate([
-        logParameter
-    ], Employee.prototype, "name");
+    function Employee() {}
+    __decorate([logParameter], Employee.prototype, 'name');
     return Employee;
-}());
+})();
 var emp = new Employee();
 emp.name = 'Mohan Ram'; // Set: name => Mohan Ram
 console.log(emp.name); // Get: name => Mohan Ram
@@ -281,13 +271,11 @@ console.log(emp.name); // Get: name => Mohan Ram
 
 ## 参数装饰器
 
-参数装饰器函数有三个参数: 
+参数装饰器函数有三个参数:
 
 1. target: 当前对象的原型,也就是说,假设Employee是对象, 那么 target就是Employee.prototype
 2. propertyKey: 参数名称
 3. index: 参数数组中的位置
-
-
 
 ```ts
 function logParameter(target: Object, propertyName: string, index: number) {
@@ -295,8 +283,7 @@ function logParameter(target: Object, propertyName: string, index: number) {
     const metadataKey = `log_${propertyName}_parameters`;
     if (Array.isArray(target[metadataKey])) {
         target[metadataKey].push(index);
-    }
-    else {
+    } else {
         target[metadataKey] = [index];
     }
 }
@@ -314,26 +301,28 @@ emp.greet('hello');
 
 ```js
 // 返回接受参数索引和装饰器的函数
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-  // 该函数返回装饰器
-  return function (target, key) { decorator(target, key, paramIndex); }
-};
+var __param =
+    (this && this.__param) ||
+    function (paramIndex, decorator) {
+        // 该函数返回装饰器
+        return function (target, key) {
+            decorator(target, key, paramIndex);
+        };
+    };
 
 var Employee = /** @class */ (function () {
     function Employee() {}
     Employee.prototype.greet = function (message) {
-        return "hello " + message;
+        return 'hello ' + message;
     };
-    __decorate([
-        __param(0, logParameter)
-    ], Employee.prototype, "greet");
+    __decorate([__param(0, logParameter)], Employee.prototype, 'greet');
     return Employee;
-}());
+})();
 var emp = new Employee();
 emp.greet('hello');
 ```
 
-类似之前见过的__decorate函数,__param 函数返回一个封装参数装饰器的装饰器
+类似之前见过的**decorate函数,**param 函数返回一个封装参数装饰器的装饰器
 
 如我们所见,调用参数装饰器时, 会忽略其返回值.这就意味着,调用`__param`函数时, 其返回值不会用来覆盖参数值
 
@@ -400,17 +389,20 @@ function enumerable(value) {
 }
 
 var Employee = /** @class */ (function () {
-    function Employee() {
-    }
-    Object.defineProperty(Employee.prototype, "salary", {
-        get: function () { return "Rs. " + this._salary; },
-        set: function (salary) { this._salary = +salary; },
+    function Employee() {}
+    Object.defineProperty(Employee.prototype, 'salary', {
+        get: function () {
+            return 'Rs. ' + this._salary;
+        },
+        set: function (salary) {
+            this._salary = +salary;
+        },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Employee.prototype, "name", {
+    Object.defineProperty(Employee.prototype, 'name', {
         get: function () {
-            return "Sir/Madam, " + this._name;
+            return 'Sir/Madam, ' + this._name;
         },
         set: function (name) {
             this._name = name;
@@ -418,18 +410,14 @@ var Employee = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    __decorate([
-        enumerable(false)
-    ], Employee.prototype, "salary", null);
-    __decorate([
-        enumerable(true)
-    ], Employee.prototype, "name", null);
+    __decorate([enumerable(false)], Employee.prototype, 'salary', null);
+    __decorate([enumerable(true)], Employee.prototype, 'name', null);
     return Employee;
-}());
+})();
 var emp = new Employee();
 emp.salary = 1000;
 for (var prop in emp) {
-    console.log("enumerable property = " + prop);
+    console.log('enumerable property = ' + prop);
 }
 ```
 
@@ -446,7 +434,7 @@ export function logClass(target: Function) {
     function construct(constructor, args) {
         const c: any = function () {
             return constructor.apply(this, args);
-        }
+        };
         c.prototype = constructor.prototype;
         return new c();
     }
@@ -455,7 +443,7 @@ export function logClass(target: Function) {
     const f: any = function (...args) {
         console.log(`New: ${original['name']} is created`);
         return construct(original, args);
-    }
+    };
 
     // 复制 prototype 属性，保持 intanceof 操作符可用
     f.prototype = original.prototype;
@@ -471,6 +459,7 @@ let emp = new Employee();
 console.log('emp instanceof Employee');
 console.log(emp instanceof Employee); // true
 ```
+
 上面的装饰器声明了一个名为original的变量,将其值设为装饰的类构造器.
 
 接着声明了一个名为construct的辅助函数,该函数用于创建类的实例.
@@ -488,13 +477,10 @@ console.log(emp instanceof Employee); // true
 
 ```js
 var Employee = /** @class */ (function () {
-    function Employee() {
-    }
-    Employee = __decorate([
-        logClass
-    ], Employee);
+    function Employee() {}
+    Employee = __decorate([logClass], Employee);
     return Employee;
-}());
+})();
 var emp = new Employee();
 console.log('emp instanceof Employee');
 console.log(emp instanceof Employee);
@@ -502,8 +488,8 @@ console.log(emp instanceof Employee);
 
 在编译后的代码中,我们注意到两处不同:
 
-1. 传给__decorate的参数有两个, 装饰器数组和构造器函数
-2. TypeScript编译器使用__decorate的返回值以覆盖原构造器
+1. 传给\_\_decorate的参数有两个, 装饰器数组和构造器函数
+2. TypeScript编译器使用\_\_decorate的返回值以覆盖原构造器
 
 这正是类装饰器必须返回一个构造函数的原因所在
 
@@ -526,7 +512,7 @@ export function log(...args) {
                 return logParameter.apply(this, args);
             }
             return logMethod.apply(this, args);
-        case 2: // 属性装饰器 
+        case 2: // 属性装饰器
             return logProperty.apply(this, args);
         case 1: // 类装饰器
             return logClass.apply(this, args);
@@ -560,7 +546,7 @@ class Employee {
 反射在组合/依赖注入、运行时类型断言、测试等使用场景下很有用.
 
 ```ts
-import "reflect-metadata";
+import 'reflect-metadata';
 
 // 参数装饰器使用反射 api 存储被装饰参数的索引
 export function logParameter(target: Object, propertyName: string, index: number) {
@@ -574,15 +560,14 @@ export function logParameter(target: Object, propertyName: string, index: number
 // 属性装饰器使用反射 api 获取属性的运行时类型
 export function logProperty(target: Object, propertyName: string): void {
     // 获取对象属性的设计类型
-    var t = Reflect.getMetadata("design:type", target, propertyName);
+    var t = Reflect.getMetadata('design:type', target, propertyName);
     console.log(`${propertyName} type: ${t.name}`); // name type: String
 }
-
 
 class Employee {
     @logProperty
     private name: string;
-    
+
     constructor(name: string) {
         this.name = name;
     }
@@ -599,7 +584,7 @@ class Employee {
 2. 参数类型元信息: `design:paramtypes`
 3. 返回类型元信息: `design:returntype`,
 
-有了反射.我们就能够在运行时得到一下信息: 
+有了反射.我们就能够在运行时得到一下信息:
 
 1. 实体名
 2. 实体类型

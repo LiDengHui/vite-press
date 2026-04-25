@@ -18,28 +18,29 @@
 
 ```json
 {
-  "terminal.integrated.env.windows": {
-    "HTTP_PROXY": "http://127.0.0.1:7890",
-    "HTTPS_PROXY": "http://127.0.0.1:7890",
-    "ALL_PROXY": "http://127.0.0.1:7890",
-    "NO_PROXY": "localhost,127.0.0.1,::1"
-  },
-  "terminal.integrated.env.linux": {
-    "HTTP_PROXY": "http://127.0.0.1:7890",
-    "HTTPS_PROXY": "http://127.0.0.1:7890",
-    "ALL_PROXY": "http://127.0.0.1:7890",
-    "NO_PROXY": "localhost,127.0.0.1,::1"
-  },
-  "terminal.integrated.env.osx": {
-    "HTTP_PROXY": "http://127.0.0.1:7890",
-    "HTTPS_PROXY": "http://127.0.0.1:7890",
-    "ALL_PROXY": "http://127.0.0.1:7890",
-    "NO_PROXY": "localhost,127.0.0.1,::1"
-  }
+    "terminal.integrated.env.windows": {
+        "HTTP_PROXY": "http://127.0.0.1:7890",
+        "HTTPS_PROXY": "http://127.0.0.1:7890",
+        "ALL_PROXY": "http://127.0.0.1:7890",
+        "NO_PROXY": "localhost,127.0.0.1,::1"
+    },
+    "terminal.integrated.env.linux": {
+        "HTTP_PROXY": "http://127.0.0.1:7890",
+        "HTTPS_PROXY": "http://127.0.0.1:7890",
+        "ALL_PROXY": "http://127.0.0.1:7890",
+        "NO_PROXY": "localhost,127.0.0.1,::1"
+    },
+    "terminal.integrated.env.osx": {
+        "HTTP_PROXY": "http://127.0.0.1:7890",
+        "HTTPS_PROXY": "http://127.0.0.1:7890",
+        "ALL_PROXY": "http://127.0.0.1:7890",
+        "NO_PROXY": "localhost,127.0.0.1,::1"
+    }
 }
 ```
 
 **说明：**
+
 - `HTTP_PROXY` 和 `HTTPS_PROXY`：设置 HTTP 和 HTTPS 代理服务器地址。
 - `ALL_PROXY`：设置所有协议的代理（备用）。
 - `NO_PROXY`：指定不走代理的地址，如本地服务。

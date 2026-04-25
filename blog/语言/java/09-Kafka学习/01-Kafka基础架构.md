@@ -222,4 +222,3 @@ key=order-1,value=paid,...offset=1
 - 分区提供并行能力
 - Consumer Group 提供消费扩展和负载均衡
 - Offset 是分区维度的消费进度位置
-

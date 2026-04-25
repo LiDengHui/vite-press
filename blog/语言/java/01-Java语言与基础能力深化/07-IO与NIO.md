@@ -425,4 +425,3 @@ bufferLimitAfterClear=32
 - `Buffer` 的 `position`、`limit`、`capacity` 和 `flip()` / `clear()` 是理解 NIO 的关键
 - `Selector` 的价值在于一个线程管理多个 Channel 事件
 - 传统 I/O 和 NIO 没有绝对高低，关键看场景
-

@@ -1,8 +1,7 @@
 # beforeupload和upload
 
-
 ## `beforeunload`和 `unload` 的触发时间
-    
+
     // beforeunload在新资源开始跳转或老资源刷新之前之前，可以取消加载
     window.addEventListener('beforeunload', function (e) {
       //返回值之后，会弹出是否关闭当前页面的提示框
@@ -81,7 +80,7 @@
         switch (pathname) {
             case '/':
                 var pdpss = params.adunitid.split(',');
-                
+
                 if ('string' === typeof pdpss) {
                     pdpss = [pdpss];
                 }

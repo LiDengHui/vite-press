@@ -13,8 +13,8 @@ export default {
     props: {
         title: String,
         description: String,
-        link: String,
-    },
+        link: String
+    }
 };
 </script>
 

@@ -1,4 +1,3 @@
-
 <template>
     <div class="container">
         <div class="left">固定宽度 (200px)</div>

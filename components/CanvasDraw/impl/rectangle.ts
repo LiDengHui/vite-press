@@ -1,4 +1,4 @@
-import {Shape} from "../interfaces/shape";
+import { Shape } from '../interfaces/shape';
 export class Rectangle implements Shape {
     public endX: number;
     public endY: number;

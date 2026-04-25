@@ -26,10 +26,10 @@
 
 可以先把本章工具分成两类：
 
-| 类型 | 代表工具 | 解决的问题 |
-| --- | --- | --- |
-| 显式锁 | `ReentrantLock`、`ReadWriteLock`、`StampedLock` | 共享资源访问控制 |
-| 同步器 | `CountDownLatch`、`CyclicBarrier`、`Semaphore` | 多线程之间的协作与节奏控制 |
+| 类型   | 代表工具                                        | 解决的问题                 |
+| ------ | ----------------------------------------------- | -------------------------- |
+| 显式锁 | `ReentrantLock`、`ReadWriteLock`、`StampedLock` | 共享资源访问控制           |
+| 同步器 | `CountDownLatch`、`CyclicBarrier`、`Semaphore`  | 多线程之间的协作与节奏控制 |
 
 这个分类很重要，因为它能帮你少走很多弯路：
 
@@ -367,4 +367,3 @@ semaphoreMaxInFlight=2
 - `CountDownLatch` 用来等待一批任务结束
 - `CyclicBarrier` 用来等待一组线程到齐后再一起推进
 - `Semaphore` 用来限制并发访问数量
-

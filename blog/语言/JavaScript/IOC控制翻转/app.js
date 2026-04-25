@@ -8,7 +8,7 @@ class Order {
 }
 
 // 订单类 controllers/OrderController.js
-const Order = require("./Order.js");
+const Order = require('./Order.js');
 
 class OrderController {
     constructor(order) {
@@ -36,7 +36,7 @@ class IOC {
     use(key) {
         const item = this.controller.get(key);
         if (!item) {
-            throw new Error("error");
+            throw new Error('error');
         }
 
         if (item.single && !item.instance) {
@@ -47,12 +47,12 @@ class IOC {
     }
 }
 // router/index.js
-const Order = require("../model/Order.js");
-const OrderController = require("./OrderController.js");
+const Order = require('../model/Order.js');
+const OrderController = require('./OrderController.js');
 
-ioc.bind("order", (...args) => new Order(...args));
-ioc.bind("orderController", (...args) => new OrderController(ioc.use("order")));
+ioc.bind('order', (...args) => new Order(...args));
+ioc.bind('orderController', (...args) => new OrderController(ioc.use('order')));
 
 // router.js
-const ioc = require("../ioc.js");
-const orderController = ioc.use("orderController");
+const ioc = require('../ioc.js');
+const orderController = ioc.use('orderController');

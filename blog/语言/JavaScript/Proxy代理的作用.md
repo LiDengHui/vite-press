@@ -27,24 +27,24 @@ const proxy = new Proxy(target, handler);
 
 ## 1. 基本操作拦截器
 
-| 拦截器 | 触发时机 | 示例 |
-|--------|----------|------|
-| `get` | 读取属性值 | `proxy.property` |
-| `set` | 设置属性值 | `proxy.property = value` |
-| `has` | `in` 操作符 | `'property' in proxy` |
-| `deleteProperty` | `delete` 操作符 | `delete proxy.property` |
+| 拦截器           | 触发时机        | 示例                     |
+| ---------------- | --------------- | ------------------------ |
+| `get`            | 读取属性值      | `proxy.property`         |
+| `set`            | 设置属性值      | `proxy.property = value` |
+| `has`            | `in` 操作符     | `'property' in proxy`    |
+| `deleteProperty` | `delete` 操作符 | `delete proxy.property`  |
 
 ## 2. 函数调用相关
 
-| 拦截器         | 触发时机      | 示例                   |
-|-------------|-----------|----------------------|
-| `apply`     | 函数调用      | `proxy(...args)`     |
+| 拦截器      | 触发时机     | 示例                 |
+| ----------- | ------------ | -------------------- |
+| `apply`     | 函数调用     | `proxy(...args)`     |
 | `construct` | `new` 操作符 | `new proxy(...args)` |
 
 ## 3. 对象元信息相关
 
-| 拦截器                        | 触发时机                                | 示例                                             |
-|----------------------------|-------------------------------------|------------------------------------------------|
+| 拦截器                     | 触发时机                            | 示例                                           |
+| -------------------------- | ----------------------------------- | ---------------------------------------------- |
 | `getPrototypeOf`           | `Object.getPrototypeOf()`           | `Object.getPrototypeOf(proxy)`                 |
 | `setPrototypeOf`           | `Object.setPrototypeOf()`           | `Object.setPrototypeOf(proxy, proto)`          |
 | `isExtensible`             | `Object.isExtensible()`             | `Object.isExtensible(proxy)`                   |
@@ -54,8 +54,8 @@ const proxy = new Proxy(target, handler);
 
 ## 4. 枚举相关
 
-| 拦截器       | 触发时机                                              | 示例                   |
-|-----------|---------------------------------------------------|----------------------|
+| 拦截器    | 触发时机                                           | 示例                 |
+| --------- | -------------------------------------------------- | -------------------- |
 | `ownKeys` | `Object.keys()`, `Object.getOwnPropertyNames()` 等 | `Object.keys(proxy)` |
 
 ## 详细参数说明
@@ -69,17 +69,16 @@ const proxy = new Proxy(target, handler);
 
 ```javascript
 const handler = {
-  get(target, prop, receiver) {
-      // target: 被代理的目标对象
-      // property: 被访问的属性名
-      // receiver: 最初接收属性访问的对象（通常是Proxy实例或其派生对象）
-    if (prop === 'fullName') {
-      return `${target.firstName} ${target.lastName}`;
+    get(target, prop, receiver) {
+        // target: 被代理的目标对象
+        // property: 被访问的属性名
+        // receiver: 最初接收属性访问的对象（通常是Proxy实例或其派生对象）
+        if (prop === 'fullName') {
+            return `${target.firstName} ${target.lastName}`;
+        }
+        return Reflect.get(...arguments);
     }
-    return Reflect.get(...arguments);
-  }
 };
-
 ```
 
 ## set(target, property, value, receiver)
@@ -92,13 +91,13 @@ const handler = {
 
 ```javascript
 const handler = {
-  set(target, prop, value) {
-    if (prop === 'age' && typeof value !== 'number') {
-      throw new TypeError('Age must be a number');
+    set(target, prop, value) {
+        if (prop === 'age' && typeof value !== 'number') {
+            throw new TypeError('Age must be a number');
+        }
+        target[prop] = value;
+        return true; // 表示设置成功
     }
-    target[prop] = value;
-    return true; // 表示设置成功
-  }
 };
 ```
 
@@ -111,10 +110,10 @@ const handler = {
 
 ```javascript
 const handler = {
-  apply(target, thisArg, args) {
-    console.log(`Function called with args: ${args}`);
-    return target(...args) * 2;
-  }
+    apply(target, thisArg, args) {
+        console.log(`Function called with args: ${args}`);
+        return target(...args) * 2;
+    }
 };
 ```
 
@@ -127,10 +126,10 @@ const handler = {
 
 ```javascript
 const handler = {
-  construct(target, args, newTarget) {
-    console.log(`Constructed with args: ${args}`);
-    return new target(...args);
-  }
+    construct(target, args, newTarget) {
+        console.log(`Constructed with args: ${args}`);
+        return new target(...args);
+    }
 };
 ```
 
@@ -140,15 +139,15 @@ const handler = {
 
 ```javascript
 const validator = {
-  set(target, key, value) {
-    if (key === 'age') {
-      if (typeof value !== 'number' || value <= 0) {
-        throw new TypeError('Age must be a positive number');
-      }
+    set(target, key, value) {
+        if (key === 'age') {
+            if (typeof value !== 'number' || value <= 0) {
+                throw new TypeError('Age must be a positive number');
+            }
+        }
+        target[key] = value;
+        return true;
     }
-    target[key] = value;
-    return true;
-  }
 };
 
 const person = new Proxy({}, validator);
@@ -159,15 +158,19 @@ person.age = '25'; // 抛出错误
 ## 2. 自动填充默认值
 
 ```javascript
-const withDefaults = (defaults) => new Proxy({}, {
-  get(target, key) {
-    return target[key] || defaults[key];
-  }
-});
+const withDefaults = (defaults) =>
+    new Proxy(
+        {},
+        {
+            get(target, key) {
+                return target[key] || defaults[key];
+            }
+        }
+    );
 
 const config = withDefaults({
-  theme: 'light',
-  fontSize: 14
+    theme: 'light',
+    fontSize: 14
 });
 
 console.log(config.theme); // 'light'
@@ -176,15 +179,16 @@ console.log(config.theme); // 'light'
 ## 3. 负数组索引支持
 
 ```javascript
-const negativeArray = (arr) => new Proxy(arr, {
-  get(target, prop, receiver) {
-    const index = parseInt(prop);
-    if (index < 0) {
-      prop = target.length + index;
-    }
-    return Reflect.get(target, prop, receiver);
-  }
-});
+const negativeArray = (arr) =>
+    new Proxy(arr, {
+        get(target, prop, receiver) {
+            const index = parseInt(prop);
+            if (index < 0) {
+                prop = target.length + index;
+            }
+            return Reflect.get(target, prop, receiver);
+        }
+    });
 
 const arr = negativeArray([1, 2, 3]);
 console.log(arr[-1]); // 3
@@ -199,5 +203,3 @@ console.log(arr[-1]); // 3
 5. **严格相等**：`proxy === target` 返回 false
 
 Proxy 是 JavaScript 中非常强大的元编程工具，合理使用可以实现许多高级模式，但也应该谨慎使用，避免过度复杂化代码。
-
-

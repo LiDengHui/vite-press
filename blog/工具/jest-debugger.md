@@ -24,11 +24,7 @@ categories: ['工具']
             "name": "Debug Jest Tests",
             "type": "node",
             "request": "launch",
-            "runtimeArgs": [
-                "--inspect-brk",
-                "${workspaceRoot}/node_modules/.bin/jest",
-                "--runInBand"
-            ],
+            "runtimeArgs": ["--inspect-brk", "${workspaceRoot}/node_modules/.bin/jest", "--runInBand"],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
         }

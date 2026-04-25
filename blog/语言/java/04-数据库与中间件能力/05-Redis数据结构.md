@@ -32,15 +32,15 @@ Redis 用不好，缓存层会变成新的问题来源。
 
 例如：
 
-| 业务需求 | 更适合的结构 |
-| --- | --- |
-| 单值缓存、计数器 | `String` |
-| 对象字段缓存 | `Hash` |
-| 消息列表、队列 | `List` |
-| 去重集合 | `Set` |
-| 排行榜、带分值排序 | `ZSet` |
-| 位图统计 | `Bitmap` |
-| 海量基数估算 | `HyperLogLog` |
+| 业务需求           | 更适合的结构  |
+| ------------------ | ------------- |
+| 单值缓存、计数器   | `String`      |
+| 对象字段缓存       | `Hash`        |
+| 消息列表、队列     | `List`        |
+| 去重集合           | `Set`         |
+| 排行榜、带分值排序 | `ZSet`        |
+| 位图统计           | `Bitmap`      |
+| 海量基数估算       | `HyperLogLog` |
 
 ## 4. 核心内容
 
@@ -173,7 +173,7 @@ Redis 用不好，缓存层会变成新的问题来源。
 
 ### 7.1 String：缓存与计数
 
-```redis
+```bash
 SET user:1:name Alice
 GET user:1:name
 
@@ -189,7 +189,7 @@ GET counter:order
 
 ### 7.2 Hash：对象字段存储
 
-```redis
+```bash
 HSET user:1 name Alice age 18 status ACTIVE
 HGET user:1 name
 HGETALL user:1
@@ -203,7 +203,7 @@ HGET user:1 age
 
 ### 7.3 List：顺序列表
 
-```redis
+```bash
 DEL feed:1
 RPUSH feed:1 msg1 msg2 msg3
 LRANGE feed:1 0 -1
@@ -218,7 +218,7 @@ LRANGE feed:1 0 -1
 
 ### 7.4 Set：去重集合
 
-```redis
+```bash
 DEL tag:user:1
 SADD tag:user:1 java redis mysql
 SADD tag:user:1 java
@@ -233,7 +233,7 @@ SCARD tag:user:1
 
 ### 7.5 ZSet：排行榜
 
-```redis
+```bash
 DEL rank:game
 ZADD rank:game 100 alice 180 bob 160 carol
 ZRANGE rank:game 0 -1 WITHSCORES
@@ -283,4 +283,3 @@ ZREVRANGE rank:game 0 2 WITHSCORES
 - `Set` 适合去重
 - `ZSet` 适合按 score 排序的业务
 - Redis 结构选择会直接影响性能、表达力和可维护性
-

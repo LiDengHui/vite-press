@@ -12,19 +12,19 @@ graph TD
     B --> C[数据库服务层]
     C --> D[SQLite/IndexedDB]
     C --> E[远程API]
-    
+
     subgraph 渲染进程
     A --> F[UI组件]
     A --> G[状态管理]
     A --> H[IPC客户端]
     end
-    
+
     subgraph 主进程
     B --> I[IPC服务端]
     B --> J[数据验证]
     B --> K[加密模块]
     end
-    
+
     subgraph 数据库层
     D --> L[本地存储]
     D --> M[事务管理]
@@ -33,6 +33,7 @@ graph TD
 ```
 
 ## 技术选型
+
 - **本地数据库**：SQLite（关系型） + Dexie.js（IndexedDB封装）
 - **状态管理**：MobX 或 Zustand
 - **数据加密**：Node.js crypto 模块
@@ -60,7 +61,7 @@ src/
 │   └── App.tsx           # 主应用组件
 │
 ├── preload/              # 预加载脚本
-│   └── index.ts          
+│   └── index.ts
 │
 ├── resources/            # 静态资源
 └── types/                # 类型定义
@@ -76,47 +77,47 @@ import path from 'path';
 import { Sequelize } from 'sequelize';
 
 class Database {
-  private sequelize: Sequelize;
-  
-  constructor() {
-    const dbPath = path.join(app.getPath('userData'), 'app-database.sqlite');
-    
-    this.sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: dbPath,
-      logging: process.env.NODE_ENV === 'development',
-    });
-  }
+    private sequelize: Sequelize;
 
-  async init() {
-    try {
-      await this.sequelize.authenticate();
-      console.log('Database connection established');
-      
-      // 运行数据库迁移
-      await this.runMigrations();
-      
-      // 初始化模型
-      this.initializeModels();
-      
-      return this.sequelize;
-    } catch (error) {
-      console.error('Database initialization failed:', error);
-      throw error;
+    constructor() {
+        const dbPath = path.join(app.getPath('userData'), 'app-database.sqlite');
+
+        this.sequelize = new Sequelize({
+            dialect: 'sqlite',
+            storage: dbPath,
+            logging: process.env.NODE_ENV === 'development'
+        });
     }
-  }
 
-  private async runMigrations() {
-    // 数据库迁移逻辑
-  }
+    async init() {
+        try {
+            await this.sequelize.authenticate();
+            console.log('Database connection established');
 
-  private initializeModels() {
-    // 注册所有数据模型
-  }
+            // 运行数据库迁移
+            await this.runMigrations();
 
-  get instance() {
-    return this.sequelize;
-  }
+            // 初始化模型
+            this.initializeModels();
+
+            return this.sequelize;
+        } catch (error) {
+            console.error('Database initialization failed:', error);
+            throw error;
+        }
+    }
+
+    private async runMigrations() {
+        // 数据库迁移逻辑
+    }
+
+    private initializeModels() {
+        // 注册所有数据模型
+    }
+
+    get instance() {
+        return this.sequelize;
+    }
 }
 
 export default new Database();
@@ -129,54 +130,54 @@ import { DataTypes, Model } from 'sequelize';
 import db from '../index';
 
 class User extends Model {
-  public id!: number;
-  public username!: string;
-  public email!: string;
-  public passwordHash!: string;
-  public createdAt!: Date;
-  public updatedAt!: Date;
+    public id!: number;
+    public username!: string;
+    public email!: string;
+    public passwordHash!: string;
+    public createdAt!: Date;
+    public updatedAt!: Date;
 }
 
 User.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        username: {
+            type: DataTypes.STRING(50),
+            allowNull: false,
+            unique: true
+        },
+        email: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true
+            }
+        },
+        passwordHash: {
+            type: DataTypes.STRING(128),
+            allowNull: false
+        }
     },
-    username: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-      unique: true,
-    },
-    email: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
-    },
-    passwordHash: {
-      type: DataTypes.STRING(128),
-      allowNull: false,
-    },
-  },
-  {
-    sequelize: db.instance,
-    tableName: 'users',
-    timestamps: true,
-    indexes: [
-      {
-        unique: true,
-        fields: ['username'],
-      },
-      {
-        unique: true,
-        fields: ['email'],
-      },
-    ],
-  }
+    {
+        sequelize: db.instance,
+        tableName: 'users',
+        timestamps: true,
+        indexes: [
+            {
+                unique: true,
+                fields: ['username']
+            },
+            {
+                unique: true,
+                fields: ['email']
+            }
+        ]
+    }
 );
 
 export default User;
@@ -190,119 +191,119 @@ import { hashPassword } from '../../security/crypto';
 import { IpcMainInvokeEvent } from 'electron';
 
 interface CreateUserParams {
-  username: string;
-  email: string;
-  password: string;
+    username: string;
+    email: string;
+    password: string;
 }
 
 interface UpdateUserParams {
-  id: number;
-  username?: string;
-  email?: string;
-  password?: string;
+    id: number;
+    username?: string;
+    email?: string;
+    password?: string;
 }
 
 class UserService {
-  async createUser(event: IpcMainInvokeEvent, params: CreateUserParams) {
-    try {
-      const passwordHash = await hashPassword(params.password);
-      
-      const user = await User.create({
-        username: params.username,
-        email: params.email,
-        passwordHash,
-      });
-      
-      return {
-        success: true,
-        data: user.toJSON(),
-      };
-    } catch (error) {
-      return {
-        success: false,
-        error: error.message,
-      };
-    }
-  }
+    async createUser(event: IpcMainInvokeEvent, params: CreateUserParams) {
+        try {
+            const passwordHash = await hashPassword(params.password);
 
-  async updateUser(event: IpcMainInvokeEvent, params: UpdateUserParams) {
-    try {
-      const user = await User.findByPk(params.id);
-      
-      if (!user) {
-        throw new Error('User not found');
-      }
-      
-      if (params.username) user.username = params.username;
-      if (params.email) user.email = params.email;
-      
-      if (params.password) {
-        user.passwordHash = await hashPassword(params.password);
-      }
-      
-      await user.save();
-      
-      return {
-        success: true,
-        data: user.toJSON(),
-      };
-    } catch (error) {
-      return {
-        success: false,
-        error: error.message,
-      };
-    }
-  }
+            const user = await User.create({
+                username: params.username,
+                email: params.email,
+                passwordHash
+            });
 
-  async getUserById(event: IpcMainInvokeEvent, id: number) {
-    try {
-      const user = await User.findByPk(id, {
-        attributes: { exclude: ['passwordHash'] },
-      });
-      
-      if (!user) {
-        throw new Error('User not found');
-      }
-      
-      return {
-        success: true,
-        data: user.toJSON(),
-      };
-    } catch (error) {
-      return {
-        success: false,
-        error: error.message,
-      };
+            return {
+                success: true,
+                data: user.toJSON()
+            };
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
     }
-  }
 
-  async listUsers(event: IpcMainInvokeEvent, page = 1, pageSize = 20) {
-    try {
-      const offset = (page - 1) * pageSize;
-      
-      const { count, rows } = await User.findAndCountAll({
-        attributes: { exclude: ['passwordHash'] },
-        offset,
-        limit: pageSize,
-        order: [['createdAt', 'DESC']],
-      });
-      
-      return {
-        success: true,
-        data: {
-          total: count,
-          page,
-          pageSize,
-          users: rows.map(u => u.toJSON()),
-        },
-      };
-    } catch (error) {
-      return {
-        success: false,
-        error: error.message,
-      };
+    async updateUser(event: IpcMainInvokeEvent, params: UpdateUserParams) {
+        try {
+            const user = await User.findByPk(params.id);
+
+            if (!user) {
+                throw new Error('User not found');
+            }
+
+            if (params.username) user.username = params.username;
+            if (params.email) user.email = params.email;
+
+            if (params.password) {
+                user.passwordHash = await hashPassword(params.password);
+            }
+
+            await user.save();
+
+            return {
+                success: true,
+                data: user.toJSON()
+            };
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
     }
-  }
+
+    async getUserById(event: IpcMainInvokeEvent, id: number) {
+        try {
+            const user = await User.findByPk(id, {
+                attributes: { exclude: ['passwordHash'] }
+            });
+
+            if (!user) {
+                throw new Error('User not found');
+            }
+
+            return {
+                success: true,
+                data: user.toJSON()
+            };
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    async listUsers(event: IpcMainInvokeEvent, page = 1, pageSize = 20) {
+        try {
+            const offset = (page - 1) * pageSize;
+
+            const { count, rows } = await User.findAndCountAll({
+                attributes: { exclude: ['passwordHash'] },
+                offset,
+                limit: pageSize,
+                order: [['createdAt', 'DESC']]
+            });
+
+            return {
+                success: true,
+                data: {
+                    total: count,
+                    page,
+                    pageSize,
+                    users: rows.map((u) => u.toJSON())
+                }
+            };
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
 }
 
 export default new UserService();
@@ -317,18 +318,18 @@ import { ipcMain } from 'electron';
 import userService from '../database/services/UserService';
 
 function setupDatabaseIPC() {
-  // 用户管理
-  ipcMain.handle('db:createUser', userService.createUser);
-  ipcMain.handle('db:updateUser', userService.updateUser);
-  ipcMain.handle('db:getUserById', userService.getUserById);
-  ipcMain.handle('db:listUsers', userService.listUsers);
-  
-  // 其他数据库操作...
+    // 用户管理
+    ipcMain.handle('db:createUser', userService.createUser);
+    ipcMain.handle('db:updateUser', userService.updateUser);
+    ipcMain.handle('db:getUserById', userService.getUserById);
+    ipcMain.handle('db:listUsers', userService.listUsers);
+
+    // 其他数据库操作...
 }
 
 export function initializeIPC() {
-  setupDatabaseIPC();
-  // 其他IPC设置...
+    setupDatabaseIPC();
+    // 其他IPC设置...
 }
 ```
 
@@ -338,13 +339,13 @@ export function initializeIPC() {
 import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  // 数据库操作
-  createUser: (params) => ipcRenderer.invoke('db:createUser', params),
-  updateUser: (params) => ipcRenderer.invoke('db:updateUser', params),
-  getUserById: (id) => ipcRenderer.invoke('db:getUserById', id),
-  listUsers: (page, pageSize) => ipcRenderer.invoke('db:listUsers', page, pageSize),
-  
-  // 其他API...
+    // 数据库操作
+    createUser: (params) => ipcRenderer.invoke('db:createUser', params),
+    updateUser: (params) => ipcRenderer.invoke('db:updateUser', params),
+    getUserById: (id) => ipcRenderer.invoke('db:getUserById', id),
+    listUsers: (page, pageSize) => ipcRenderer.invoke('db:listUsers', page, pageSize)
+
+    // 其他API...
 });
 ```
 
@@ -352,49 +353,49 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
 ```typescript
 class DatabaseAPI {
-  async createUser(userData) {
-    try {
-      const result = await window.electronAPI.createUser(userData);
-      if (!result.success) throw new Error(result.error);
-      return result.data;
-    } catch (error) {
-      console.error('Create user failed:', error);
-      throw error;
+    async createUser(userData) {
+        try {
+            const result = await window.electronAPI.createUser(userData);
+            if (!result.success) throw new Error(result.error);
+            return result.data;
+        } catch (error) {
+            console.error('Create user failed:', error);
+            throw error;
+        }
     }
-  }
 
-  async updateUser(userData) {
-    try {
-      const result = await window.electronAPI.updateUser(userData);
-      if (!result.success) throw new Error(result.error);
-      return result.data;
-    } catch (error) {
-      console.error('Update user failed:', error);
-      throw error;
+    async updateUser(userData) {
+        try {
+            const result = await window.electronAPI.updateUser(userData);
+            if (!result.success) throw new Error(result.error);
+            return result.data;
+        } catch (error) {
+            console.error('Update user failed:', error);
+            throw error;
+        }
     }
-  }
 
-  async getUserById(id) {
-    try {
-      const result = await window.electronAPI.getUserById(id);
-      if (!result.success) throw new Error(result.error);
-      return result.data;
-    } catch (error) {
-      console.error('Get user failed:', error);
-      throw error;
+    async getUserById(id) {
+        try {
+            const result = await window.electronAPI.getUserById(id);
+            if (!result.success) throw new Error(result.error);
+            return result.data;
+        } catch (error) {
+            console.error('Get user failed:', error);
+            throw error;
+        }
     }
-  }
 
-  async listUsers(page = 1, pageSize = 20) {
-    try {
-      const result = await window.electronAPI.listUsers(page, pageSize);
-      if (!result.success) throw new Error(result.error);
-      return result.data;
-    } catch (error) {
-      console.error('List users failed:', error);
-      throw error;
+    async listUsers(page = 1, pageSize = 20) {
+        try {
+            const result = await window.electronAPI.listUsers(page, pageSize);
+            if (!result.success) throw new Error(result.error);
+            return result.data;
+        } catch (error) {
+            console.error('List users failed:', error);
+            throw error;
+        }
     }
-  }
 }
 
 export const dbAPI = new DatabaseAPI();
@@ -415,53 +416,53 @@ const IV_LENGTH = 16;
 
 // 安全获取加密密钥
 function getEncryptionKey(): Buffer {
-  const keyPath = path.join(app.getPath('userData'), 'secret.key');
-  
-  if (fs.existsSync(keyPath)) {
-    return fs.readFileSync(keyPath);
-  }
-  
-  const key = crypto.randomBytes(32);
-  fs.writeFileSync(keyPath, key);
-  return key;
+    const keyPath = path.join(app.getPath('userData'), 'secret.key');
+
+    if (fs.existsSync(keyPath)) {
+        return fs.readFileSync(keyPath);
+    }
+
+    const key = crypto.randomBytes(32);
+    fs.writeFileSync(keyPath, key);
+    return key;
 }
 
 export function encrypt(text: string): string {
-  const iv = crypto.randomBytes(IV_LENGTH);
-  const cipher = crypto.createCipheriv(ALGORITHM, getEncryptionKey(), iv);
-  let encrypted = cipher.update(text, 'utf8', 'hex');
-  encrypted += cipher.final('hex');
-  return `${iv.toString('hex')}:${encrypted}`;
+    const iv = crypto.randomBytes(IV_LENGTH);
+    const cipher = crypto.createCipheriv(ALGORITHM, getEncryptionKey(), iv);
+    let encrypted = cipher.update(text, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    return `${iv.toString('hex')}:${encrypted}`;
 }
 
 export function decrypt(text: string): string {
-  const [ivHex, encryptedText] = text.split(':');
-  const iv = Buffer.from(ivHex, 'hex');
-  const decipher = crypto.createDecipheriv(ALGORITHM, getEncryptionKey(), iv);
-  let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
-  decrypted += decipher.final('utf8');
-  return decrypted;
+    const [ivHex, encryptedText] = text.split(':');
+    const iv = Buffer.from(ivHex, 'hex');
+    const decipher = crypto.createDecipheriv(ALGORITHM, getEncryptionKey(), iv);
+    let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted;
 }
 
 export async function hashPassword(password: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const salt = crypto.randomBytes(16).toString('hex');
-    
-    crypto.scrypt(password, salt, 64, (err, derivedKey) => {
-      if (err) reject(err);
-      resolve(`${salt}:${derivedKey.toString('hex')}`);
+    return new Promise((resolve, reject) => {
+        const salt = crypto.randomBytes(16).toString('hex');
+
+        crypto.scrypt(password, salt, 64, (err, derivedKey) => {
+            if (err) reject(err);
+            resolve(`${salt}:${derivedKey.toString('hex')}`);
+        });
     });
-  });
 }
 
 export async function verifyPassword(password: string, hash: string): Promise<boolean> {
-  return new Promise((resolve, reject) => {
-    const [salt, key] = hash.split(':');
-    crypto.scrypt(password, salt, 64, (err, derivedKey) => {
-      if (err) reject(err);
-      resolve(key === derivedKey.toString('hex'));
+    return new Promise((resolve, reject) => {
+        const [salt, key] = hash.split(':');
+        crypto.scrypt(password, salt, 64, (err, derivedKey) => {
+            if (err) reject(err);
+            resolve(key === derivedKey.toString('hex'));
+        });
     });
-  });
 }
 ```
 
@@ -474,89 +475,87 @@ import { makeAutoObservable } from 'mobx';
 import { dbAPI } from '../services/api';
 
 class UserStore {
-  users = [];
-  currentUser = null;
-  loading = false;
-  error = null;
-  
-  constructor() {
-    makeAutoObservable(this);
-  }
-  
-  async loadUsers(page = 1, pageSize = 20) {
-    this.loading = true;
-    this.error = null;
-    
-    try {
-      const result = await dbAPI.listUsers(page, pageSize);
-      this.users = result.users;
-    } catch (error) {
-      this.error = error.message;
-    } finally {
-      this.loading = false;
+    users = [];
+    currentUser = null;
+    loading = false;
+    error = null;
+
+    constructor() {
+        makeAutoObservable(this);
     }
-  }
-  
-  async createUser(userData) {
-    this.loading = true;
-    this.error = null;
-    
-    try {
-      const newUser = await dbAPI.createUser(userData);
-      this.users = [newUser, ...this.users];
-      return newUser;
-    } catch (error) {
-      this.error = error.message;
-      throw error;
-    } finally {
-      this.loading = false;
+
+    async loadUsers(page = 1, pageSize = 20) {
+        this.loading = true;
+        this.error = null;
+
+        try {
+            const result = await dbAPI.listUsers(page, pageSize);
+            this.users = result.users;
+        } catch (error) {
+            this.error = error.message;
+        } finally {
+            this.loading = false;
+        }
     }
-  }
-  
-  async updateUser(userData) {
-    this.loading = true;
-    this.error = null;
-    
-    try {
-      const updatedUser = await dbAPI.updateUser(userData);
-      this.users = this.users.map(u => 
-        u.id === updatedUser.id ? updatedUser : u
-      );
-      return updatedUser;
-    } catch (error) {
-      this.error = error.message;
-      throw error;
-    } finally {
-      this.loading = false;
+
+    async createUser(userData) {
+        this.loading = true;
+        this.error = null;
+
+        try {
+            const newUser = await dbAPI.createUser(userData);
+            this.users = [newUser, ...this.users];
+            return newUser;
+        } catch (error) {
+            this.error = error.message;
+            throw error;
+        } finally {
+            this.loading = false;
+        }
     }
-  }
-  
-  async login(username, password) {
-    this.loading = true;
-    this.error = null;
-    
-    try {
-      // 实际项目中会有专门的认证服务
-      const user = await dbAPI.getUserByUsername(username);
-      const isValid = await verifyPassword(password, user.passwordHash);
-      
-      if (!isValid) {
-        throw new Error('Invalid credentials');
-      }
-      
-      this.currentUser = user;
-      return user;
-    } catch (error) {
-      this.error = error.message;
-      throw error;
-    } finally {
-      this.loading = false;
+
+    async updateUser(userData) {
+        this.loading = true;
+        this.error = null;
+
+        try {
+            const updatedUser = await dbAPI.updateUser(userData);
+            this.users = this.users.map((u) => (u.id === updatedUser.id ? updatedUser : u));
+            return updatedUser;
+        } catch (error) {
+            this.error = error.message;
+            throw error;
+        } finally {
+            this.loading = false;
+        }
     }
-  }
-  
-  logout() {
-    this.currentUser = null;
-  }
+
+    async login(username, password) {
+        this.loading = true;
+        this.error = null;
+
+        try {
+            // 实际项目中会有专门的认证服务
+            const user = await dbAPI.getUserByUsername(username);
+            const isValid = await verifyPassword(password, user.passwordHash);
+
+            if (!isValid) {
+                throw new Error('Invalid credentials');
+            }
+
+            this.currentUser = user;
+            return user;
+        } catch (error) {
+            this.error = error.message;
+            throw error;
+        } finally {
+            this.loading = false;
+        }
+    }
+
+    logout() {
+        this.currentUser = null;
+    }
 }
 
 export default new UserStore();
@@ -573,7 +572,7 @@ sequenceDiagram
     participant IPC as IPC通道
     participant Main as 主进程服务
     participant DB as 数据库
-    
+
     UI->>Store: 用户操作 (创建/更新/查询)
     Store->>API: 调用数据库API
     API->>Preload: 通过electronAPI调用
@@ -597,12 +596,12 @@ graph LR
     A[本地SQLite] -->|PouchDB| B[本地PouchDB]
     B -->|双向同步| C[远程CouchDB]
     C -->|API| D[云端存储]
-    
+
     subgraph 用户设备
     A --> E[Electron应用]
     B --> E
     end
-    
+
     subgraph 云端
     C --> F[用户管理]
     D --> G[数据备份]
@@ -619,60 +618,61 @@ import { remoteDBUrl } from '../../config';
 PouchDB.plugin(PouchDBFind);
 
 class SyncService {
-  private localDB: PouchDB.Database;
-  private remoteDB: PouchDB.Database;
-  
-  constructor() {
-    this.localDB = new PouchDB('local-sync-db');
-    this.remoteDB = new PouchDB(remoteDBUrl);
-  }
-  
-  async startSync() {
-    try {
-      // 初始同步
-      await this.initialSync();
-      
-      // 设置实时同步
-      this.localDB.sync(this.remoteDB, {
-        live: true,
-        retry: true,
-      })
-      .on('change', (info) => {
-        console.log('Sync change:', info);
-      })
-      .on('error', (err) => {
-        console.error('Sync error:', err);
-      });
-    } catch (error) {
-      console.error('Sync initialization failed:', error);
+    private localDB: PouchDB.Database;
+    private remoteDB: PouchDB.Database;
+
+    constructor() {
+        this.localDB = new PouchDB('local-sync-db');
+        this.remoteDB = new PouchDB(remoteDBUrl);
     }
-  }
-  
-  private async initialSync() {
-    // 获取最后同步时间
-    const lastSync = await this.getLastSync();
-    
-    // 执行初始同步
-    await this.localDB.replicate.from(this.remoteDB, {
-      since: lastSync,
-      batch_size: 100,
-      batches_limit: 5,
-    });
-    
-    // 更新最后同步时间
-    await this.setLastSync();
-  }
-  
-  private async getLastSync(): Promise<string> {
-    // 从本地存储获取最后同步时间
-    // 实现省略...
-    return '0';
-  }
-  
-  private async setLastSync() {
-    // 保存当前同步时间
-    // 实现省略...
-  }
+
+    async startSync() {
+        try {
+            // 初始同步
+            await this.initialSync();
+
+            // 设置实时同步
+            this.localDB
+                .sync(this.remoteDB, {
+                    live: true,
+                    retry: true
+                })
+                .on('change', (info) => {
+                    console.log('Sync change:', info);
+                })
+                .on('error', (err) => {
+                    console.error('Sync error:', err);
+                });
+        } catch (error) {
+            console.error('Sync initialization failed:', error);
+        }
+    }
+
+    private async initialSync() {
+        // 获取最后同步时间
+        const lastSync = await this.getLastSync();
+
+        // 执行初始同步
+        await this.localDB.replicate.from(this.remoteDB, {
+            since: lastSync,
+            batch_size: 100,
+            batches_limit: 5
+        });
+
+        // 更新最后同步时间
+        await this.setLastSync();
+    }
+
+    private async getLastSync(): Promise<string> {
+        // 从本地存储获取最后同步时间
+        // 实现省略...
+        return '0';
+    }
+
+    private async setLastSync() {
+        // 保存当前同步时间
+        // 实现省略...
+    }
 }
 
 export default new SyncService();

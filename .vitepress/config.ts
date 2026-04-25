@@ -1,4 +1,6 @@
-import { createContentLoader, defineConfig } from 'vitepress';
+import { defineConfig } from 'vitepress';
+import type { DefaultTheme, HeadConfig } from 'vitepress';
+import type { Plugin } from 'vite';
 import { generateSidebar } from 'vitepress-sidebar';
 import { withMermaid } from 'vitepress-plugin-mermaid2';
 import withDrawio from '@dhlx/vitepress-plugin-drawio';
@@ -12,29 +14,34 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import vitepressProtectPlugin from 'vitepress-protect-plugin';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-
-type VitePressConfigs = Parameters<typeof defineConfig>[0];
 import vueDevTools from 'vite-plugin-vue-devtools';
 
 let base = '';
 if (process.env.DEPLOY_TYPE === 'git') {
     base = '/vite-press/';
 }
-const pagesData: any[] = [];
+
 const srcRoot = path.resolve(__dirname, '../blog');
 const sidebarExcludePattern = ['components', 'English', 'README', 'README.md', 'cache'];
 const maxSidebarScopeDepth = 2;
 
-const plugins = [];
+const plugins: Plugin[] = [];
 const isProd = process.env.NODE_ENV === 'production';
 
-if (isProd) {
+if (!isProd) {
     plugins.push(vueDevTools());
 }
 
-function buildSidebarOptions(relDir = ''): any[] {
+interface SidebarGeneratorOptions {
+    documentRootPath: string;
+    scanStartPath?: string;
+    resolvePath?: string;
+    excludePattern?: string[];
+}
+
+function buildSidebarOptions(relDir = ''): SidebarGeneratorOptions[] {
     const currentDir = relDir ? path.resolve(srcRoot, relDir) : srcRoot;
-    const options: any[] = [];
+    const options: SidebarGeneratorOptions[] = [];
     const depth = relDir ? relDir.split('/').length : 0;
 
     if (relDir) {
@@ -50,10 +57,7 @@ function buildSidebarOptions(relDir = ''): any[] {
         .readdirSync(currentDir, { withFileTypes: true })
         .filter(
             (entry) =>
-                entry.isDirectory() &&
-                !entry.name.startsWith('.') &&
-                entry.name !== 'public' &&
-                entry.name !== 'index'
+                entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'public' && entry.name !== 'index'
         )
         .map((entry) => path.posix.join(relDir, entry.name));
 
@@ -68,7 +72,7 @@ function buildSidebarOptions(relDir = ''): any[] {
     return options;
 }
 
-function findFirstLink(item: any): string | undefined {
+function findFirstLink(item: DefaultTheme.SidebarItem): string | undefined {
     if (item.link) {
         return item.link;
     }
@@ -81,169 +85,141 @@ function findFirstLink(item: any): string | undefined {
     }
 }
 
-function toNavItems(items: any[]) {
+function toNavItems(items: DefaultTheme.SidebarItem[]): DefaultTheme.NavItem[] {
     return items
         .map((item) => {
             if (item.link) {
-                return { text: item.text, link: item.link };
+                return { text: item.text ?? '', link: item.link };
             }
 
             const navItems = (item.items ?? [])
-                .map((child: any) => {
+                .map((child) => {
                     const link = findFirstLink(child);
-                    return link ? { text: child.text, link } : null;
+                    return link ? { text: child.text ?? '', link } : null;
                 })
-                .filter(Boolean);
+                .filter((child): child is { text: string; link: string } => Boolean(child));
 
-            return navItems.length ? { text: item.text, items: navItems } : null;
+            return navItems.length ? { text: item.text ?? '', items: navItems } : null;
         })
-        .filter(Boolean);
+        .filter((item): item is DefaultTheme.NavItem => Boolean(item));
 }
 
 const topLevelSidebar = generateSidebar({
     documentRootPath: '/blog',
     excludePattern: sidebarExcludePattern
-}) as any[];
+}) as DefaultTheme.SidebarItem[];
 
-const scopedSidebar = generateSidebar(buildSidebarOptions()) as Record<string, any>;
+const scopedSidebar = generateSidebar(buildSidebarOptions()) as DefaultTheme.SidebarMulti;
 
-const vitePressConfigs: VitePressConfigs = {
-    base,
-    srcDir: 'blog',
-    head: [['style', { 'data-mathjax': 'true' }, mathjaxStyles]],
-    title: '点滴生活',
-    description: '记录个人成长',
-    metaChunk: true,
-    markdown: {
-        cache: false,
-        toc: { level: [1, 2, 3, 4, 5] },
-        config(md) {
-            md.use((a, option) => {
-                mathjax(a, option);
-            });
-            md.use((a, option) => {
-                timeline(a, option);
-            });
-            md.use(lightbox, {
-                selector: 'img'
-            });
-
-            md.use(markdownItTaskCheckbox);
-        },
-        image: {
-            lazyLoading: true
-        },
-        languageAlias: {
-            svg: 'html'
-        }
-    },
-    mermaid: {
-        // refer https://mermaid.js.org/config/setup/modules/mermaidAPI.html#mermaidapi-configuration-defaults for options
-    },
-
-    lastUpdated: true,
-    // optionally set additional config for plugin itself with MermaidPluginConfig
-
-    mermaidPlugin: {
-        class: 'mermaid my-class main img' // set additional css classes for parent container
-    },
-    themeConfig: {
-        nav: toNavItems(topLevelSidebar),
-        sidebar: scopedSidebar,
-        search: {
-            provider: 'local'
-        },
-        logo: '/favicon.svg',
-        // https://vitepress.dev/reference/default-theme-config
-        socialLinks: [{ icon: 'github', link: 'https://github.com/LiDengHui' }],
-        footer: {
-            message: 'Released under the MIT License.',
-            copyright: '<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备2023003969号-1</a>'
-        }
-    },
-    buildEnd: async ({ outDir }) => {
-        const outFile = path.resolve(__dirname, 'pages.data.json');
-        fs.writeFileSync(
-            outFile,
-            JSON.stringify(
-                pagesData.sort((a, b) => {
-                    const value = b.lastUpdated - a.lastUpdated;
-                    if (value === 0) {
-                        return b.title.localeCompare(a.title);
+export default withMindMap(
+    withMermaid(
+        withDrawio(
+            defineConfig<DefaultTheme.Config>({
+                base,
+                srcDir: 'blog',
+                head: [['style', { 'data-mathjax': 'true' }, mathjaxStyles]] as HeadConfig[],
+                title: '点滴生活',
+                description: '记录个人成长',
+                metaChunk: true,
+                markdown: {
+                    cache: false,
+                    toc: { level: [1, 2, 3, 4, 5] },
+                    config(md) {
+                        md.use(mathjax);
+                        md.use(timeline);
+                        md.use(lightbox, {
+                            selector: 'img'
+                        });
+                        md.use(markdownItTaskCheckbox);
+                    },
+                    image: {
+                        lazyLoading: true
+                    },
+                    languageAlias: {
+                        svg: 'html'
                     }
-                    return value;
-                }),
-                null,
-                2
-            ),
-            'utf-8'
-        );
-    },
-    async transformPageData(pageData, { siteConfig }) {
-        if (pageData.title) {
-            pagesData.push({
-                title: pageData.title,
-                url: pageData.relativePath.replace(/\.md$/, '.html'),
-                lastUpdated: pageData.lastUpdated
-            });
-        }
-    },
-    vite: {
-        build: {
-            chunkSizeWarningLimit: 2048
-        },
-
-        plugins: [
-            ...plugins,
-            visualizer({
-                gzipSize: false,
-                brotliSize: false,
-                emitFile: false,
-                filename: 'test.html', //分析图生成的文件名
-                open: false //如果存在本地服务端口，将在打包后自动展示
-            }),
-            vitepressProtectPlugin({
-                disableF12: false, // 禁用F12开发者模式
-                disableCopy: false, // 禁用文本复制
-                disableSelect: false // 禁用文本选择
-            }),
-            // 图片压缩插件（支持 JPG/PNG/SVG/GIF）
-            viteImagemin({
-                gifsicle: {
-                    optimizationLevel: 7,
-                    interlaced: false,
                 },
-                optipng: {
-                    optimizationLevel: 7,
+                mermaid: {},
+                lastUpdated: true,
+                mermaidPlugin: {
+                    class: 'mermaid my-class main img'
                 },
-                mozjpeg: {
-                    quality: 20,
+                themeConfig: {
+                    nav: toNavItems(topLevelSidebar),
+                    sidebar: scopedSidebar,
+                    search: {
+                        provider: 'local'
+                    },
+                    logo: '/favicon.svg',
+                    socialLinks: [{ icon: 'github', link: 'https://github.com/LiDengHui' }],
+                    footer: {
+                        message: 'Released under the MIT License.',
+                        copyright: '<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备2023003969号-1</a>'
+                    }
                 },
-                pngquant: {
-                    quality: [0.8, 0.9],
-                    speed: 4,
-                },
-                svgo: {
+                vite: {
+                    build: {
+                        chunkSizeWarningLimit: 4096,
+                        rollupOptions: {
+                            onwarn(warning, warn) {
+                                if (
+                                    warning.code === 'UNUSED_EXTERNAL_IMPORT' &&
+                                    warning.message.includes('markmap-common')
+                                ) {
+                                    return;
+                                }
+                                warn(warning);
+                            }
+                        }
+                    },
                     plugins: [
-                        {
-                            name: 'removeViewBox',
-                        },
-                        {
-                            name: 'removeEmptyAttrs',
-                            active: false,
-                        },
-                    ],
-                },
+                        ...plugins,
+                        visualizer({
+                            gzipSize: false,
+                            brotliSize: false,
+                            emitFile: false,
+                            filename: 'test.html',
+                            open: false
+                        }),
+                        vitepressProtectPlugin({
+                            disableF12: false,
+                            disableCopy: false,
+                            disableSelect: false
+                        }),
+                        ...(process.platform !== 'win32'
+                            ? [
+                                  viteImagemin({
+                                      gifsicle: {
+                                          optimizationLevel: 7,
+                                          interlaced: false
+                                      },
+                                      optipng: {
+                                          optimizationLevel: 7
+                                      },
+                                      mozjpeg: {
+                                          quality: 20
+                                      },
+                                      pngquant: {
+                                          quality: [0.8, 0.9],
+                                          speed: 4
+                                      },
+                                      svgo: {
+                                          plugins: [
+                                              {
+                                                  name: 'removeViewBox'
+                                              },
+                                              {
+                                                  name: 'removeEmptyAttrs',
+                                                  active: false
+                                              }
+                                          ]
+                                      }
+                                  })
+                              ]
+                            : [])
+                    ]
+                }
             })
-
-            // 文件 Gzip/Brotli 压缩（压缩 JS/CSS/HTML）
-            // viteCompression({
-            //     // filter: /\.(js|css|html|drawio)$/i, // 仅压缩 JS/CSS/HTML
-            //     // deleteOriginFile: false,
-            //     algorithm: 'brotliCompress'
-            // })
-        ]
-    }
-};
-
-export default withMindMap(withMermaid(withDrawio(defineConfig(vitePressConfigs))));
+        )
+    )
+);

@@ -38,28 +38,28 @@ module.exports = function (source, inputSourceMap, meta) {
 
 ### 📌 参数说明
 
-| 参数名              | 类型       | 说明                        |         |
-|------------------|----------|---------------------------|---------|
-| `source`         | \`string | Buffer\`                  | 原始源代码内容 |
-| `inputSourceMap` | `object` | 前一个 loader 提供的 source map |         |
-| `meta`           | `any`    | 前一个 loader 传递的元信息         |         |
+| 参数名           | 类型     | 说明                            |                |
+| ---------------- | -------- | ------------------------------- | -------------- |
+| `source`         | \`string | Buffer\`                        | 原始源代码内容 |
+| `inputSourceMap` | `object` | 前一个 loader 提供的 source map |                |
+| `meta`           | `any`    | 前一个 loader 传递的元信息      |                |
 
 ---
 
 ## 📚 三、`this` 上的常用 API 和字段
 
-| 属性 / 方法                                 | 类型              | 说明                                   |        |
-|-----------------------------------------|-----------------|--------------------------------------|--------|
-| `this.resourcePath`                     | `string`        | 当前处理文件的绝对路径                          |        |
-| `this.query` / `this.getOptions()`      | `object`        | 通过 loader 配置传入的 options 参数           |        |
-| `this.async()`                          | `function`      | 标记为异步 loader，返回 callback             |        |
-| `this.callback(err, result, map, meta)` | `function`      | 异步返回结果                               |        |
-| `this.emitError(err)`                   | `function`      | 抛出错误，会中断编译                           |        |
-| `this.emitWarning(warning)`             | `function`      | 抛出警告，不中断编译                           |        |
-| `this.addDependency(file)`              | `function`      | 添加依赖文件，当依赖变化时重新编译                    |        |
-| `this.cacheable(flag?)`                 | `function`      | 标记是否可缓存，默认 true                      |        |
-| `this.resourceQuery`                    | `string`        | 当前模块请求中的 query 参数，如 `file.js?inline` |        |
-| `this.mode`                             | \`"development" | "production"\`                       | 当前构建模式 |
+| 属性 / 方法                             | 类型            | 说明                                             |              |
+| --------------------------------------- | --------------- | ------------------------------------------------ | ------------ |
+| `this.resourcePath`                     | `string`        | 当前处理文件的绝对路径                           |              |
+| `this.query` / `this.getOptions()`      | `object`        | 通过 loader 配置传入的 options 参数              |              |
+| `this.async()`                          | `function`      | 标记为异步 loader，返回 callback                 |              |
+| `this.callback(err, result, map, meta)` | `function`      | 异步返回结果                                     |              |
+| `this.emitError(err)`                   | `function`      | 抛出错误，会中断编译                             |              |
+| `this.emitWarning(warning)`             | `function`      | 抛出警告，不中断编译                             |              |
+| `this.addDependency(file)`              | `function`      | 添加依赖文件，当依赖变化时重新编译               |              |
+| `this.cacheable(flag?)`                 | `function`      | 标记是否可缓存，默认 true                        |              |
+| `this.resourceQuery`                    | `string`        | 当前模块请求中的 query 参数，如 `file.js?inline` |              |
+| `this.mode`                             | \`"development" | "production"\`                                   | 当前构建模式 |
 
 ---
 
@@ -67,7 +67,7 @@ module.exports = function (source, inputSourceMap, meta) {
 
 ```js
 // remove-console-loader.js
-const {getOptions} = require('loader-utils'); // webpack5 用 schema-utils 更推荐
+const { getOptions } = require('loader-utils'); // webpack5 用 schema-utils 更推荐
 
 module.exports = function (source) {
     const options = getOptions(this); // 获取用户配置
@@ -151,11 +151,11 @@ module.exports = function (source, inputSourceMap) {
 
 ## 📦 八、开发 loader 的最佳实践
 
-* 使用 `schema-utils` 校验参数
-* 明确标记是否可缓存：`this.cacheable(true)`
-* 清晰抛出错误 / 警告
-* 支持异步处理：`this.async()`
-* 明确 source map 支持
+- 使用 `schema-utils` 校验参数
+- 明确标记是否可缓存：`this.cacheable(true)`
+- 清晰抛出错误 / 警告
+- 支持异步处理：`this.async()`
+- 明确 source map 支持
 
 ---
 
@@ -168,7 +168,7 @@ module.exports = function (source, inputSourceMap) {
 ### 加载顺序（从右到左）：
 
 ```js
-use: ['loader3', 'loader2', 'loader1']
+use: ['loader3', 'loader2', 'loader1'];
 ```
 
 Webpack 实际调用的执行顺序是：
@@ -218,7 +218,7 @@ module.exports = {
                 use: [
                     'loader3', // 最先调用
                     'loader2',
-                    'loader1'  // 最后调用
+                    'loader1' // 最后调用
                 ]
             }
         ]
@@ -263,7 +263,7 @@ loader1
 最终 `source` 会被组合成：
 
 ```js
-原始内容
+原始内容;
 //loader3
 //loader2
 //loader1
