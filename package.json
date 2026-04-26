@@ -7,6 +7,7 @@
     "author": "",
     "type": "module",
     "main": "index.js",
+    "packageManager": "pnpm@9.15.4",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "vitepress dev .",
@@ -14,9 +15,9 @@
         "preview": "vitepress preview .",
         "debug": "node node_modules/vitepress/dist/node/cli.js dev .",
         "format": "oxfmt --write .",
-        "deploy:pinia": "npm run build && dhlx deploy -m dev",
-        "deploy:git": "cross-env DEPLOY_TYPE=git  npm run build && dhlx gh-pages -i .vitepress/dist",
-        "deploy": "npm run deploy:pinia && npm run deploy:git"
+        "deploy:pinia": "pnpm run build && dhlx deploy -m dev",
+        "deploy:git": "cross-env DEPLOY_TYPE=git  pnpm run build && dhlx gh-pages -i .vitepress/dist",
+        "deploy": "pnpm run deploy:pinia && pnpm run deploy:git"
     },
     "devDependencies": {
         "@braintree/sanitize-url": "^7.1.2",
@@ -59,8 +60,9 @@
         "onlyBuiltDependencies": [
             "pngquant-bin",
             "optipng-bin",
-            "gifsicle-bin",
-            "mozjpeg-bin"
+            "gifsicle",
+            "jpegtran-bin",
+            "mozjpeg"
         ]
     },
     "overrides": {

@@ -15,4 +15,4 @@ cache
 test.html
 .vitepress/pages.data.json
 .claude/
-blog/.obsidian/
+package-lock.json
