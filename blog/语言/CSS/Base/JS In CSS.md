@@ -402,6 +402,62 @@ document.querySelectorAll('.scroll-animate').forEach(el => {
 });
 ```
 
+### 技巧 8：批量写样式时用 requestAnimationFrame 合并刷新
+
+```javascript
+const queue = new Map();
+let scheduled = false;
+
+function batchStyle(el, styles) {
+    queue.set(el, { ...(queue.get(el) || {}), ...styles });
+
+    if (scheduled) return;
+    scheduled = true;
+
+    requestAnimationFrame(() => {
+        queue.forEach((styleMap, node) => Object.assign(node.style, styleMap));
+        queue.clear();
+        scheduled = false;
+    });
+}
+
+batchStyle(card, {
+    transform: 'translateY(-8px)',
+    opacity: '1'
+});
+```
+
+> 当你在一次交互里连续改多个样式时，先收集再在下一帧统一写入，能减少布局抖动。
+
+### 技巧 9：测量尺寸前后分离“读”和“写”
+
+```javascript
+const rect = panel.getBoundingClientRect(); // 先读
+const nextHeight = `${rect.width * 0.75}px`;
+
+requestAnimationFrame(() => {
+    panel.style.height = nextHeight; // 再写
+});
+```
+
+> 避免在同一段代码里反复“读布局 → 写样式 → 再读布局”，这样更不容易触发强制同步布局。
+
+### 技巧 10：动态注入主题规则时优先用 constructable stylesheet
+
+```javascript
+const sheet = new CSSStyleSheet();
+sheet.replaceSync(`
+    .theme-card {
+        background: var(--card-bg, #fff);
+        color: var(--card-text, #222);
+    }
+`);
+
+document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+```
+
+> 适合组件化场景，比频繁创建 `<style>` 标签更利于管理；但要注意旧环境兼容性。
+
 > 💡 **总结**：
 > - 单个属性用 `el.style.xxx`
 > - 读取计算后值用 `getComputedStyle`
