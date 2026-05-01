@@ -1,3 +1,17 @@
+---
+title: BFC（块级格式上下文）布局
+date: 2025-04-29
+tags:
+  - CSS
+  - 布局
+  - BFC
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - 布局系统
+---
+
 <script setup>
 import AutoResizeTwoColumn from './BFC布局/AutoResizeTwoColumn.vue';
 </script>
@@ -69,6 +83,147 @@ import AutoResizeTwoColumn from './BFC布局/AutoResizeTwoColumn.vue';
 BFC 是 CSS 布局中一个核心但相对底层的概念。它通过创建独立的渲染区域，解决了外边距折叠、高度塌陷、浮动环绕等经典布局问题。理解它的规则（隔离性、包含浮动、阻止外边距折叠）以及触发条件（`overflow: hidden`, `display: flow-root`, `float`, `position: absolute/fixed`, `display: inline-block` 等）对于掌握 CSS 布局至关重要。
 
 虽然现代布局技术（Flexbox, Grid）在很多场景下简化了布局并减少了直接操作 BFC 的需求，但 BFC 的原理仍然是理解 CSS 布局机制的基础，并且在处理上述特定问题时依然是非常有效的工具。`display: flow-root` 的出现更是为触发 BFC 提供了一种清晰、无副作用的最佳实践。
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：解决 margin 重叠
+
+```html
+<div class="top">top</div>
+<div class="bfc-wrapper">
+    <div class="bottom">bottom</div>
+</div>
+```
+
+```css
+.top, .bottom {
+    margin: 20px 0;
+    background: yellow;
+}
+.bfc-wrapper {
+    overflow: hidden; /* 创建 BFC */
+}
+```
+
+### 技巧 2：清除浮动最现代方案
+
+```css
+/* 最佳实践 */
+.clearfix {
+    display: flow-root; /* 仅创建 BFC，无副作用 */
+}
+
+/* 兼容旧浏览器 */
+.clearfix-legacy::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+```
+
+### 技巧 3：自适应两栏布局
+
+```html
+<div class="container">
+    <div class="sidebar">固定宽度</div>
+    <div class="main">自适应</div>
+</div>
+```
+
+```css
+.sidebar {
+    float: left;
+    width: 200px;
+}
+.main {
+    overflow: hidden; /* BFC 避免与浮动重叠 */
+}
+```
+
+### 技巧 4：防止弹窗内容被外部浮动覆盖
+
+```css
+.modal-content {
+    display: flow-root;
+    /* 确保模态框内部布局不受外部浮动影响 */
+}
+```
+
+### 技巧 5：解决嵌套 margin 穿透
+
+```html
+<div class="parent">
+    <div class="child">子元素</div>
+</div>
+```
+
+```css
+/* 问题：child 的 margin-top 穿透到 parent */
+.parent {
+    overflow: hidden; /* 创建 BFC 阻止穿透 */
+}
+.child {
+    margin-top: 20px;
+}
+```
+
+### 技巧 6：多列文本环绕浮动图片
+
+```css
+.float-img {
+    float: left;
+    margin-right: 16px;
+}
+.text-content {
+    overflow: hidden; /* 使文本真正绕开浮动图片 */
+}
+```
+
+### 技巧 7：表单元素竖直对齐
+
+```css
+.label {
+    display: inline-block;
+    vertical-align: top; /* 行内块创建 BFC */
+}
+```
+
+### 技巧 8：解决 Flex/Grid 子元素 margin 重叠
+
+```css
+.grid-item {
+    display: flow-root;
+    /* 确保子元素的 margin 不与外部重叠 */
+}
+```
+
+### 技巧 9：创建独立组件容器
+
+```css
+.component {
+    display: flow-root;
+    /* 组件内部布局完全独立，不影响外部 */
+}
+```
+
+### 技巧 10：解决多列浮动高度不一致
+
+```css
+.column-wrapper {
+    display: flow-root; /* 包含所有浮动列 */
+}
+.column {
+    float: left;
+    width: 33.33%;
+}
+```
+
+> 💡 **BFC 三大神器**：
+> 1. `清除浮动` → 给父元素加 `display: flow-root`
+> 2. `阻止 margin 重叠` → 给其中一个元素加 `overflow: hidden`
+> 3. `避开浮动重叠` → 给内容区加 `overflow: hidden`
 
 ## Examples
 

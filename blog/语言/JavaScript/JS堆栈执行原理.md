@@ -10,9 +10,9 @@
 
 - **作用**：存储函数调用的栈结构（LIFO：后进先出）。
 - **工作流程**：
-    - 每调用一个函数，将其压入栈顶（称为“栈帧”）。
-    - 函数执行完毕后，从栈顶弹出。
-    - 栈为空时，表示代码执行结束。
+  - 每调用一个函数，将其压入栈顶（称为“栈帧”）。
+  - 函数执行完毕后，从栈顶弹出。
+  - 栈为空时，表示代码执行结束。
 - **示例**：
     ```javascript
     function a() {
@@ -47,9 +47,9 @@ JavaScript 是单线程的，异步任务（如 `setTimeout`、`Promise`）通�
 
 - 存储待执行的异步任务回调。
 - 分为两种队列：
-    - **宏任务队列（Macro Task Queue）**：  
+  - **宏任务队列（Macro Task Queue）**：  
       `setTimeout`、`setInterval`、DOM事件、I/O操作等。
-    - **微任务队列（Micro Task Queue）**：  
+  - **微任务队列（Micro Task Queue）**：  
       `Promise.then()`、`MutationObserver`、`queueMicrotask()`。
 
 #### (2) **事件循环（Event Loop）**

@@ -57,9 +57,9 @@
 
 - 服务器（如Nginx/Apache）接收请求，根据路径路由到后端应用（如Node.js/Python）。
 - 后端可能执行操作：
-    - 读取数据库（如MySQL）。
-    - 调用外部API。
-    - 渲染模板（如Jinja）。
+  - 读取数据库（如MySQL）。
+  - 调用外部API。
+  - 渲染模板（如Jinja）。
 - 生成**HTTP响应**：
 
     ```http

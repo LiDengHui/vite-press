@@ -1,3 +1,17 @@
+---
+title: CSS 伪类和伪元素
+date: 2025-04-29
+tags:
+  - CSS
+  - 伪类
+  - 伪元素
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - 基础入门
+---
+
 # CSS 伪类和伪元素
 
 CSS 的伪类和伪元素是强大的选择器，用于选择元素的特定状态或文档树中不存在的部分（虚拟元素）。它们以 `:` 或 `::` 开头。
@@ -16,51 +30,51 @@ CSS 的伪类和伪元素是强大的选择器，用于选择元素的特定状�
 ### 常见伪类及其触发条件
 
 1.  **动态/用户交互伪类 (最常用):**
-    - `:hover`: 当用户将鼠标指针悬停在元素上时触发。
-    - `:active`: 当元素被用户激活（例如鼠标点击按下时）时触发。
-    - `:focus`: 当元素获得焦点时触发（例如通过键盘 Tab 键聚焦到输入框，或鼠标点击输入框）。
-    - `:focus-visible`: 当元素获得焦点且浏览器认为焦点应该可见（通常是键盘操作获得焦点）时触发。更符合可访问性。
-    - `:focus-within`: 当元素自身或其**任何后代元素**获得焦点时触发。常用于高亮整个表单区域。
-    - `:visited`: 选择用户已访问过的链接 (`<a>`)。出于隐私限制，可应用的样式有限（通常只能改颜色）。
+  - `:hover`: 当用户将鼠标指针悬停在元素上时触发。
+  - `:active`: 当元素被用户激活（例如鼠标点击按下时）时触发。
+  - `:focus`: 当元素获得焦点时触发（例如通过键盘 Tab 键聚焦到输入框，或鼠标点击输入框）。
+  - `:focus-visible`: 当元素获得焦点且浏览器认为焦点应该可见（通常是键盘操作获得焦点）时触发。更符合可访问性。
+  - `:focus-within`: 当元素自身或其**任何后代元素**获得焦点时触发。常用于高亮整个表单区域。
+  - `:visited`: 选择用户已访问过的链接 (`<a>`)。出于隐私限制，可应用的样式有限（通常只能改颜色）。
 
 2.  **结构伪类 (基于位置):**
-    - `:first-child`: 选择是其父元素的**第一个**子元素的元素。
-    - `:last-child`: 选择是其父元素的**最后一个**子元素的元素。
-    - `:nth-child(n)`: 选择是其父元素的**第 n 个**子元素的元素。`n` 可以是数字、关键词 (`even`, `odd`) 或公式 (`2n+1`)。计算基于所有子元素类型。
-    - `:nth-last-child(n)`: 类似 `:nth-child(n)`，但从最后一个子元素开始**倒序**计数。
-    - `:first-of-type`: 选择是其父元素中**同类型**兄弟元素中的**第一个**元素。
-    - `:last-of-type`: 选择是其父元素中**同类型**兄弟元素中的**最后一个**元素。
-    - `:nth-of-type(n)`: 选择是其父元素中**同类型**兄弟元素中的**第 n 个**元素。
-    - `:nth-last-of-type(n)`: 类似 `:nth-of-type(n)`，但从最后一个同类型元素开始**倒序**计数。
-    - `:only-child`: 选择是其父元素的**唯一**子元素的元素（没有兄弟元素）。
-    - `:only-of-type`: 选择是其父元素中**唯一**的该类型元素的元素（可能有其他类型的兄弟元素）。
-    - `:root`: 选择文档的根元素（在 HTML 中总是 `<html>`）。通常用于声明全局 CSS 变量。
+  - `:first-child`: 选择是其父元素的**第一个**子元素的元素。
+  - `:last-child`: 选择是其父元素的**最后一个**子元素的元素。
+  - `:nth-child(n)`: 选择是其父元素的**第 n 个**子元素的元素。`n` 可以是数字、关键词 (`even`, `odd`) 或公式 (`2n+1`)。计算基于所有子元素类型。
+  - `:nth-last-child(n)`: 类似 `:nth-child(n)`，但从最后一个子元素开始**倒序**计数。
+  - `:first-of-type`: 选择是其父元素中**同类型**兄弟元素中的**第一个**元素。
+  - `:last-of-type`: 选择是其父元素中**同类型**兄弟元素中的**最后一个**元素。
+  - `:nth-of-type(n)`: 选择是其父元素中**同类型**兄弟元素中的**第 n 个**元素。
+  - `:nth-last-of-type(n)`: 类似 `:nth-of-type(n)`，但从最后一个同类型元素开始**倒序**计数。
+  - `:only-child`: 选择是其父元素的**唯一**子元素的元素（没有兄弟元素）。
+  - `:only-of-type`: 选择是其父元素中**唯一**的该类型元素的元素（可能有其他类型的兄弟元素）。
+  - `:root`: 选择文档的根元素（在 HTML 中总是 `<html>`）。通常用于声明全局 CSS 变量。
 
 3.  **表单状态伪类:**
-    - `:checked`: 选择被选中的**单选按钮 (`<input type="radio">`)**、**复选框 (`<input type="checkbox">`)** 或 **下拉选项 (`<option>`) **。
-    - `:disabled`: 选择被禁用的表单元素（具有 `disabled` 属性）。
-    - `:enabled`: 选择未被禁用的表单元素（`disabled` 属性的反面）。
-    - `:required`: 选择设置了 `required` 属性的表单元素。
-    - `:optional`: 选择没有设置 `required` 属性的表单元素（`:required` 的反面）。
-    - `:valid`: 选择其内容**通过验证**的表单元素（根据 `type`, `pattern`, `required` 等属性）。
-    - `:invalid`: 选择其内容**未通过验证**的表单元素。
-    - `:in-range`: 选择值在指定 `min`/`max` 范围内的 `<input type="number">` 或 `<input type="range">`。
-    - `:out-of-range`: 选择值超出指定 `min`/`max` 范围的 `<input type="number">` 或 `<input type="range">`。
-    - `:read-only`: 选择设置了 `readonly` 属性的元素（用户不可编辑）。
-    - `:read-write`: 选择没有 `readonly` 属性（且不是 `disabled`）的元素（用户可编辑）。
+  - `:checked`: 选择被选中的**单选按钮 (`<input type="radio">`)**、**复选框 (`<input type="checkbox">`)** 或 **下拉选项 (`<option>`) **。
+  - `:disabled`: 选择被禁用的表单元素（具有 `disabled` 属性）。
+  - `:enabled`: 选择未被禁用的表单元素（`disabled` 属性的反面）。
+  - `:required`: 选择设置了 `required` 属性的表单元素。
+  - `:optional`: 选择没有设置 `required` 属性的表单元素（`:required` 的反面）。
+  - `:valid`: 选择其内容**通过验证**的表单元素（根据 `type`, `pattern`, `required` 等属性）。
+  - `:invalid`: 选择其内容**未通过验证**的表单元素。
+  - `:in-range`: 选择值在指定 `min`/`max` 范围内的 `<input type="number">` 或 `<input type="range">`。
+  - `:out-of-range`: 选择值超出指定 `min`/`max` 范围的 `<input type="number">` 或 `<input type="range">`。
+  - `:read-only`: 选择设置了 `readonly` 属性的元素（用户不可编辑）。
+  - `:read-write`: 选择没有 `readonly` 属性（且不是 `disabled`）的元素（用户可编辑）。
 
 4.  **语言伪类:**
-    - `:lang(language-code)`: 选择设置了特定语言（通过 `lang="xx"` 属性或 HTTP 头）的元素。比属性选择器 `[lang|="xx"]` 更健壮。
+  - `:lang(language-code)`: 选择设置了特定语言（通过 `lang="xx"` 属性或 HTTP 头）的元素。比属性选择器 `[lang|="xx"]` 更健壮。
 
 5.  **逻辑组合伪类 (CSS Selectors Level 4):**
-    - `:is()` / `:matches()` / `:any()`: 接受一个选择器列表作为参数，匹配列表中**任意一个**选择器能选中的元素。用于简化复杂选择器的分组。`(:any()` 是旧别名，`:matches()` 被弃用，推荐 `:is()`)。
-    - `:not()`: 接受一个**简单选择器**或**选择器列表**作为参数，匹配**不符合**该参数的元素。
-    - `:where()`: 功能类似 `:is()`，但**其选择器的优先级总是 0**。用于引入不影响优先级的选择器。
+  - `:is()` / `:matches()` / `:any()`: 接受一个选择器列表作为参数，匹配列表中**任意一个**选择器能选中的元素。用于简化复杂选择器的分组。`(:any()` 是旧别名，`:matches()` 被弃用，推荐 `:is()`)。
+  - `:not()`: 接受一个**简单选择器**或**选择器列表**作为参数，匹配**不符合**该参数的元素。
+  - `:where()`: 功能类似 `:is()`，但**其选择器的优先级总是 0**。用于引入不影响优先级的选择器。
 
 6.  **其他:**
-    - `:target`: 当元素的 `id` 与当前 URL 的片段标识符（`#id`）匹配时触发。常用于页面内锚点导航的样式。
-    - `:empty`: 选择**完全没有子元素**（包括文本节点，甚至空格）的元素。
-    - `:link`: 选择**未被访问过**的链接 (`<a>` 带有 `href` 属性)。通常在 `:visited` 之前定义。
+  - `:target`: 当元素的 `id` 与当前 URL 的片段标识符（`#id`）匹配时触发。常用于页面内锚点导航的样式。
+  - `:empty`: 选择**完全没有子元素**（包括文本节点，甚至空格）的元素。
+  - `:link`: 选择**未被访问过**的链接 (`<a>` 带有 `href` 属性)。通常在 `:visited` 之前定义。
 
 ---
 
@@ -98,6 +112,176 @@ CSS 的伪类和伪元素是强大的选择器，用于选择元素的特定状�
 - `::before` 和 `::after` **必须**与 `content` 属性一起使用才能生效（即使 `content: "";`）。
 
 理解并熟练运用伪类和伪元素是编写高效、灵活、交互性强的 CSS 的关键技能。它们极大地扩展了 CSS 选择器的能力。
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：用 `:has()` 实现父级选择
+
+```css
+/* 当 card 内部有 img 时，给 card 加边框 */
+.card:has(img) {
+    border: 2px solid #1890ff;
+}
+
+/* 当 input 被 focus 时，给外层 label 加样式 */
+.label:has(+ input:focus) {
+    color: #1890ff;
+}
+```
+
+### 技巧 2：自定义复选框
+
+```css
+.custom-checkbox {
+    appearance: none;
+    width: 18px; height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    position: relative;
+}
+.custom-checkbox:checked {
+    background: #1890ff;
+    border-color: #1890ff;
+}
+.custom-checkbox:checked::after {
+    content: '✓';
+    color: #fff;
+    position: absolute;
+    top: -2px; left: 2px;
+    font-size: 14px;
+}
+```
+
+### 技巧 3：首字下沉（Drop Cap）
+
+```css
+.drop-cap::first-letter {
+    float: left;
+    font-size: 4em;
+    line-height: 0.8;
+    margin-right: 8px;
+    font-weight: bold;
+    color: #1890ff;
+}
+```
+
+### 技巧 4：自定义列表标记
+
+```css
+ul.custom {
+    list-style: none;
+    padding-left: 0;
+}
+ul.custom li::before {
+    content: '▶';
+    color: #1890ff;
+    margin-right: 8px;
+}
+```
+
+### 技巧 5：文本选中样式
+
+```css
+::selection {
+    background: #1890ff;
+    color: #fff;
+}
+```
+
+### 技巧 6：纯 CSS Tooltip
+
+```css
+[tooltip] {
+    position: relative;
+}
+[tooltip]::after {
+    content: attr(tooltip);
+    position: absolute;
+    bottom: 100%; left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background: #333;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+[tooltip]:hover::after {
+    opacity: 1;
+}
+```
+
+### 技巧 7：表单验证反馈
+
+```css
+input:invalid {
+    border-color: #ff4d4f;
+}
+input:invalid + .error-msg {
+    display: block;
+}
+input:valid + .error-msg {
+    display: none;
+}
+```
+
+### 技巧 8：纯 CSS 分隔线
+
+```css
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e0e0e0;
+}
+.divider span {
+    padding: 0 16px;
+    color: #999;
+}
+```
+
+### 技巧 9：空状态提示
+
+```css
+.search-box:placeholder-shown + .clear-btn {
+    opacity: 0;
+    pointer-events: none;
+}
+.search-box:not(:placeholder-shown) + .clear-btn {
+    opacity: 1;
+}
+```
+
+### 技巧 10：滚动到顶部按钮
+
+```css
+.back-to-top {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+/* 当页面有 #top 锚点时显示 */
+html:has(#top:target) .back-to-top {
+    opacity: 1;
+}
+```
+
+> 💡 **使用原则**：
+> - 状态样式用伪类 `:hover` `:focus` `:checked`
+> - 装饰内容用伪元素 `::before` `::after`
+> - 文本特殊部分用 `::first-letter` `::first-line`
+> - 选中样式用 `::selection`
 
 ## examples
 

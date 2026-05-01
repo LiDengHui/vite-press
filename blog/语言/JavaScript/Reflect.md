@@ -1,11 +1,11 @@
 ---
 title: Reflect
 tags:
-    - js
+  - js
 categories:
-    - 技术文档
-    - 前端
-    - js
+  - 技术文档
+  - 前端
+  - js
 date: 2020-09-10 21:52:52
 ---
 

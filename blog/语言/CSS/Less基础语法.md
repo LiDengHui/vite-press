@@ -1,3 +1,15 @@
+---
+title: LESS 基础语法说明书
+date: 2025-04-29
+tags:
+  - CSS
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - 基础入门
+---
+
 # LESS 基础语法说明书
 
 ## 一、变量（Variables）
@@ -188,3 +200,136 @@ nav ul li a:hover {
 3. HTML 引入生成的 CSS 文件
 
 > 提示：主流构建工具（Webpack/Vite）可通过 `less-loader` 自动编译
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：循环生成格子系统
+
+```less
+.generate-grid(@columns: 12) {
+    .col-loop(@i: 1) when (@i <= @columns) {
+        .col-@{i} {
+            width: percentage(@i / @columns);
+        }
+        .col-loop(@i + 1);
+    }
+    .col-loop();
+}
+.generate-grid(12);
+```
+
+### 技巧 2：主题切换
+
+```less
+@theme: light;
+
+.get-theme() when (@theme = light) {
+    @bg: #fff;
+    @text: #333;
+}
+.get-theme() when (@theme = dark) {
+    @bg: #1a1a1a;
+    @text: #f0f0f0;
+}
+
+.get-theme();
+body {
+    background: @bg;
+    color: @text;
+}
+```
+
+### 技巧 3：响应式 Mixins
+
+```less
+.responsive(@breakpoint, @rules) {
+    @media (min-width: @breakpoint) {
+        @rules();
+    }
+}
+
+.card {
+    width: 100%;
+    .responsive(768px, {
+        width: 50%;
+    });
+    .responsive(1200px, {
+        width: 33.33%;
+    });
+}
+```
+
+### 技巧 4：角度计算
+
+```less
+.triangle(@size, @color) {
+    width: 0; height: 0;
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+    border-bottom: @size * 1.732 solid @color;
+}
+```
+
+### 技巧 5：阴影 Mixin
+
+```less
+.box-shadow(@x: 0, @y: 2px, @blur: 4px, @color: rgba(0,0,0,0.1)) {
+    box-shadow: @x @y @blur @color;
+}
+```
+
+### 技巧 6：文字截断
+
+```less
+.ellipsis() {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+```
+
+### 技巧 7：Flex 居中
+
+```less
+.flex-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+```
+
+### 技巧 8：清除浮动
+
+```less
+.clearfix() {
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+```
+
+### 技巧 9：渐变文字
+
+```less
+.gradient-text(@from, @to) {
+    background: linear-gradient(to right, @from, @to);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+```
+
+### 技巧 10：毛玻璃
+
+```less
+.glass(@blur: 10px, @opacity: 0.2) {
+    background: rgba(255,255,255,@opacity);
+    backdrop-filter: blur(@blur);
+    -webkit-backdrop-filter: blur(@blur);
+}
+```
+
+> 💡 **Less 口诀**：变量用 `@`，混合用 `.`，循环用 `递归`，条件用 `when`。

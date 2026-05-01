@@ -1,11 +1,11 @@
 ---
 title: jenkins安装
 tags:
-    - webpack
+  - webpack
 categories:
-    - 技术文档
-    - 前端
-    - webpack
+  - 技术文档
+  - 前端
+  - webpack
 date: 2020-09-17 21:22:47
 ---
 

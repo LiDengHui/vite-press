@@ -1,3 +1,18 @@
+---
+title: Sass 基础语法使用说明书
+date: 2025-04-29
+tags:
+  - CSS
+  - SCSS
+  - Sass
+  - 预处理器
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - 工程化
+---
+
 # Sass 基础语法使用说明书
 
 ---
@@ -365,4 +380,152 @@ SCSS 最新的模块系统（基于 `@use` 和 `@forward`）已彻底取代旧�
 - **旧项目迁移**：逐步替换 `@import` 为 `@use`，优先从工具文件（变量、混合）入手。
 - **工程化建议**：通过 Vite/Webpack 统一管理全局依赖，结合目录分层提升可维护性。
 
-> 更深入的技术细节可参考：[Sass 官方模块文档](https://sass-lang.com/documentation/at-rules/use) 或 [Vite SCSS 配置指南](https://vitejs.dev/config/shared-options.html#css-preprocessoroptions)。
+>更深入的技术细节可参考：[Sass 官方模块文档](https://sass-lang.com/documentation/at-rules/use) 或 [Vite SCSS 配置指南](https://vitejs.dev/config/shared-options.html#css-preprocessoroptions)。
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：快速格子系统
+
+```scss
+@for $i from 1 through 12 {
+    .col-#{$i} {
+        width: percentage($i / 12);
+    }
+}
+```
+
+### 技巧 2：响应式断点 Map
+
+```scss
+$breakpoints: (
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+);
+
+@mixin mq($name) {
+    $width: map-get($breakpoints, $name);
+    @media (min-width: $width) {
+        @content;
+    }
+}
+
+.card {
+    width: 100%;
+    @include mq(md) { width: 50%; }
+    @include mq(lg) { width: 33.33%; }
+}
+```
+
+### 技巧 3：主题系统
+
+```scss
+$themes: (
+    light: (bg: #fff, text: #333),
+    dark:  (bg: #1a1a1a, text: #f0f0f0)
+);
+
+@mixin theme($name) {
+    $t: map-get($themes, $name);
+    background: map-get($t, bg);
+    color: map-get($t, text);
+}
+
+body { @include theme(light); }
+.dark body { @include theme(dark); }
+```
+
+### 技巧 4：三角形 Mixin
+
+```scss
+@mixin triangle($size, $color, $direction: up) {
+    width: 0; height: 0;
+    border: $size solid transparent;
+    @if $direction == up {
+        border-bottom-color: $color;
+    } @else if $direction == down {
+        border-top-color: $color;
+    }
+}
+```
+
+### 技巧 5：文字截断
+
+```scss
+@mixin ellipsis($lines: 1) {
+    @if $lines == 1 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    } @else {
+        display: -webkit-box;
+        -webkit-line-clamp: $lines;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+```
+
+### 技巧 6：阴影系统
+
+```scss
+$shadows: (
+    sm: 0 1px 2px rgba(0,0,0,0.05),
+    md: 0 4px 6px rgba(0,0,0,0.1),
+    lg: 0 10px 15px rgba(0,0,0,0.1)
+);
+
+.shadow-sm { box-shadow: map-get($shadows, sm); }
+.shadow-md { box-shadow: map-get($shadows, md); }
+```
+
+### 技巧 7：渐变文字
+
+```scss
+@mixin gradient-text($from, $to) {
+    background: linear-gradient(to right, $from, $to);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+```
+
+### 技巧 8：毛玻璃
+
+```scss
+@mixin glass($blur: 10px, $opacity: 0.2) {
+    background: rgba(255,255,255,$opacity);
+    backdrop-filter: blur($blur);
+}
+```
+
+### 技巧 9：BEM 命名辅助
+
+```scss
+.block {
+    &__element { }
+    &--modifier { }
+}
+// 编译为 .block__element .block--modifier
+```
+
+### 技巧 10：动态 z-index
+
+```scss
+$z-layers: (
+    modal: 1000,
+    dropdown: 500,
+    header: 100,
+    base: 1
+);
+
+@function z($name) {
+    @return map-get($z-layers, $name);
+}
+
+.modal { z-index: z(modal); }
+```
+
+> 💡 **SCSS 口诀**：变量用 `$`，混合用 `@mixin`，循环用 `@for/@each`，Map 是神器。

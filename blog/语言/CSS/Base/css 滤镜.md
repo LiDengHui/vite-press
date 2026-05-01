@@ -1,3 +1,16 @@
+---
+title: CSS 滤镜
+date: 2025-04-29
+tags:
+  - CSS
+  - 滤镜
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - 视觉表现
+---
+
 # CSS 滤镜
 
 CSS滤镜（Filter）属性提供了强大的视觉效果处理能力，允许对元素（如图片、背景等）应用图形特效。以下是常用滤镜函数及示例：
@@ -131,3 +144,134 @@ CSS滤镜（Filter）属性提供了强大的视觉效果处理能力，允许�
 
 - 现代浏览器（Chrome, Firefox, Edge, Safari）均支持
 - IE 不支持，可加 `-ms-filter` 前缀兼容旧版（部分功能）
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：毛玻璃效果（Backdrop Blur）
+
+```css
+.glass {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);  /* 滤镜应用于背景 */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+}
+```
+
+### 技巧 2：图片悬停变彩色
+
+```css
+.photo {
+    filter: grayscale(100%);
+    transition: filter 0.3s;
+}
+.photo:hover {
+    filter: grayscale(0%) saturate(120%);
+}
+```
+
+### 技巧 3：暗色模式切换
+
+```css
+.dark-mode img {
+    filter: brightness(0.8) contrast(1.2);
+}
+```
+
+### 技巧 4：文字投影滤镜
+
+```css
+.neon-text {
+    color: #fff;
+    filter: drop-shadow(0 0 5px #0ff)
+            drop-shadow(0 0 10px #0ff)
+            drop-shadow(0 0 20px #00f);
+}
+```
+
+### 技巧 5：图片亮度遮罩
+
+```css
+.overlay {
+    position: relative;
+}
+.overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(2px);
+}
+```
+
+### 技巧 6：复古照片效果
+
+```css
+.vintage-photo {
+    filter: sepia(60%) contrast(110%) brightness(90%)
+            saturate(85%) hue-rotate(-10deg);
+}
+```
+
+### 技巧 7：图片加载前占位色
+
+```css
+img {
+    background: #e0e0e0;
+    filter: blur(0px); /* 确保加载前有统一色块 */
+}
+```
+
+### 技巧 8：用 CSS 滤镜做图片缩略图效果
+
+```css
+.thumbnail {
+    width: 200px;
+    filter: contrast(120%) saturate(110%);
+    transition: filter 0.3s;
+}
+.thumbnail:hover {
+    filter: none;
+}
+```
+
+### 技巧 9：处理图片加载失败
+
+```css
+img {
+    position: relative;
+}
+img::after {
+    content: attr(alt);
+    position: absolute;
+    inset: 0;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    filter: grayscale(100%);
+}
+```
+
+### 技巧 10：滚动时模糊背景
+
+```css
+.hero {
+    background-image: url('bg.jpg');
+    background-attachment: fixed;
+}
+.hero.scrolled {
+    filter: blur(5px);
+    transition: filter 0.3s;
+}
+```
+
+> 💡 **总结**：
+> - `filter` 滤镜应用于元素本身
+> - `backdrop-filter` 滤镜应用于元素背后的内容
+> - 多个滤镜可以链式组合
+> - 滚动时模糊背景很适合做模态框遮罩

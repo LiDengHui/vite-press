@@ -39,9 +39,9 @@ manifest.json 文件是 Web 开发中的核心配置文件，其作用贯穿多�
 
 - **元数据**：`name`、`version`、`manifest_version`（必填）
 - **交互配置**：
-    - `browser_action`：工具栏图标及点击弹窗（`default_popup`）
-    - `background`：后台脚本（事件监听与响应）
-    - `content_scripts`：向特定页面注入 JS/CSS（`matches` 指定 URL 规则）
+  - `browser_action`：工具栏图标及点击弹窗（`default_popup`）
+  - `background`：后台脚本（事件监听与响应）
+  - `content_scripts`：向特定页面注入 JS/CSS（`matches` 指定 URL 规则）
 - **权限声明**：`permissions` 字段申请 API 访问权（如 `tabs`、`storage`）。
 
 ---

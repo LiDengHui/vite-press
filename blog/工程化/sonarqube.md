@@ -1,11 +1,11 @@
 ---
 title: sonarqube
 tags:
-    - ci/cd
+  - ci/cd
 categories:
-    - 技术文档
-    - 前端
-    - ci/cd
+  - 技术文档
+  - 前端
+  - ci/cd
 date: 2020-09-12 22:40:32
 ---
 

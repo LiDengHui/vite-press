@@ -39,12 +39,12 @@ JavaScript 的**原型链（Prototype Chain）** 是理解 JavaScript 面向对�
 ## 核心概念
 
 1. **每个对象都有一个隐藏属性 `[[Prototype]]`**
-    - 当你访问对象的属性时，如果对象本身没有该属性，JavaScript 会沿着 `[[Prototype]]` 向上查找（这就是“链”）。
-    - 可通过 `Object.getPrototypeOf(obj)` 或 `obj.__proto__`（非标准，但被广泛支持）访问。
+  - 当你访问对象的属性时，如果对象本身没有该属性，JavaScript 会沿着 `[[Prototype]]` 向上查找（这就是“链”）。
+  - 可通过 `Object.getPrototypeOf(obj)` 或 `obj.__proto__`（非标准，但被广泛支持）访问。
 
 2. **函数有一个 `prototype` 属性**
-    - 只有**函数**拥有显式的 `prototype` 属性（箭头函数除外）。
-    - 当使用 `new` 调用函数时，新创建对象的 `[[Prototype]]` 会指向该函数的 `prototype`。
+  - 只有**函数**拥有显式的 `prototype` 属性（箭头函数除外）。
+  - 当使用 `new` 调用函数时，新创建对象的 `[[Prototype]]` 会指向该函数的 `prototype`。
 
 ---
 

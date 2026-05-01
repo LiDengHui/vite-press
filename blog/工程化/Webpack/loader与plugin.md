@@ -1,11 +1,11 @@
 ---
 title: loader与plugin的区别
 tags:
-    - webpack
+  - webpack
 categories:
-    - 技术文档
-    - 前端
-    - webpack
+  - 技术文档
+  - 前端
+  - webpack
 date: 2020-09-21 22:38:08
 ---
 

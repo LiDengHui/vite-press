@@ -1,3 +1,17 @@
+---
+title: Flex 布局
+date: 2025-04-29
+tags:
+  - CSS
+  - 布局
+  - Flexbox
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - 布局系统
+---
+
 ### Flex 布局属性
 
 #### **一、容器属性（父元素）**
@@ -57,35 +71,35 @@
 #### **二、项目属性（子元素）**
 
 1. **`order`**
-    - 定义项目的排列顺序（数值越小越靠前）
-    - 默认值：`0`
-    - 示例：`order: 1;`
+  - 定义项目的排列顺序（数值越小越靠前）
+  - 默认值：`0`
+  - 示例：`order: 1;`
 
 2. **`flex-grow`**
-    - 定义项目的放大比例（剩余空间分配）
-    - 默认值：`0`（不放大）
-    - 示例：`flex-grow: 2;`（占剩余空间2份）
+  - 定义项目的放大比例（剩余空间分配）
+  - 默认值：`0`（不放大）
+  - 示例：`flex-grow: 2;`（占剩余空间2份）
 
 3. **`flex-shrink`**
-    - 定义项目的缩小比例（空间不足时）
-    - 默认值：`1`（等比例缩小）
-    - `0`：禁止缩小
+  - 定义项目的缩小比例（空间不足时）
+  - 默认值：`1`（等比例缩小）
+  - `0`：禁止缩小
 
 4. **`flex-basis`**
-    - 定义项目在分配空间前的初始大小
-    - 值：`auto`（默认） | `长度`（如 `200px`） | `content`
-    - 优先级：`flex-basis > width`
+  - 定义项目在分配空间前的初始大小
+  - 值：`auto`（默认） | `长度`（如 `200px`） | `content`
+  - 优先级：`flex-basis > width`
 
 5. **`flex`**
-    - `flex-grow` + `flex-shrink` + `flex-basis` 的简写
-    - 常用值：
+  - `flex-grow` + `flex-shrink` + `flex-basis` 的简写
+  - 常用值：
         - `flex: 1` → `1 1 0%`（自适应占满剩余空间）
         - `flex: none` → `0 0 auto`（固定大小）
 
 6. **`align-self`**
-    - 覆盖容器的 `align-items`，定义单个项目的对齐方式
-    - 值同 `align-items`
-    - 示例：`align-self: flex-end;`（底部对齐）
+  - 覆盖容器的 `align-items`，定义单个项目的对齐方式
+  - 值同 `align-items`
+  - 示例：`align-self: flex-end;`（底部对齐）
 
 ---
 
@@ -135,3 +149,137 @@
 > - `align-items: center` 实现垂直居中
 
 通过组合这些属性，可高效实现响应式布局、居中对齐、动态分配空间等效果。
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：三点对齐（左中右）
+
+```css
+.nav {
+    display: flex;
+    justify-content: space-between;
+}
+.nav::before,
+.nav::after {
+    content: '';
+    flex: 1;
+}
+/* 左边元素自然靠左，中间靠中，右边靠右 */
+```
+
+### 技巧 2：实现等分布局
+
+```css
+/* 子元素等宽分配 */
+.item { flex: 1; }
+
+/* 某个元素占剩余所有空间 */
+.item-grow { flex: 1; }
+.others { flex: 0 0 auto; }
+```
+
+### 技巧 3：水平垂直居中
+
+```css
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+```
+
+### 技巧 4：最后一项右对齐
+
+```css
+.container {
+    display: flex;
+}
+.container > :last-child {
+    margin-left: auto; /* 推到最右边 */
+}
+```
+
+### 技巧 5：换行后最后一项居中
+
+```css
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.container::after {
+    content: '';
+    flex: 1;
+    max-width: 200px; /* 与子元素宽度一致 */
+}
+```
+
+### 技巧 6：修复 Flex 子元素最小尺寸问题
+
+```css
+/* 某些情况下 Flex 子元素不会缩小到期望尺寸 */
+.item {
+    min-width: 0;      /* 允许缩小 */
+    min-height: 0;
+    overflow: hidden;  /* 防止内容溢出 */
+}
+```
+
+### 技巧 7：滚动容器内部居中
+
+```css
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+.scroll-container > * {
+    flex: 0 0 80%;
+    scroll-snap-align: center;
+}
+```
+
+### 技巧 8：相等间距分布
+
+```css
+/* 所有子元素间距完全相等，包括首尾 */
+.container {
+    display: flex;
+    justify-content: space-evenly;
+}
+```
+
+### 技巧 9：用 gap 替代 margin
+
+```css
+/* 旧写法 */
+.item { margin-right: 16px; }
+.item:last-child { margin-right: 0; }
+
+/* 新写法 */
+.container {
+    display: flex;
+    gap: 16px; /* 无需清除末尾 margin */
+}
+```
+
+### 技巧 10：Flex 子元素轮播
+
+```css
+.marquee {
+    display: flex;
+    overflow: hidden;
+}
+.marquee-content {
+    display: flex;
+    animation: scroll 10s linear infinite;
+}
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+```
+
+> 💡 **Flex 口诀**：想居中用 `justify-content: center` + `align-items: center`，想填满用 `flex: 1`，想定宽用 `flex: 0 0 width`，想推到对边用 `margin-left/right: auto`。

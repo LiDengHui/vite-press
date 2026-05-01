@@ -1,12 +1,12 @@
 ---
 title: Promise规范
 tags:
-    - js
-    - Promise
+  - js
+  - Promise
 categories:
-    - 技术文档
-    - 前端
-    - js
+  - 技术文档
+  - 前端
+  - js
 date: 2020-08-19 22:32:07
 ---
 

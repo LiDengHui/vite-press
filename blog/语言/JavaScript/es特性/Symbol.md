@@ -72,8 +72,8 @@ console.log(arr + 10);
 控制对象在语言原生操作（如迭代、类型转换等）中的默认行为。
 
 1. **`Symbol.iterator`**
-    - **作用**：定义对象的默认迭代器，使其支持 `for...of` 循环。
-    - **示例**：
+  - **作用**：定义对象的默认迭代器，使其支持 `for...of` 循环。
+  - **示例**：
         ```javascript
         const iterableObj = {
             [Symbol.iterator]: function* () {
@@ -88,8 +88,8 @@ console.log(arr + 10);
         _数组、`Map`、`Set` 等内置此迭代器_ 。
 
 2. **`Symbol.asyncIterator`**
-    - **作用**：定义对象的异步迭代器，支持 `for await...of` 异步遍历。
-    - **示例**：
+  - **作用**：定义对象的异步迭代器，支持 `for await...of` 异步遍历。
+  - **示例**：
         ```javascript
         const asyncObj = {
             async *[Symbol.asyncIterator]() {
@@ -106,8 +106,8 @@ console.log(arr + 10);
         _用于异步数据流（如分页 API）_ 。
 
 3. **`Symbol.toPrimitive`**
-    - **作用**：控制对象转换为原始值（如字符串、数字）的行为。
-    - **示例**：
+  - **作用**：控制对象转换为原始值（如字符串、数字）的行为。
+  - **示例**：
         ```javascript
         const obj = {
             [Symbol.toPrimitive](hint) {
@@ -122,8 +122,8 @@ console.log(arr + 10);
         _参与运算时自动调用_ 。
 
 4. **`Symbol.toStringTag`**
-    - **作用**：定制 `Object.prototype.toString()` 返回的标签。
-    - **示例**：
+  - **作用**：定制 `Object.prototype.toString()` 返回的标签。
+  - **示例**：
         ```javascript
         class CustomClass {
             get [Symbol.toStringTag]() {
@@ -187,8 +187,8 @@ console.log(arr + 10);
 影响对象构造或元属性。
 
 1. **`Symbol.species`**
-    - **作用**：指定派生对象（如 `map()`、`filter()` 返回的新对象）的构造函数。
-    - **示例**：
+  - **作用**：指定派生对象（如 `map()`、`filter()` 返回的新对象）的构造函数。
+  - **示例**：
         ```javascript
         class MyArray extends Array {
             static get [Symbol.species]() {
@@ -203,8 +203,8 @@ console.log(arr + 10);
         _控制派生对象的类型_ 。
 
 2. **`Symbol.isConcatSpreadable`**
-    - **作用**：控制数组或类数组对象在 `concat()` 中是否展开。
-    - **示例**：
+  - **作用**：控制数组或类数组对象在 `concat()` 中是否展开。
+  - **示例**：
         ```javascript
         const arr = [1, 2];
         arr[Symbol.isConcatSpreadable] = false; // 禁止展开

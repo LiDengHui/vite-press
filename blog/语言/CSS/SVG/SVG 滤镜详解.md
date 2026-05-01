@@ -1,3 +1,17 @@
+---
+title: SVG滤镜完整使用指南 - 17种滤镜原语详解
+date: 2025-04-29
+tags:
+  - CSS
+  - SVG
+  - 滤镜
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - SVG专题
+---
+
 # SVG滤镜完整使用指南 - 17种滤镜原语详解
 
 ## 概述
@@ -31,8 +45,8 @@ feGaussianBlur SVG滤镜原语通过stdDeviation属性指定的数值对输入�
 ### 主要参数
 
 - **stdDeviation**: 标准偏差值，控制模糊程度
-    - 单个值：应用均匀模糊
-    - 两个值：第一个为水平模糊，第二个为垂直模糊
+  - 单个值：应用均匀模糊
+  - 两个值：第一个为水平模糊，第二个为垂直模糊
 - **in**: 输入源（SourceGraphic、SourceAlpha等）
 
 ### 使用场景
@@ -177,8 +191,8 @@ feMorphology SVG滤镜原语用于腐蚀或扩张输入图像。它的用处特�
 ### 主要参数
 
 - **operator**: 操作类型
-    - `erode`: 腐蚀（变细）
-    - `dilate`: 扩张（增粗）
+  - `erode`: 腐蚀（变细）
+  - `dilate`: 扩张（增粗）
 - **radius**: 作用半径
 
 ### 使用场景
@@ -252,8 +266,8 @@ feTurbulence SVG滤镜原语使用Perlin湍流函数创建图像。它允许合�
 - **numOctaves**: 八度数（细节层次）
 - **seed**: 随机种子
 - **type**: 噪声类型
-    - `turbulence`: 湍流噪声
-    - `fractalNoise`: 分形噪声
+  - `turbulence`: 湍流噪声
+  - `fractalNoise`: 分形噪声
 
 ### 使用场景
 
@@ -322,11 +336,11 @@ feComponentTransfer元素允许您修改每个像素中表示的每个RGBA分量
 
 - 子元素：feFuncR、feFuncG、feFuncB、feFuncA
 - **type**: 函数类型
-    - `identity`: 恒等函数
-    - `table`: 查找表
-    - `discrete`: 离散函数
-    - `linear`: 线性函数
-    - `gamma`: 伽马函数
+  - `identity`: 恒等函数
+  - `table`: 查找表
+  - `discrete`: 离散函数
+  - `linear`: 线性函数
+  - `gamma`: 伽马函数
 
 ### 使用场景
 
@@ -392,11 +406,11 @@ feBlend滤镜原语使用常用的图像软件混合模式执行两个输入图�
 ### 主要参数
 
 - **mode**: 混合模式
-    - `normal`: 正常
-    - `multiply`: 正片叠底
-    - `screen`: 滤色
-    - `darken`: 变暗
-    - `lighten`: 变亮
+  - `normal`: 正常
+  - `multiply`: 正片叠底
+  - `screen`: 滤色
+  - `darken`: 变暗
+  - `lighten`: 变亮
 
 ### 使用场景
 
@@ -647,3 +661,80 @@ feTile直接类似于pattern。它允许我们将重复的图像模式引入滤�
 ## 总结
 
 SVG滤镜系统提供了强大而灵活的图像处理能力，17种滤镜原语可以单独使用或组合使用来创建各种视觉效果。理解每个滤镜的特性和最佳应用场景，能够帮助开发者创建出令人印象深刻的视觉效果。
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：SVG 毛玻璃
+
+```xml
+<filter id="svg-glass">
+  <feGaussianBlur stdDeviation="10" in="SourceGraphic" result="blur"/>
+  <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"/>
+  <feBlend in="SourceGraphic" in2="goo"/>
+</filter>
+```
+
+### 技巧 2：文字浮雕
+
+```xml
+<filter id="emboss-text">
+  <feGaussianBlur stdDeviation="2" in="SourceAlpha" result="blur"/>
+  <feSpecularLighting surfaceScale="5" specularConstant="1" specularExponent="10" lighting-color="white" result="light">
+    <fePointLight x="-5000" y="-10000" z="20000"/>
+  </feSpecularLighting>
+  <feComposite in="light" in2="SourceAlpha" operator="in" result="light"/>
+  <feComposite in="SourceGraphic" in2="light" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+</filter>
+```
+
+### 技巧 3：液态金属
+
+```xml
+<filter id="liquid-metal">
+  <feTurbulence baseFrequency="0.05" numOctaves="2" result="noise"/>
+  <feDisplacementMap in="SourceGraphic" in2="noise" scale="10"/>
+  <feGaussianBlur stdDeviation="1"/>
+  <feColorMatrix type="saturate" values="0"/>
+  <feComponentTransfer>
+    <feFuncA type="linear" slope="1.5"/>
+  </feComponentTransfer>
+</filter>
+```
+
+### 技巧 4：发光边框
+
+```xml
+<filter id="glow">
+  <feGaussianBlur stdDeviation="4" result="blur"/>
+  <feMerge>
+    <feMergeNode in="blur"/>
+    <feMergeNode in="blur"/>
+    <feMergeNode in="SourceGraphic"/>
+  </feMerge>
+</filter>
+```
+
+### 技巧 5：隐藏水印
+
+```xml
+<filter id="watermark">
+  <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.3 0"/>
+</filter>
+```
+
+### 技巧 6：仅显示轮廓
+
+```xml
+<filter id="outline">
+  <feMorphology operator="dilate" radius="2" in="SourceAlpha" result="thick"/>
+  <feComposite in="thick" in2="SourceAlpha" operator="out" result="outline"/>
+  <feFlood flood-color="red" result="color"/>
+  <feComposite in="color" in2="outline" operator="in" result="stroke"/>
+  <feMerge>
+    <feMergeNode in="stroke"/>
+    <feMergeNode in="SourceGraphic"/>
+  </feMerge>
+</filter>
+```

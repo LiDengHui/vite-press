@@ -1,3 +1,16 @@
+---
+title: css优先级
+date: 2025-04-29
+tags:
+  - CSS
+  - 优先级
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - 基础入门
+---
+
 # css优先级
 
 important > id > class > \*
@@ -87,3 +100,110 @@ CSS优先级（Specificity）用于确定当多个规则作用于同一元素时
 - 实际开发中避免过度嵌套，用类选择器更可控。
 
 > 💡 总结：优先级计算 = **内联 > ID > 类/伪类 > 元素**，比较时从左到右逐级对比。
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：利用 `:where()` 降低特异性
+
+```css
+/* :where() 内部选择器不计入特异性 */
+:where(.btn, .link) {
+    color: blue; /* 特异性 = 0,0,0,0 */
+}
+.btn { color: red; } /* 特异性 = 0,0,1,0 → 红色 */
+```
+
+### 技巧 2：利用 `:is()` 保持特异性
+
+```css
+/* :is() 保留内部最高特异性 */
+:is(.btn, #id) {
+    color: blue; /* 特异性 = 0,1,0,0 */
+}
+```
+
+### 技巧 3：避免 `!important` 使用
+
+```css
+/* 坏例 */
+.btn { color: red !important; }
+
+/* 好例：增加选择器特异性 */
+.btn.btn-primary {
+    color: blue; /* 特异性更高，无需 !important */
+}
+```
+
+### 技巧 4：CSS 变量优先级
+
+```css
+/* 自定义属性优先级更高 */
+:root { --color: blue; }
+.btn { color: var(--color); }
+
+/* 覆盖 */
+.btn.primary {
+    --color: red; /* 仅覆盖 .btn 内部的 --color */
+}
+```
+
+### 技巧 5：源码顺序规则
+
+```css
+/* 同优先级时，后定义覆盖先定义 */
+.alert { color: blue; }
+.alert { color: red; } /* 最终生效为红色 */
+```
+
+### 技巧 6：层叠上下文
+
+```css
+/* 特异性相同时，层叠层的样式后定义的覆盖先定义的 */
+#app .btn { color: blue; }  /* (0,1,1,0) */
+.page .btn { color: red; }  /* (0,0,1,1) 特异性低 */
+```
+
+### 技巧 7：计算器资源
+
+```css
+/* 使用 https://specificity.keegan.st/ 计算特异性 */
+/* 也可在浏览器控制台执行 getComputedStyle() */
+```
+
+### 技巧 8：强制覆盖策略
+
+```css
+/* 增加父级 ID */
+#app .component .btn { }
+
+/* 增加双类名 */
+.btn.btn-primary { }
+
+/* 使用 CSS 层叠（后定义覆盖） */
+```
+
+### 技巧 9：避免深度嵌套
+
+```css
+/* 坏：过深的选择器 */
+#app .container .row .col .card .body .btn { }
+
+/* 好：平坦化 */
+.btn-primary { }
+```
+
+### 技巧 10：性能优化
+
+```css
+/* 从右往左读取的选择器更快 */
+.btn { }              /* 快 */
+button.btn { }        /* 较快 */
+#app button.btn { }   /* 较慢 */
+```
+
+> 💡 **记住**：
+> - 特异性计算 = **(0, ID数, 类/伪类/属性数, 元素/伪元素数)**
+> - `!important` 会打断优先级层叠，尽量避免使用
+> - 源码顺序是同优先级下的最后一道防线

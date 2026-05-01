@@ -1,12 +1,12 @@
 ---
 title: iterm2配置
 tags:
-    - iterm2
-    - mac
+  - iterm2
+  - mac
 categories:
-    - 技术文档
-    - 工具
-    - iterm2
+  - 技术文档
+  - 工具
+  - iterm2
 date: 2020-08-24 00:28:36
 ---
 

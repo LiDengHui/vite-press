@@ -1,11 +1,11 @@
 ---
 title: 手写Promise
 tags:
-    - Promise
+  - Promise
 categories:
-    - 技术文档
-    - 前端
-    - Promise
+  - 技术文档
+  - 前端
+  - Promise
 date: 2020-08-20 23:56:54
 ---
 

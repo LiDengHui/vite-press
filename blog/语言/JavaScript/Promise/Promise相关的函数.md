@@ -51,8 +51,8 @@
 2. **资源清理**：使用 `.finally()` 确保资源释放
 3. **现代特性**：在支持环境（Node.js 22+ / Chrome 122+）优先使用 `Promise.try()` 和 `Promise.withResolvers()`
 4. **并发控制**：
-    - 全成功：`Promise.all()`
-    - 需所有结果：`Promise.allSettled()`
-    - 最快成功：`Promise.any()`
+  - 全成功：`Promise.all()`
+  - 需所有结果：`Promise.allSettled()`
+  - 最快成功：`Promise.any()`
 
 > 完整规范参考：[ECMAScript Promise](https://tc39.es/ecma262/#sec-promise-objects)

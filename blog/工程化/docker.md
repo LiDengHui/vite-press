@@ -1,11 +1,11 @@
 ---
 title: docker
 tags:
-    - docker
+  - docker
 categories:
-    - 技术文档
-    - 前端
-    - docker
+  - 技术文档
+  - 前端
+  - docker
 date: 2020-09-12 22:45:24
 ---
 

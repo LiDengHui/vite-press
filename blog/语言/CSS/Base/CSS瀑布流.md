@@ -1,3 +1,17 @@
+---
+title: 瀑布流实现的思路和做法
+date: 2025-04-29
+tags:
+  - CSS
+  - 瀑布流
+  - 布局
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - 布局系统
+---
+
 # 瀑布流实现的思路和做法
 
 瀑布流（Waterfall Flow）是一种流行的网页布局方式，特点是等宽不等高，元素按照高度自动排列，形成类似瀑布的视觉效果。以下是实现瀑布流的几种常见方法：
@@ -211,3 +225,156 @@ lazyImages.forEach((img) => {
 ```
 
 选择哪种实现方式取决于项目需求、浏览器兼容性要求和性能考虑。
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：纯 CSS 瀑布流（最简方案）
+
+```css
+.masonry {
+    column-count: 4;
+    column-gap: 16px;
+}
+.masonry-item {
+    break-inside: avoid; /* 防止元素被分割 */
+    margin-bottom: 16px;
+}
+
+/* 响应式 */
+@media (max-width: 1200px) { .masonry { column-count: 3; } }
+@media (max-width: 768px)  { .masonry { column-count: 2; } }
+@media (max-width: 480px)  { .masonry { column-count: 1; } }
+```
+
+### 技巧 2：CSS Grid 实现瀑布流
+
+```css
+.masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 10px; /* 基础行高 */
+    gap: 16px;
+}
+.masonry-grid .item:nth-child(1) { grid-row: span 15; }
+.masonry-grid .item:nth-child(2) { grid-row: span 20; }
+.masonry-grid .item:nth-child(3) { grid-row: span 12; }
+/* 根据图片高度分配 span 值 */
+```
+
+### 技巧 3：图片加载完成后重新计算
+
+```javascript
+const imgs = document.querySelectorAll('.masonry img');
+Promise.all(
+    [...imgs].map(img =>
+        img.complete ? Promise.resolve() :
+        new Promise(r => img.onload = img.onerror = r)
+    )
+).then(() => waterfall('.masonry', '.item', 4));
+```
+
+### 技巧 4：防抖重绘
+
+```javascript
+function debounce(fn, wait) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(...args), wait);
+    };
+}
+
+window.addEventListener('resize', debounce(() => {
+    waterfall('.masonry', '.item', 4);
+}, 200));
+```
+
+### 技巧 5：虚拟滚动（处理大量数据）
+
+```css
+.virtual-masonry {
+    position: relative;
+    height: var(--total-height);
+}
+.virtual-item {
+    position: absolute;
+    /* top/left 由 JS 计算 */
+}
+```
+
+### 技巧 6：滚动加载更多
+
+```javascript
+let loading = false;
+window.addEventListener('scroll', () => {
+    if (loading) return;
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight - 200) {
+        loading = true;
+        loadMore().then(() => {
+            waterfall('.masonry', '.item', 4);
+            loading = false;
+        });
+    }
+});
+```
+
+### 技巧 7：图片占位策略
+
+```css
+.masonry-item {
+    background: #f0f0f0; /* 占位色 */
+    min-height: 100px;   /* 防止跳动 */
+}
+.masonry-item img {
+    width: 100%;
+    display: block;
+    transition: opacity 0.3s;
+}
+.masonry-item img[data-src] {
+    opacity: 0; /* 加载前隐藏 */
+}
+.masonry-item img.loaded {
+    opacity: 1;
+}
+```
+
+### 技巧 8：支持图片变长宽
+
+```javascript
+// 根据图片原始比例计算高度
+function setAspectRatio(img) {
+    const ratio = img.naturalHeight / img.naturalWidth;
+    img.style.aspectRatio = `${1} / ${ratio}`;
+}
+```
+
+### 技巧 9：布局动画
+
+```css
+.masonry-item {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.masonry-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+```
+
+### 技巧 10：优先使用 CSS Columns
+
+```css
+/* 大部分场景下，CSS Columns 已足够 */
+.simple-masonry {
+    columns: 4 250px; /* 最少 250px 宽，最多 4 列 */
+    column-gap: 16px;
+}
+```
+
+> 💡 **选型建议**：
+> - 简单展示 → CSS `columns`
+> - 需要精确控制 → JS 计算位置
+> - 大量数据 → 虚拟滚动
+> - 图片展示 → 懒加载 + 占位

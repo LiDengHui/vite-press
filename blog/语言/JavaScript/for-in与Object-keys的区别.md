@@ -1,11 +1,11 @@
 ---
 title: for-in与Object.keys的区别
 tags:
-    - JS
+  - JS
 categories:
-    - 技术文档
-    - 前端
-    - JS
+  - 技术文档
+  - 前端
+  - JS
 date: 2020-10-09 22:49:09
 ---
 

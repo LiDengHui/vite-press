@@ -1,12 +1,12 @@
 ---
 title: Paste Image
 tags:
-    - markdown
-    - vscode
+  - markdown
+  - vscode
 categories:
-    - 技术文档
-    - 工具
-    - markdown
+  - 技术文档
+  - 工具
+  - markdown
 date: 2020-07-30 23:52:11
 ---
 

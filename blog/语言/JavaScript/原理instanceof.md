@@ -1,11 +1,11 @@
 ---
 title: 原理instanceof
 tags:
-    - js
+  - js
 categories:
-    - 技术文档
-    - 前端
-    - js
+  - 技术文档
+  - 前端
+  - js
 date: 2020-08-08 18:59:45
 ---
 

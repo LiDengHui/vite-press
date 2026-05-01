@@ -3,27 +3,27 @@
 layout: home
 
 hero:
-    name: '点滴生活'
-    text: '记录个人成长'
-    tagline: 记录个人成长
-    image:
-        src: /favicon.svg
-        alt: VitePress
-    actions:
-        - theme: brand
-          text: 个人随想
-          link: /CSS/BFC布局.html
+  name: '点滴生活'
+  text: '记录个人成长'
+  tagline: 记录个人成长
+  image:
+    src: /favicon.svg
+    alt: VitePress
+  actions:
+    - theme: brand
+      text: 个人随想
+      link: /CSS/BFC布局.html
 
 features:
-    - title: 3D编辑器
-      link: https://pinia.work/tool
-      details: 简单的3D编辑器
-    - title: 个人后台管理
-      link: https://pinia.work/admin
-      details: 个人后台管理系统
-    - title: three-learn
-      link: https://lidenghui.github.io/three-learn/
-      details: three demo
+  - title: 3D编辑器
+    link: https://pinia.work/tool
+    details: 简单的3D编辑器
+  - title: 个人后台管理
+    link: https://pinia.work/admin
+    details: 个人后台管理系统
+  - title: three-learn
+    link: https://lidenghui.github.io/three-learn/
+    details: three demo
 ---
 
 <script setup>

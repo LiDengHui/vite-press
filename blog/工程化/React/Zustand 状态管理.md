@@ -173,20 +173,20 @@ src/
 ## ✅ 七、进阶建议
 
 1. **Middleware 使用**
-    - 如 Zustand 的 `persist` 用于本地持久化，`devtools` 配合 Redux DevTools 调试。
+  - 如 Zustand 的 `persist` 用于本地持久化，`devtools` 配合 Redux DevTools 调试。
 
 2. **Selectors 优化**
-    - 减少组件不必要的重新渲染，例如：
+  - 减少组件不必要的重新渲染，例如：
 
         ```ts
         const todos = useTodoStore((state) => state.todos);
         ```
 
 3. **组合多个 Store**
-    - 拆分不同模块（如 AuthStore、TodoStore），每个模块一个 store 文件。
+  - 拆分不同模块（如 AuthStore、TodoStore），每个模块一个 store 文件。
 
 4. **异步操作封装**
-    - 可将异步 API 封装到 `services/` 中，在 store 内调用，保持 store 的纯粹性。
+  - 可将异步 API 封装到 `services/` 中，在 store 内调用，保持 store 的纯粹性。
 
 ---
 

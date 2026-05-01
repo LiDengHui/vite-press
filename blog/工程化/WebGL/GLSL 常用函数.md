@@ -1,3 +1,16 @@
+---
+title: GLSL 常用函数分类手册
+tags:
+  - WebGL
+  - GLSL
+  - 函数参考
+categories:
+  - 技术文档
+  - 前端
+  - WebGL
+date: 2025-04-30
+---
+
 # GLSL 常用函数分类手册
 
 [[toc]]
@@ -115,3 +128,59 @@
 3. **纹理采样**：WebGL 1 需用 `texture2D`，WebGL 2+ 统一为 `texture`。
 
 > 此手册覆盖 90% 常用场景，完整函数列表参考 [GLSL ES 3.0 规范](https://www.khronos.org/registry/OpenGL/specs/es/3.0/GLSL_ES_Specification_3.00.pdf)。
+
+
+
+---
+
+## 相关阅读
+
+- [GLSL 噪声函数与程序化生成](./GLSL 噪声函数与程序化生成.md) — 噪声函数是 GLSL 函数的高级应用
+- [光线运算与光照模型](./光线运算与光照模型.md) — 光照计算中常用 GLSL 函数
+- [帧缓冲与后处理管线](./帧缓冲与后处理管线.md) — 后处处理着色器的函数使用
+
+---
+
+## 奇淫技巧
+
+### 快速查询
+
+```glsl
+// 在 VS Code 中使用 GLSL 插件获取智能提示和语法高亮
+// 推荐: Shader languages support for VS Code
+```
+
+### 函数片段
+
+```glsl
+// 将常用函数封装成可复用的 snippet
+#define saturate(x) clamp(x, 0.0, 1.0)
+#define lerp(a, b, t) mix(a, b, t)
+#define rcp(x) (1.0 / (x))
+```
+
+
+
+### 3.1 将 length / distance 封装为可内联的函数
+
+length 和 distance 在大量调用时会有开销，可以封装为 `vec2 dist = dot(p,p);` 等形式避免函数调用开销
+
+### 4.1 利用 step 替代 if 分支
+
+`step(edge, x)` 和 `smoothstep` 可以替代简单的 if-else，在 GPU 上避免波动分支，提高执行效率
+
+---
+
+## 在线示例
+
+- [GLSL Built-in Functions](https://www.shadertoy.com/view/4dK3zD) — GLSL 内置函数对照表
+- [Smoothstep vs Step](https://www.shadertoy.com/view/ltS3zK) — step 与 smoothstep 对比
+- [Mix Interpolation](https://www.shadertoy.com/view/4tlSRn) — mix 函数各种插值演示
+- [Distance Functions](https://www.shadertoy.com/view/4tlSRn) — distance / dot / length 演示
+
+---
+
+## 参考资料
+
+- [GLSL Spec - Khronos](https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language)
+- [The Book of Shaders - GLSL Functions](https://thebookofshaders.com/glossary/)

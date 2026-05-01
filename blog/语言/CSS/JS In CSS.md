@@ -1,12 +1,13 @@
 ---
 title: JS IN CSS
-tags:
-    - CSS
-categories:
-    - 技术文档
-    - 前端
-    - CSS
 date: 2020-10-17 22:55:02
+tags:
+  - CSS
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - 基础入门
 ---
 
 # 先要了解 `CSS IN JS`
@@ -102,3 +103,62 @@ CSS的规则都是全局的,任何一个组件的样式规则,都对整个页面
 [CSS Modules 用法教程](http://www.ruanyifeng.com/blog/2016/06/css_modules.html)
 
 # 再了解 `JS IN CSS`
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：CSS Modules 组合动态类名
+
+```js
+import styles from './button.module.css';
+
+function Button({ primary, large, children }) {
+    const className = [
+        styles.btn,
+        primary ? styles.primary : styles.secondary,
+        large ? styles.large : ''
+    ].join(' ');
+    return <button className={className}>{children}</button>;
+}
+```
+
+### 技巧 2：样式对象
+
+```js
+const dynamicStyle = {
+    backgroundColor: isActive ? '#3498db' : '#ccc',
+    transform: `scale(${isActive ? 1.1 : 1})`,
+    transition: 'all 0.3s'
+};
+<div style={dynamicStyle}>Content</div>
+```
+
+### 技巧 3：CSS-in-JS 库快速对比
+
+| 库 | 特点 | 适用 |
+|-----|------|------|
+| styled-components | 模板字符串 | React |
+| Emotion | 性能优 | React |
+| JSS | 独立 | 通用 |
+| Linaria | 零运行时 | React |
+
+### 技巧 4：动态主题切换
+
+```js
+const theme = {
+    light: { bg: '#fff', text: '#333' },
+    dark:  { bg: '#1a1a1a', text: '#f0f0f0' }
+};
+// 通过 Provider 传递，组件内通过 useContext 获取
+```
+
+### 技巧 5：条件样式
+
+```js
+const getStyle = (status) => ({
+    pending: { color: '#999', border: '1px dashed' },
+    success: { color: '#27ae60', border: '1px solid' },
+    error:   { color: '#e74c3c', border: '2px solid' }
+}[status]);
+```

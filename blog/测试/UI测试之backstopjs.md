@@ -1,11 +1,11 @@
 ---
 title: UI测试之backstopjs
 tags:
-    - 测试
+  - 测试
 categories:
-    - 技术文档
-    - 前端
-    - 测试
+  - 技术文档
+  - 前端
+  - 测试
 date: 2020-08-14 23:14:15
 description: 用来比较实际做出来的项目与UX的设计图的差异
 ---

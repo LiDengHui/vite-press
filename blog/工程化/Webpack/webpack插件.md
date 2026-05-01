@@ -1,11 +1,11 @@
 ---
 title: webpack插件
 tags:
-    - webpack
+  - webpack
 categories:
-    - 技术文档
-    - 前端
-    - webpack
+  - 技术文档
+  - 前端
+  - webpack
 date: 2020-09-20 14:34:29
 ---
 

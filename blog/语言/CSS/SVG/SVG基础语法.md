@@ -1,3 +1,16 @@
+---
+title: SVG基础语法
+date: 2025-04-29
+tags:
+  - CSS
+  - SVG
+categories:
+  - 技术文档
+  - 前端
+  - CSS
+  - SVG专题
+---
+
 # SVG基础语法
 
 SVG（Scalable Vector Graphics）是一种基于 XML 的**矢量图形格式**，可在任何分辨率下无损缩放，适用于图标、图表、动画等场景。
@@ -177,3 +190,84 @@ SVG 滤镜（Filter）是一种用于修改 SVG 元素外观的强大工具。�
 ```
 
 掌握 SVG 可创建分辨率无关的图形，结合 CSS/JavaScript 可实现交互式数据可视化与复杂动画。
+
+---
+
+## 奇淫技巧
+
+### 技巧 1：线条动画
+
+```svg
+<svg viewBox="0 0 100 100">
+  <path d="M10 50 Q 50 10, 90 50" fill="none" stroke="#3498db" stroke-width="2">
+    <animate attributeName="d" 
+             values="M10 50 Q 50 10, 90 50;M10 50 Q 50 90, 90 50;M10 50 Q 50 10, 90 50" 
+             dur="2s" repeatCount="indefinite"/>
+  </path>
+</svg>
+```
+
+### 技巧 2：纯 CSS SVG 动画
+
+```css
+.icon-spin {
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+```
+
+### 技巧 3：响应式 SVG
+
+```css
+svg {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+}
+```
+
+### 技巧 4：深色模式 SVG
+
+```css
+@media (prefers-color-scheme: dark) {
+    svg { fill: #fff; }
+}
+```
+
+### 技巧 5：单行 SVG 图标
+
+```html
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+</svg>
+```
+
+### 技巧 6：深度优化
+
+```bash
+npx svgo input.svg -o output.svg
+```
+
+### 技巧 7：SVG 渐变线条
+
+```svg
+<defs>
+  <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" style="stop-color:#ff6b6b"/>
+    <stop offset="100%" style="stop-color:#4ecdc4"/>
+  </linearGradient>
+</defs>
+<rect width="100%" height="4" fill="url(#grad)"/>
+```
+
+### 技巧 8：SVG 裁剪路径
+
+```svg
+<clipPath id="clip">
+  <circle cx="50" cy="50" r="40"/>
+</clipPath>
+<image href="photo.jpg" width="100" height="100" clip-path="url(#clip)"/>
+```

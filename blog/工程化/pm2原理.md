@@ -1,11 +1,11 @@
 ---
 title: pm2原理
 tags:
-    - ci
+  - ci
 categories:
-    - 技术文档
-    - 前端
-    - ci
+  - 技术文档
+  - 前端
+  - ci
 date: 2020-09-13 12:28:20
 ---
 

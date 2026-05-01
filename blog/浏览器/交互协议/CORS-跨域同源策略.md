@@ -51,9 +51,9 @@ Access-Control-Allow-Origin: https://example.com
 ```
 
 - **其他常见的 CORS 头部**：
-    - `Access-Control-Allow-Methods`: 允许的方法，如 `GET, POST, PUT`.
-    - `Access-Control-Allow-Headers`: 允许请求携带的头部信息，如 `Content-Type`.
-    - `Access-Control-Allow-Credentials`: 是否允许发送凭据（cookies 或 HTTP 认证信息）。
+  - `Access-Control-Allow-Methods`: 允许的方法，如 `GET, POST, PUT`.
+  - `Access-Control-Allow-Headers`: 允许请求携带的头部信息，如 `Content-Type`.
+  - `Access-Control-Allow-Credentials`: 是否允许发送凭据（cookies 或 HTTP 认证信息）。
 
 ### **CORS 具体工作流程**
 

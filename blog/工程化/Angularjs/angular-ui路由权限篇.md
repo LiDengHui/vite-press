@@ -2,9 +2,9 @@
 title: angularjs-ui路由权限篇
 date: 2016-06-03 11:15:20
 tags:
-    - 前端
-    - 框架
-    - angularjs
+  - 前端
+  - 框架
+  - angularjs
 categories: 技术文档
 description: 前端框架angularjs-ui路由权限的三种方法
 ---

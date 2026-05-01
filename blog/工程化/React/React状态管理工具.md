@@ -38,8 +38,8 @@ dispatch({ type: 'TOGGLE_TODO', id: todo.id });
 - **核心**：跨层级状态共享，通过 `Provider` 注入全局状态。
 - **优点**：内置支持、免去 props 透传。
 - **缺点**：
-    - 任何 `Context` 值变更会触发**所有消费者组件重渲染**，性能敏感场景需配合 `memo` 优化。
-    - 复杂数据流管理能力弱，易导致代码混乱。
+  - 任何 `Context` 值变更会触发**所有消费者组件重渲染**，性能敏感场景需配合 `memo` 优化。
+  - 复杂数据流管理能力弱，易导致代码混乱。
 - **适用场景**：主题切换、用户身份等低频变更的全局状态。
 
 ---
@@ -78,8 +78,8 @@ dispatch({ type: 'TOGGLE_TODO', id: todo.id });
 
 - **核心**：单向数据流（Action → Reducer → Store），强调不可变性和纯函数。
 - **优点**：
-    - 时间旅行调试、中间件生态（Redux-Thunk/Saga）。
-    - 框架无关，适合大型项目规范化协作。
+  - 时间旅行调试、中间件生态（Redux-Thunk/Saga）。
+  - 框架无关，适合大型项目规范化协作。
 - **缺点**：模板代码多（Action/Reducer/Store 定义繁琐），心智负担重。
 - **演进**：现代 Redux 已简化（`@reduxjs/toolkit` 减少样板代码）。
 
@@ -87,8 +87,8 @@ dispatch({ type: 'TOGGLE_TODO', id: todo.id });
 
 - **核心**：轻量 Redux 替代品，Store 即 Hook，无 Provider 包裹。
 - **优点**：
-    - **API 简洁**：免去 Action/Reducer 定义，直接修改状态。
-    - 支持中间件（持久化、日志等），**组件外可调用**。
+  - **API 简洁**：免去 Action/Reducer 定义，直接修改状态。
+  - 支持中间件（持久化、日志等），**组件外可调用**。
 - **缺点**：原生不支持计算属性（需配合 `zustand-computed` 或手动派生）。
 - **代码示例**：
     ```javascript

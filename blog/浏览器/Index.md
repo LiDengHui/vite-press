@@ -6,8 +6,8 @@
 
 - **默认行为**：浏览器会根据服务端返回的 `Cache-Control` 或 `Expires` 等 HTTP 头部决定是否缓存 `index.html`。
 - **常见场景**：
-    - 未配置缓存策略时，浏览器可能默认缓存 `index.html`（尤其是强缓存）。
-    - 静态服务器（如 Nginx/Apache）可能对 HTML 文件设置缓存。
+  - 未配置缓存策略时，浏览器可能默认缓存 `index.html`（尤其是强缓存）。
+  - 静态服务器（如 Nginx/Apache）可能对 HTML 文件设置缓存。
 
 ---
 
@@ -104,12 +104,12 @@ self.addEventListener('fetch', (event) => {
 ## **最佳实践**
 
 1. **生产环境**：
-    - 对 `index.html` 设置 `no-cache` 或短缓存（如 `max-age=60`）。
-    - 对其他静态资源（JS/CSS/图片）使用 **文件名哈希** + 长期缓存（如 `max-age=31536000, immutable`）。
+  - 对 `index.html` 设置 `no-cache` 或短缓存（如 `max-age=60`）。
+  - 对其他静态资源（JS/CSS/图片）使用 **文件名哈希** + 长期缓存（如 `max-age=31536000, immutable`）。
 2. **开发环境**：
-    - 禁用所有缓存（或使用 `vite/webpack-dev-server` 的热更新）。
+  - 禁用所有缓存（或使用 `vite/webpack-dev-server` 的热更新）。
 3. **紧急更新**：
-    - 通过版本号或 CDN 缓存刷新强制更新。
+  - 通过版本号或 CDN 缓存刷新强制更新。
 
 ---
 
