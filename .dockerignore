@@ -1,0 +1,22 @@
+# 依赖目录：容器内会按 pnpm-lock.yaml 重新安装
+node_modules
+**/node_modules
+
+# 构建产物与缓存：容器内会重新生成
+.vitepress/dist
+.vitepress/cache
+.vitepress/.temp
+.vitepress/pages.data.json
+
+# 版本控制 / 编辑器 / 系统文件
+# 注意：.git 不能排除。vitepress 的 lastUpdated 依赖 git 历史生成
+# 每页的「Last updated」时间，缺了 .git 这些日期会全部消失。
+.gitignore
+.idea
+.claude
+.DS_Store
+**/.DS_Store
+
+# 其他无关文件
+test.html
+*.log

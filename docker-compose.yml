@@ -1,0 +1,27 @@
+# ============================================================
+# VitePress 博客 —— 本机 Docker 部署
+#
+# 用法（在项目根目录执行）：
+#   pnpm deploy:docker   一键：构建镜像 + 后台启动
+#   pnpm docker:logs     查看日志
+#   pnpm docker:down     停止并删除容器
+#
+# 访问：http://localhost:8090  /  https://localhost:8443（自签证书）
+# 显式绑定 0.0.0.0，同一局域网可用 http://<本机IP>:8090 访问
+# 端口冲突时改下面的 VITE_PRESS_PORT / VITE_PRESS_SSL_PORT
+# （本机 80/8080/8096/5001/8123 已被其他服务占用）
+# ============================================================
+
+services:
+  vite-press:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vite-press:latest
+    container_name: vite-press
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "0.0.0.0:${VITE_PRESS_PORT:-8090}:80"
+      - "0.0.0.0:${VITE_PRESS_SSL_PORT:-8443}:443"
