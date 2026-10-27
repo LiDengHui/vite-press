@@ -108,3 +108,20 @@ if [[ "$fail" -ne 0 ]]; then
 fi
 
 echo "全部检查通过。"
+
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  if [[ -n "$(git status --porcelain)" ]]; then
+    echo "提示：工作区有未提交改动，已跳过自动推送；请先提交后再推送。"
+  elif git rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
+    ahead="$(git rev-list --count '@{u}..HEAD')"
+    if [[ "$ahead" -gt 0 ]]; then
+      echo "推送 ${ahead} 个提交到远端..."
+      git push
+    else
+      echo "没有需要推送的提交。"
+    fi
+  else
+    echo "当前分支没有 upstream，执行 git push -u origin HEAD..."
+    git push -u origin HEAD
+  fi
+fi
