@@ -1,3 +1,11 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+  - 测试
+---
+
 # Benchmark测试性能
 
 Benchmark.js 是一个强大的 JavaScript 基准测试库，用于精确测量代码性能。本文将详细介绍其使用方法，包含完整示例代码。

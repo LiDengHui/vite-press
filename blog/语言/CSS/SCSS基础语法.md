@@ -3,7 +3,6 @@ title: Sass 基础语法使用说明书
 date: 2025-04-29
 tags:
   - CSS
-  - SCSS
   - Sass
   - 预处理器
 categories:

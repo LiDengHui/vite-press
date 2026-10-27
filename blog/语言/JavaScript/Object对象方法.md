@@ -1,3 +1,10 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+---
+
 # Object对象方法
 
 在 JavaScript 中，可以通过以下几种方式遍历对象的属性和值：

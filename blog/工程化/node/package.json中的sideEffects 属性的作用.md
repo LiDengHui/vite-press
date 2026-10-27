@@ -1,3 +1,9 @@
+---
+tags:
+  - 工程化
+  - Node.js
+---
+
 # package.json中的sideEffects属性的作用
 
 在 `package.json` 文件中，`sideEffects` 字段用于**优化 Tree Shaking（树摇）** 过程，帮助打包工具（如 Webpack、Rollup）更高效地移除未使用的代码（Dead Code Elimination）。它的核心作用是**标记模块是否具有“副作用”**。

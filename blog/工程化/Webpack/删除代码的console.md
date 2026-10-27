@@ -1,3 +1,10 @@
+---
+tags:
+  - 工程化
+  - 前端
+  - webpack
+---
+
 # 删除代码的Console
 
 ## 1. 为什么需要删除代码的console

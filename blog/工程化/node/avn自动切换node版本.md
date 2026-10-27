@@ -1,3 +1,9 @@
+---
+tags:
+  - 工程化
+  - Node.js
+---
+
 # avn自动切换node版本
 
 ## 安装nvm

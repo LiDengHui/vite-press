@@ -1,3 +1,10 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+---
+
 ## JavaScript 属性描述符(Property Descriptors)详解
 
 属性描述符是 JavaScript 中用于定义或修改对象属性行为的元数据对象，它提供了对属性更精细的控制能力。

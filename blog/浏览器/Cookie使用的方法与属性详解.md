@@ -1,3 +1,9 @@
+---
+tags:
+  - 浏览器
+  - Cookie
+---
+
 # Cookie 使用的方法与属性详解
 
 在 Web 开发中，**Cookies** 是存储在用户浏览器中的小型文本数据，用于跟踪会话状态、用户偏好等。主要通过 JavaScript 的 `document.cookie` API 操作。以下是核心方法和属性详解：

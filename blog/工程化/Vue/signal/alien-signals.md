@@ -1,4 +1,11 @@
-<<< @/工程化/vue/signal/app.vue
+---
+tags:
+  - 工程化
+  - 前端
+  - Vue
+---
+
+<<< @/工程化/Vue/signal/app.vue
 
 ```ts
 // src/index.ts (简化示意)

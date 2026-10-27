@@ -1,3 +1,10 @@
+---
+tags:
+  - 浏览器
+  - 上传
+  - 文件
+---
+
 # beforeupload和upload
 
 ## `beforeunload`和 `unload` 的触发时间

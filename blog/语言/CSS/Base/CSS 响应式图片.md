@@ -4,6 +4,8 @@ date: 2025-04-29
 tags:
   - CSS
   - 响应式
+  - 前端
+  - 图片
 categories:
   - 技术文档
   - 前端

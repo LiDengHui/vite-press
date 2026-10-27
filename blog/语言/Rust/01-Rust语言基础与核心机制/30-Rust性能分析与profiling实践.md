@@ -1,3 +1,9 @@
+---
+tags:
+  - Rust
+  - 语言
+---
+
 # Rust 性能分析与 profiling 实践
 
 ## 1. 这是什么

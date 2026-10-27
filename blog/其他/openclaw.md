@@ -1,3 +1,10 @@
+---
+tags:
+  - 其他
+  - AI
+  - Agent
+---
+
 请根据openclaw的文档，和 各个agent的职责，逐个 agent,逐个文件 补充 内容:
 
 1. /home/node/.openclaw/agents/\*/workspace/AGENTS.md

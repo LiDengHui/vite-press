@@ -22,7 +22,7 @@ if (process.env.DEPLOY_TYPE === 'git') {
 }
 
 const srcRoot = path.resolve(__dirname, '../blog');
-const sidebarExcludePattern = ['components', 'English', 'README', 'README.md', 'cache'];
+const sidebarExcludePattern = ['components', 'English', 'README', 'README.md', 'cache', 'tags', 'tags.md'];
 const maxSidebarScopeDepth = 2;
 
 const plugins: Plugin[] = [];
@@ -145,7 +145,7 @@ export default withMindMap(
                     class: 'mermaid my-class main img'
                 },
                 themeConfig: {
-                    nav: toNavItems(topLevelSidebar),
+                    nav: [...toNavItems(topLevelSidebar), { text: '标签', link: '/tags' }],
                     sidebar: scopedSidebar,
                     search: {
                         provider: 'local'

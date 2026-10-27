@@ -1,3 +1,10 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+---
+
 # new Class vs new Function
 
 ## 编译前

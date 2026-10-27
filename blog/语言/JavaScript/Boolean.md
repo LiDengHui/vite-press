@@ -1,3 +1,11 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+  - 数据类型
+---
+
 # Boolean
 
 ```mermaid

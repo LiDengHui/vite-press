@@ -1,7 +1,9 @@
 ---
 title: for-in与Object.keys的区别
 tags:
-  - JS
+  - JavaScript
+  - 语言
+  - 基础语法
 categories:
   - 技术文档
   - 前端

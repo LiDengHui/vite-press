@@ -3,6 +3,8 @@ title: CSS 表格样式
 date: 2025-04-29
 tags:
   - CSS
+  - 前端
+  - 表格
 categories:
   - 技术文档
   - 前端

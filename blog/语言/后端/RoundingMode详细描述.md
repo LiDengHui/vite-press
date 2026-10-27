@@ -1,3 +1,10 @@
+---
+tags:
+  - 后端
+  - Java
+  - 数值处理
+---
+
 # RoundingMode 详细描述
 
 在 Java 中，`RoundingMode` 是一个枚举类（位于 `java.math` 包中），用于精确控制数值计算中的舍入行为。它通常与 `BigDecimal` 类配合使用，处理金融或科学计算中需要精确舍入的场景。以下是详细说明和示例：

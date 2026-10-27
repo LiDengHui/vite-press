@@ -1,7 +1,9 @@
 ---
 title: jenkins安装
 tags:
-  - webpack
+  - 工程化
+  - Jenkins
+  - CI/CD
 categories:
   - 技术文档
   - 前端

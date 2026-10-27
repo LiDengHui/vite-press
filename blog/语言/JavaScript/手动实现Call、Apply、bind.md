@@ -1,3 +1,10 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+---
+
 # 手动实现Call、Apply、bind
 
 在 JavaScript 中，`call`、`apply` 和 `bind` 都是用于改变函数执行时 `this` 指向的方法。下面我将手写实现这三个方法的核心逻辑：

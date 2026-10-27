@@ -1,7 +1,8 @@
 ---
 title: mac常用操作
 tags:
-  - mac
+  - 工程化
+  - macOS
 categories:
   - 技术文档
   - 前端

@@ -1,3 +1,11 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+  - IoC
+---
+
 # IOC 控制反转()
 
 控制反转 (inversion of control, 缩写 IOC), 是一种设计原则, 顾名思义,他是用于面向对象设计中的各种控件.

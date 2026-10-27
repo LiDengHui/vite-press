@@ -1,7 +1,9 @@
 ---
 title: visual studio code terminal command
 tags:
-  - 开发
+  - 工具
+  - VS Code
+  - 终端
 categories: 技术文档
 description: vs code 新一代前段开发神器
 date: 2016-11-07 17:32:11

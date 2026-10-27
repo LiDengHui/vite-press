@@ -1,3 +1,12 @@
+---
+tags:
+  - Java
+  - Spring
+  - 后端
+  - SpringBoot
+  - 配置
+---
+
 # SpringBoot自动配置
 
 ## 1. 这是什么

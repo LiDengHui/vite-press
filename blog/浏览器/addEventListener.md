@@ -1,3 +1,9 @@
+---
+tags:
+  - 浏览器
+  - 事件
+---
+
 # AddEventListener 方法的属性意义
 
 `addEventListener()` 是 JavaScript 中用于为 DOM 元素添加事件监听器的方法，它的语法如下：

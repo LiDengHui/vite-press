@@ -1,7 +1,9 @@
 ---
 title: 原理instanceof
 tags:
-  - js
+  - JavaScript
+  - 语言
+  - 基础语法
 categories:
   - 技术文档
   - 前端

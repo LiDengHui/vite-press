@@ -1,3 +1,11 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+  - 性能优化
+---
+
 # typeof 与 instanceOf的区别与优化
 
 在 JavaScript 中，`typeof` 和 `instanceof` 是两种常用的类型判断机制，但它们的工作原理和应用场景有显著差异。以下是详细对比及类型判断的优化方案：

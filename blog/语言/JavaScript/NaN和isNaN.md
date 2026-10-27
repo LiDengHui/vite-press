@@ -1,3 +1,10 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+---
+
 # NaN和isNaN
 
 在 JavaScript 中，`isNaN` 函数用于检测一个值是否为 `NaN`（Not-a-Number），但它存在一些设计上的问题，容易导致误解和错误。以下是主要问题及解决方案：

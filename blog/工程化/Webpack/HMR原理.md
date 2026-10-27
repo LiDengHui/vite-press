@@ -1,3 +1,11 @@
+---
+tags:
+  - 工程化
+  - 前端
+  - webpack
+  - 热更新
+---
+
 # HMR原理
 
 Hot Module Replacement (简称 HMR)

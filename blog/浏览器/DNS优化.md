@@ -1,3 +1,10 @@
+---
+tags:
+  - 浏览器
+  - DNS
+  - 性能优化
+---
+
 # 浏览器 DNS 优化：`rel="dns-prefetch"` 与 `rel="preconnect"`
 
 ## 1. **`rel="dns-prefetch"`（DNS 预解析）**

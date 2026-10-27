@@ -1,3 +1,10 @@
+---
+tags:
+  - JavaScript
+  - ES特性
+  - 语言
+---
+
 # ES7
 
 ## includes

@@ -1,3 +1,9 @@
+---
+tags:
+  - TypeScript
+  - 语言
+---
+
 # type与interface的区别
 
 [[toc]]

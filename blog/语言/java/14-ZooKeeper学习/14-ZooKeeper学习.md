@@ -1,3 +1,10 @@
+---
+tags:
+  - ZooKeeper
+  - 分布式
+  - 后端
+---
+
 # ZooKeeper学习
 
 ZooKeeper 是分布式系统里非常经典的一类协调组件。  

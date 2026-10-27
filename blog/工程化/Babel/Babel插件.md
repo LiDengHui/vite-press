@@ -1,3 +1,11 @@
+---
+tags:
+  - 工程化
+  - 前端
+  - Babel
+  - 插件
+---
+
 # Babel插件系统
 
 Babel 是一个 JavaScript 编译器，它的插件系统是 Babel 的核心之一，可以让你定制 JavaScript 的编译过程。理解 Babel 插件系统的本质就是理解它是如何把源码的 AST 进行\*\*转换（transform）\*\*的。

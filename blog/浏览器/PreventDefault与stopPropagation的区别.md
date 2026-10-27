@@ -1,3 +1,9 @@
+---
+tags:
+  - 浏览器
+  - 事件
+---
+
 # PreventDefault与stopPropagation的区别
 
 在浏览器事件处理中，`.preventDefault()` 和 `.stopPropagation()`（通常简写为 `.stop`）是用于控制事件行为的两个重要方法，它们的核心区别如下：

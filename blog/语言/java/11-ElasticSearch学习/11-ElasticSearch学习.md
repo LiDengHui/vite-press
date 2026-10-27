@@ -1,3 +1,10 @@
+---
+tags:
+  - ElasticSearch
+  - 搜索
+  - 后端
+---
+
 # ElasticSearch学习
 
 ElasticSearch 是 Java 后端体系里非常重要的搜索与分析引擎。  

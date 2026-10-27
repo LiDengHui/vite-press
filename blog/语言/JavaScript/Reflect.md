@@ -1,7 +1,9 @@
 ---
 title: Reflect
 tags:
-  - js
+  - JavaScript
+  - 语言
+  - 反射
 categories:
   - 技术文档
   - 前端

@@ -1,3 +1,12 @@
+---
+tags:
+  - JavaScript
+  - ES特性
+  - 语言
+  - String
+  - 数据类型
+---
+
 ## ES8
 
 // Async/Await

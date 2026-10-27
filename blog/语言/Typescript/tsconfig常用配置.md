@@ -1,3 +1,10 @@
+---
+tags:
+  - TypeScript
+  - 语言
+  - 配置
+---
+
 # TypeScript 配置文件 (`tsconfig.json`) 配置说明书
 
 ## **一、核心配置结构**

@@ -1,3 +1,9 @@
+---
+tags:
+  - Rust
+  - 语言
+---
+
 # SQLx / SeaORM / Diesel 数据库访问实践
 
 ## 1. 这是什么

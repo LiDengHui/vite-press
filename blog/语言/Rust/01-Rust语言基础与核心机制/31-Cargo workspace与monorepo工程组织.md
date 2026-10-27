@@ -1,3 +1,10 @@
+---
+tags:
+  - Rust
+  - 语言
+  - Cargo
+---
+
 # Cargo workspace与monorepo工程组织
 
 ## 1. 这是什么

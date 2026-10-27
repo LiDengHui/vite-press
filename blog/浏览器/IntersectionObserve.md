@@ -1,3 +1,9 @@
+---
+tags:
+  - 浏览器
+  - IntersectionObserver
+---
+
 # IntersectionObserver 使用方式和场景
 
 ## 基本概念

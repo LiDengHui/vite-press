@@ -1,7 +1,11 @@
 ---
 title: js位运算
 date: 2016-11-21 11:35:45
-tags: [javascript, 算法]
+tags:
+  - JavaScript
+  - 算法
+  - 语言
+  - 基础语法
 categories: 技术文档
 description: js 位运算
 ---

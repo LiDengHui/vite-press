@@ -1,7 +1,11 @@
 ---
 title: ES6设计模式
 date: 2016-04-22 10:33:05
-tags: [前端, javascript]
+tags:
+  - 前端
+  - JavaScript
+  - 语言
+  - 基础语法
 categories: 技术文档
 description: 使用ES6完成各种设计模式
 ---

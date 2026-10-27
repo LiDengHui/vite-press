@@ -1,7 +1,8 @@
 ---
 title: ssh基本操作
 tags:
-  - ssh
+  - 工程化
+  - SSH
 categories:
   - 技术文档
   - 操作系统

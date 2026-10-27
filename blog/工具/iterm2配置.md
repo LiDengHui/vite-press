@@ -2,7 +2,9 @@
 title: iterm2配置
 tags:
   - iterm2
-  - mac
+  - macOS
+  - 工具
+  - 配置
 categories:
   - 技术文档
   - 工具

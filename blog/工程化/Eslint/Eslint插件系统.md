@@ -1,3 +1,11 @@
+---
+tags:
+  - 工程化
+  - 前端
+  - ESLint
+  - 插件
+---
+
 # ESLint插件系统
 
 ESLint 插件系统是 ESLint 的扩展机制，用于添加自定义的 **规则（rules）**、**处理器（processors）**、**配置（configs）**、

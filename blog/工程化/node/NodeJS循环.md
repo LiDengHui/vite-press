@@ -1,3 +1,10 @@
+---
+tags:
+  - 工程化
+  - Node.js
+  - 事件循环
+---
+
 # NodeJs Event Loop
 
 ## NodeJS Event Loop 执行阶段

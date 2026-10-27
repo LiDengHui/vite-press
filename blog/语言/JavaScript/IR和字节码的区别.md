@@ -1,3 +1,11 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+  - 字节码
+---
+
 # IR和字节码的区别
 
 **IR（Intermediate Representation，中间表示）确实有点像汇编语言**，但它们的目的和抽象层次不同。下面我们来深入比较一下：

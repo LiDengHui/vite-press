@@ -1,3 +1,12 @@
+---
+tags:
+  - Flink
+  - 实时计算
+  - 后端
+  - 状态管理
+  - Checkpoint
+---
+
 # 状态管理与Checkpoint
 
 ## 1. 这是什么

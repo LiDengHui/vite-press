@@ -1,3 +1,11 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+  - AST
+---
+
 # AST 节点类型遍历表
 
 [estree git](https://github.com/estree/estree)

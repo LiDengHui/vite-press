@@ -2,6 +2,8 @@
 title: UI测试之backstopjs
 tags:
   - 测试
+  - UI测试
+  - BackstopJS
 categories:
   - 技术文档
   - 前端

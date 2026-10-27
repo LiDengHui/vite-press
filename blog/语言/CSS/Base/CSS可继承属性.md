@@ -3,6 +3,8 @@ title: CSS可继承属性
 date: 2025-04-29
 tags:
   - CSS
+  - 前端
+  - 继承
 categories:
   - 技术文档
   - 前端

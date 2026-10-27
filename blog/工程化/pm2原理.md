@@ -1,7 +1,10 @@
 ---
 title: pm2原理
 tags:
-  - ci
+  - 工程化
+  - PM2
+  - Node.js
+  - 进程管理
 categories:
   - 技术文档
   - 前端

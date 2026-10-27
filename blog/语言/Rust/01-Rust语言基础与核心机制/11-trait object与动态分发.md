@@ -1,3 +1,10 @@
+---
+tags:
+  - Rust
+  - 语言
+  - trait
+---
+
 # trait object与动态分发
 
 ## 1. 这是什么

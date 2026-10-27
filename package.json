@@ -17,7 +17,14 @@
         "format": "oxfmt --write .",
         "deploy:pinia": "pnpm run build && dhlx deploy -m dev",
         "deploy:git": "cross-env DEPLOY_TYPE=git  pnpm run build && dhlx gh-pages -i .vitepress/dist",
-        "deploy": "pnpm run deploy:pinia && pnpm run deploy:git"
+        "deploy": "pnpm run deploy:pinia && pnpm run deploy:git",
+        "deploy:docker": "docker compose up -d --build",
+        "docker:build": "docker compose build",
+        "docker:up": "docker compose up -d",
+        "docker:down": "docker compose down",
+        "docker:restart": "docker compose restart",
+        "docker:logs": "docker compose logs -f --tail=100",
+        "docker:ps": "docker compose ps"
     },
     "devDependencies": {
         "@braintree/sanitize-url": "^7.1.2",
@@ -49,7 +56,6 @@
         "vite-plugin-vue-devtools": "^8.1.1",
         "vitepress": "2.0.0-alpha.17",
         "vitepress-markdown-timeline": "^1.2.2",
-        "vitepress-plugin-comment-with-giscus": "^1.1.15",
         "vitepress-plugin-lightbox": "^1.0.3",
         "vitepress-plugin-mermaid2": "^0.0.3",
         "vitepress-protect-plugin": "^1.0.6",

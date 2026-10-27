@@ -1,3 +1,10 @@
+---
+tags:
+  - 后端
+  - MySQL
+  - 数据库
+---
+
 # Mysql
 
 [mysql原理](https://zhuanlan.zhihu.com/p/586535564)

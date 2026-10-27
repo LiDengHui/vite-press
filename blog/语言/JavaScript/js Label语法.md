@@ -1,3 +1,10 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+---
+
 # Label 语法（标签语句）
 
 在 JavaScript 中，label 是一种标识符，可以用于标记语句，通常与 break 或 continue 一起使用在多层循环中：

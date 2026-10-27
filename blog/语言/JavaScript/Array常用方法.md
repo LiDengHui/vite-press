@@ -1,3 +1,11 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+  - 数组
+---
+
 # Array常用方法
 
 以下是 JavaScript 中常用的数组方法及示例说明：

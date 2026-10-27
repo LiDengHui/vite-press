@@ -1,3 +1,10 @@
+---
+tags:
+  - 工程化
+  - 前端
+  - Vue
+---
+
 # **Vue Loader** 是什么？
 
 **Vue Loader** 是一个 webpack 的加载器，它允许我们在 webpack 中处理 `.vue` 文件，从而将 Vue 组件的模板、脚本和样式文件分离并打包成浏览器可以识别的格式。它是 Vue.js 官方推荐的构建工具之一，主要用于将 Vue 单文件组件（SFC，Single File Component）转换为可执行的 JavaScript 代码。

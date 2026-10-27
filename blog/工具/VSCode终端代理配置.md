@@ -1,3 +1,10 @@
+---
+tags:
+  - 工具
+  - VS Code
+  - 配置
+---
+
 # VS Code / Cursor 终端代理配置教程
 
 本文档指导如何在 VS Code 或 Cursor 编辑器的集成终端中配置代理环境变量，使其通过本地代理服务器（如 Clash、V2Ray 等）访问网络。

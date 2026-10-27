@@ -1,3 +1,10 @@
+---
+tags:
+  - 工具
+  - VitePress
+  - 配置
+---
+
 # VitePress配置
 
 [[toc]]

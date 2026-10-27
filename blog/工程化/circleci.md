@@ -1,3 +1,9 @@
+---
+tags:
+  - 工程化
+  - CI/CD
+---
+
 # circleci
 
 ## 生成sshKey

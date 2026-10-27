@@ -1,3 +1,9 @@
+---
+tags:
+  - Rust
+  - 语言
+---
+
 # Rust + WebAssembly 实践
 
 ## 1. 这是什么

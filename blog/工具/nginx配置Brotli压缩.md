@@ -1,3 +1,10 @@
+---
+tags:
+  - 工具
+  - Nginx
+  - Brotli
+---
+
 # Nginx 配置 Brotli 压缩流程说明书
 
 ## 前置条件

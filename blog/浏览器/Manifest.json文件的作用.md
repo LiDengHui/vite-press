@@ -1,3 +1,9 @@
+---
+tags:
+  - 浏览器
+  - Manifest
+---
+
 # manifest.json文件的作用
 
 manifest.json 文件是 Web 开发中的核心配置文件，其作用贯穿多个技术领域，通过 JSON 格式统一描述应用元数据与行为规则。以下是其在 Web 应用中的主要应用场景及作用详解：

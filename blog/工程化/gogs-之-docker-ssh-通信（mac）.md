@@ -1,8 +1,12 @@
 ---
 title: gogs 之 docker ssh 通信（mac）
 date: 2017-02-25 22:18:25
-tags: [docker, gogs]
 description: 在使用docker布置gogs时遇到的ssh链接问题
+tags:
+  - Docker
+  - gogs
+  - 工程化
+  - SSH
 ---
 
 打算用docker布置一下gogs，用来给公司建立代码库

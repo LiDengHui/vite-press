@@ -1,3 +1,10 @@
+---
+tags:
+  - 工具
+  - VitePress
+  - 插件
+---
+
 # vite press 插件
 
 ## 时间线

@@ -1,3 +1,12 @@
+---
+tags:
+  - 工程化
+  - 前端
+  - Babel
+  - AST
+  - 树
+---
+
 # acorn-walk 常用语法树
 
 `acorn-walk` 是 Acorn 的一个子模块，用于**遍历和处理 JavaScript 抽象语法树（AST）**，它提供了一些工具函数，使我们可以方便地处理 AST 节点。

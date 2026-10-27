@@ -1,3 +1,9 @@
+---
+tags:
+  - 浏览器
+  - requestIdleCallback
+---
+
 `requestIdleCallback` 是浏览器提供的一个 API，用于在浏览器空闲时期执行低优先级任务，避免阻塞关键渲染和用户交互。以下是详细说明：
 
 ---

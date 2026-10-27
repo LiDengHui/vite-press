@@ -2,6 +2,9 @@
 title: loader与plugin的区别
 tags:
   - webpack
+  - 工程化
+  - 前端
+  - 插件
 categories:
   - 技术文档
   - 前端

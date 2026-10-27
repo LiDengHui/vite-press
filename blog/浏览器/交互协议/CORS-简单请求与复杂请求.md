@@ -1,3 +1,10 @@
+---
+tags:
+  - 浏览器
+  - 网络
+  - 跨域
+---
+
 # CORS-简单请求与复杂请求
 
 CORS即Cross Origin Resource Sharing (跨来源资源共享), 通俗说就是我们所熟知的跨域请求,

@@ -1,3 +1,11 @@
+---
+tags:
+  - JavaScript
+  - 语言
+  - 基础语法
+  - 类型转换
+---
+
 # Add
 
 以下是 JavaScript 加法运算的逻辑图，采用 Mermaid 语法绘制：

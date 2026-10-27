@@ -1,8 +1,10 @@
 ---
 title: mermaid笔记
 tags:
-  - markdown
-  - vscode
+  - Markdown
+  - VS Code
+  - 工具
+  - Mermaid
 categories:
   - 技术文档
   - 工具

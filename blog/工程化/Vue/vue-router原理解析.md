@@ -1,3 +1,10 @@
+---
+tags:
+  - 工程化
+  - 前端
+  - Vue
+---
+
 # **Vue Router 是干什么的**
 
 **Vue Router** 是 Vue.js 官方的路由管理库，用于在 Vue.js 单页面应用（SPA，Single Page Application）中进行路由管理和视图切换。它允许你定义不同的

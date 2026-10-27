@@ -1,7 +1,10 @@
 ---
 title: EJS
 date: 2016-04-16 19:39:52
-tags: 前端
+tags:
+  - JavaScript
+  - 前端
+  - 模板引擎
 categories: 技术文档
 description: EJS 前端模版语言学习笔记
 ---

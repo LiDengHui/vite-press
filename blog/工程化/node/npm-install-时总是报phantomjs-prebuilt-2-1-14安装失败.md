@@ -1,7 +1,10 @@
 ---
 title: npm install 时总是报phantomjs-prebuilt@2.1.14安装失败
 date: 2017-03-27 10:54:00
-tags: [error]
+tags:
+  - 工程化
+  - Node.js
+  - npm
 ---
 
 # 解决办法

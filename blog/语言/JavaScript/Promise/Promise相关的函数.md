@@ -1,3 +1,11 @@
+---
+tags:
+  - JavaScript
+  - Promise
+  - 异步
+  - 语言
+---
+
 # Promise 相关的函数
 
 以下是整理后的 Promise 相关方法 Markdown 表格，包含传统方法和新增方法：

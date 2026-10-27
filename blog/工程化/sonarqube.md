@@ -1,7 +1,10 @@
 ---
 title: sonarqube
 tags:
-  - ci/cd
+  - 工程化
+  - SonarQube
+  - 代码质量
+  - CI/CD
 categories:
   - 技术文档
   - 前端

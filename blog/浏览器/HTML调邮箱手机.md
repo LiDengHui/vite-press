@@ -1,3 +1,10 @@
+---
+tags:
+  - 浏览器
+  - 移动端
+  - HTML
+---
+
 # HTML调邮箱手机
 
 ## `format-detectio`

@@ -2,6 +2,8 @@
 title: css重回重排
 tags:
   - 浏览器
+  - 重排
+  - 性能优化
 categories:
   - 浏览器
 date: 2020-09-30 00:25:38

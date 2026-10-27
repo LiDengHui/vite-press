@@ -1,3 +1,10 @@
+---
+tags:
+  - 工程化
+  - 前端
+  - Vue
+---
+
 # pinia的基本概念
 
 **Pinia** 是 Vue 3 的官方状态管理库，它是 Vuex 的替代品，专为 Vue 3 设计，并使用了 Vue 3 中的 Composition API。Pinia 具有更简洁的 API、现代化的特性以及更好的 TypeScript 支持，旨在提供一个更易用、更灵活的状态管理方案。

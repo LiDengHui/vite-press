@@ -1,8 +1,10 @@
 ---
 title: Promise规范
 tags:
-  - js
+  - JavaScript
   - Promise
+  - 异步
+  - 语言
 categories:
   - 技术文档
   - 前端

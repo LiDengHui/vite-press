@@ -1,3 +1,10 @@
+---
+tags:
+  - 工程化
+  - 前端
+  - Babel
+---
+
 # Babel转译
 
 `regeneratorRuntime.mark()` 和 `regeneratorRuntime.wrap()` 是 Babel 转译 Generator 函数和 async/await 时使用的核心运行时函数，主要用于管理生成器的状态机和执行上下文。以下是它们的源码解析和协作机制：

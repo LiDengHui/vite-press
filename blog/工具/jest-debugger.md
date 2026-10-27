@@ -2,7 +2,11 @@
 layout: posts
 title: jest-debugger
 date: 2020-07-26 12:33:09
-tags: ['jest', 'vscode']
+tags:
+  - jest
+  - VS Code
+  - 工具
+  - 调试
 categories: ['工具']
 ---
 

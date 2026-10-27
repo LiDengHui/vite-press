@@ -1,3 +1,9 @@
+---
+tags:
+  - TypeScript
+  - 语言
+---
+
 # TypeScript 使用手册
 
 ## **1. TypeScript 简介**

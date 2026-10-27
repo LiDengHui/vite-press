@@ -1,8 +1,9 @@
 ---
 title: Paste Image
 tags:
-  - markdown
-  - vscode
+  - Markdown
+  - VS Code
+  - 工具
 categories:
   - 技术文档
   - 工具

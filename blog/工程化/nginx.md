@@ -1,3 +1,9 @@
+---
+tags:
+  - 工程化
+  - Nginx
+---
+
 # nginx
 
 ## nginx 配置路径
