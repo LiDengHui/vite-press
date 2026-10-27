@@ -24,7 +24,15 @@
         "docker:down": "docker compose down",
         "docker:restart": "docker compose restart",
         "docker:logs": "docker compose logs -f --tail=100",
-        "docker:ps": "docker compose ps"
+        "docker:ps": "docker compose ps",
+        "serve:local": "vitepress preview . --port 8090",
+        "pm2:start": "pm2 startOrReload ecosystem.config.cjs --update-env",
+        "pm2:stop": "pm2 stop vite-press",
+        "pm2:restart": "pm2 restart vite-press --update-env",
+        "pm2:delete": "pm2 delete vite-press",
+        "pm2:logs": "pm2 logs vite-press",
+        "pm2:status": "pm2 status",
+        "pm2:save": "pm2 save"
     },
     "devDependencies": {
         "@braintree/sanitize-url": "^7.1.2",
@@ -49,6 +57,7 @@
         "nprogress-v2": "^1.1.10",
         "oxc-minify": "^0.127.0",
         "oxfmt": "^0.31.0",
+        "pm2": "^7.1.1",
         "rollup-plugin-visualizer": "^7.0.1",
         "sass-embedded": "^1.99.0",
         "vite-plugin-compression": "^0.5.1",

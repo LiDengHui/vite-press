@@ -16,3 +16,4 @@ test.html
 .vitepress/pages.data.json
 .claude/
 package-lock.json
+.pm2-logs/
