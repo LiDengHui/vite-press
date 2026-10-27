@@ -37,11 +37,11 @@ categories:
 }
 
 @layer utilities {
-    .text-center { text-align: center !important; }
+    .text-center { text-align: center; } /* 不需要 !important */
 }
 ```
 
-> 层叠顺序由 `@layer` 声明顺序决定，后声明的层优先级更高，**不受选择器权重影响**。
+> 层叠顺序由 `@layer` 声明顺序决定，后声明的层优先级更高，**不受选择器权重影响**。不过未分层的普通样式仍会压过所有层，所以业务样式最好也统一进层。
 
 ### 嵌套层
 
@@ -166,25 +166,31 @@ body { background: red; } /* 覆盖 @layer base 中的 body */
 ### 技巧 1：用 @layer 解决第三方样式冲突
 
 ```css
-/* 第三方库样式 */
-@layer vendor {
-    @import url('bootstrap.css');
-    @import url('ant-design.css');
-}
+/* 先声明层顺序 */
+@layer vendor, app;
 
-/* 自定义覆盖 */
+/* 导入时指定层：第三方样式进入低优先级层 */
+@import url('bootstrap.css') layer(vendor);
+@import url('ant-design.css') layer(vendor);
+
+/* 自定义覆盖，无需更高权重 */
 @layer app {
-    .btn { /* 覆盖第三方样式，无需更高权重 */ }
+    .btn { /* 覆盖第三方样式 */ }
 }
 ```
 
-### 技巧 2：动态加载层
+> `@import` 不能写在 `@layer { ... }` 块里，必须在导入时用 `layer()` 指定。
 
-```html
-<link rel="stylesheet" href="reset.css">
-<link rel="stylesheet" href="base.css" layer="base">
-<link rel="stylesheet" href="app.css" layer="app">
+### 技巧 2：给外部样式表指定层
+
+```css
+/* 外部样式表在 CSS 里用 @import 分层 */
+@import url('reset.css') layer(reset);
+@import url('base.css') layer(base);
+@import url('app.css') layer(app);
 ```
+
+> `<link>` 没有标准的 `layer` 属性；网上 `<link layer="...">` 的写法并不可靠。必须用 `<link>` 时，在目标文件内部把规则包进 `@layer`。
 
 ### 技巧 3：contain 做微前端样式隔离
 

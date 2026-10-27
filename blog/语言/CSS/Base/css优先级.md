@@ -13,11 +13,17 @@ categories:
 
 # css优先级
 
-important > id > class > \*
+```text
+来源与重要性 → 层叠层（@layer）→ 特异性 → 源码顺序
+```
+
+同一来源、同一层内，优先级从高到低为：`!important` > 行内样式 > ID > 类/伪类/属性 > 元素/伪元素。
 
 ![logo](css优先级/css优先级.png)
 
 CSS优先级（Specificity）用于确定当多个规则作用于同一元素时，哪个样式将生效。其计算规则基于选择器的类型，**优先级从高到低**如下：
+
+> 特异性只在“来源、重要性、层叠层”都相同的情况下才有机会比较。跨层时，`@layer` 的顺序优先于特异性。
 
 ---
 
@@ -103,6 +109,42 @@ CSS优先级（Specificity）用于确定当多个规则作用于同一元素时
 
 ---
 
+## **6. 层叠层（Cascade Layers）**
+
+`@layer` 在比较特异性之前先把声明分桶。层顺序在第一次出现时确定，后声明的层优先级更高；只有同一层内部才比较特异性。
+
+```css
+@layer base, components, utilities;
+
+@layer base {
+    #app .btn { color: blue; } /* 特异性 1,1,0 */
+}
+
+@layer utilities {
+    .btn { color: red; } /* 特异性 0,1,0，但在更晚的层 */
+}
+
+/* 最终颜色：红色 */
+```
+
+普通声明和 `!important` 的方向相反：
+
+| 声明类型 | 从低到高 |
+| --- | --- |
+| 普通声明 | 最早层 → 最晚层 → 未分层 → 行内 `style` |
+| `!important` | 未分层 → 最晚层 → 最早层 → 行内 `!important` |
+
+几个容易记错的点：
+
+- 未分层的**普通**样式高于所有普通层；层内的 `!important` 高于未分层的 `!important`。
+- 动画（`@keyframes`）压过普通声明，过渡（`transition`）压过 `!important`。
+- `revert-layer` 让属性回退到当前来源的上一层；`revert` 直接回退到上一个来源。
+- 层不跨 Shadow DOM / iframe，每个文档都有独立的层顺序。
+
+完整语法、嵌套层、`@import layer()`、`revert-layer` 与 CSSOM 用法见 [CSS 级联层 Cascade Layers](./CSS%20级联层%20Cascade%20Layers.md)。
+
+---
+
 ## 奇淫技巧
 
 ### 技巧 1：利用 `:where()` 降低特异性
@@ -157,31 +199,42 @@ CSS优先级（Specificity）用于确定当多个规则作用于同一元素时
 .alert { color: red; } /* 最终生效为红色 */
 ```
 
-### 技巧 6：层叠上下文
+### 技巧 6：用层叠层而不是加权重
 
 ```css
-/* 特异性相同时，层叠层的样式后定义的覆盖先定义的 */
-#app .btn { color: blue; }  /* (0,1,1,0) */
-.page .btn { color: red; }  /* (0,0,1,1) 特异性低 */
+@layer base, overrides;
+
+@layer base {
+    #app .btn { color: blue; } /* 特异性 1,1,0 */
+}
+
+@layer overrides {
+    .btn { color: red; } /* 特异性 0,1,0，但层更靠后 */
+}
+
+/* 最终颜色：红色 */
 ```
+
+跨层比较时，层顺序先于特异性；不要再靠堆 ID 或 `!important` 来覆盖第三方样式。
 
 ### 技巧 7：计算器资源
 
-```css
-/* 使用 https://specificity.keegan.st/ 计算特异性 */
-/* 也可在浏览器控制台执行 getComputedStyle() */
+```text
+使用 https://specificity.keegan.st/ 计算特异性
+也可在浏览器控制台执行 getComputedStyle() 查看最终值
 ```
 
 ### 技巧 8：强制覆盖策略
 
 ```css
-/* 增加父级 ID */
+/* 增加父级 ID（不推荐，权重会越来越高） */
 #app .component .btn { }
 
-/* 增加双类名 */
+/* 增加双类名（局部可用） */
 .btn.btn-primary { }
 
-/* 使用 CSS 层叠（后定义覆盖） */
+/* 更好：用 @layer 把被覆盖方放进低优先级层 */
+@layer vendor, app;
 ```
 
 ### 技巧 9：避免深度嵌套

@@ -541,7 +541,7 @@ a {
 }
 
 @layer utilities {
-  .hidden { display: none !important; }
+  .hidden { display: none; } /* utilities 在最后一层，不需要 !important */
 }
 ```
 

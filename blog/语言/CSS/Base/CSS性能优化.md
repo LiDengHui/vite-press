@@ -334,7 +334,7 @@ button {
 @layer reset, base, components, utilities;
 
 @layer reset { * { margin: 0; } }
-@layer utilities { .m-0 { margin: 0 !important; } }
+@layer utilities { .m-0 { margin: 0; } } /* utilities 在最后，无需 !important */
 ```
 
 ### 技巧 10：打印样式精简

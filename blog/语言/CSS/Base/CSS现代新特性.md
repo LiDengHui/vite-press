@@ -110,18 +110,29 @@ border-end-end-radius: 8px;         /* 块尾-行尾 */
 }
 ```
 
-### 强制提升某层优先级
+### 调整层优先级
+
+层顺序在**首次出现**时固定，之后再写 `@layer` 语句不会重排：
 
 ```css
-@layer utilities {
-    .text-red {
-        color: red !important; /* 不推荐 */
-    }
-}
+/* ❌ 不会提升 components：上面已经锁定了顺序 */
+@layer components, utilities;
 
-/* 更好的方式：调整层顺序 */
-@layer components, utilities; /* utilities 层在后面 */
+/* ✅ 只在入口文件首次声明时有效：一开始就按需要的顺序写 */
+@layer reset, base, utilities, components;
 ```
+
+如果只想追加一个最高优先级的覆盖层，可以新声明一个从未出现过的层名，它会自动排到已有层之后：
+
+```css
+@layer overrides;
+
+@layer overrides {
+    .text-red { color: red; }
+}
+```
+
+> 用 `!important` 提升层内规则并不可靠：它会把规则送进“重要声明”的排序，层顺序反而发生反转。优先在设计入口就排好层顺序。
 
 ---
 

@@ -64,6 +64,7 @@ categories:
 | 主题 | 基础 | 进阶 | 实战 / 延伸 |
 | --- | --- | --- | --- |
 | 容器查询 | [CSS 容器查询深入](./Base/CSS%20容器查询深入.md) | [CSS 容器样式查询 @container style](./Base/CSS%20容器样式查询%20style%20queries.md) | [CSS 容器查询实战](./Base/CSS%20容器查询实战.md) |
+| 级联层 | [CSS 级联层 Cascade Layers](./Base/CSS%20级联层%20Cascade%20Layers.md) | [CSS 隔离与层叠层](./Base/CSS%20隔离与层叠层.md) | 与 [CSS 作用域 @scope](./Base/CSS%20作用域%20@scope.md) 组合 |
 | 作用域 | [CSS 作用域 @scope](./Base/CSS%20作用域%20@scope.md) | [CSS @scope 与作用域](./Base/CSS%20@scope%20与作用域.md) | 与 [CSS 隔离与层叠层](./Base/CSS%20隔离与层叠层.md) 结合使用 |
 | 安全区 | [CSS 安全区适配](./Base/CSS%20安全区适配.md) | [CSS 安全区适配进阶](./Base/CSS%20安全区适配进阶.md)、[CSS 安全区域与环境变量](./Base/CSS%20安全区域与环境变量.md) | 移动端异形屏适配场景 |
 | 子网格 | [CSS 子网格 subgrid](./Base/CSS%20子网格%20subgrid.md) | [CSS 子网格深入](./Base/CSS%20子网格深入.md) | 与 [CSS Grid 布局详解](./Base/CSS%20Grid%20布局详解.md) 联动 |
@@ -105,7 +106,7 @@ categories:
 | [CSS 现代新特性](./Base/CSS现代新特性.md) | CSS |
 | [CSS 现代特性速查](./Base/CSS%20现代特性速查.md) | CSS |
 | [CSS 盒模型](./Base/CSS盒模型.md) | CSS / 盒模型 |
-| [CSS 级联层 Cascade Layers](./Base/CSS%20级联层%20Cascade%20Layers.md) | CSS |
+| [CSS 级联层 Cascade Layers](./Base/CSS%20级联层%20Cascade%20Layers.md) | CSS / @layer / 级联层 / 层叠层 |
 | [CSS 网格深入](./Base/CSS%20网格深入.md) | CSS |
 | [CSS 表格样式](./Base/CSS%20表格样式.md) | CSS |
 | [CSS 调试技巧](./Base/CSS%20调试技巧.md) | CSS |
@@ -219,7 +220,6 @@ categories:
 
 | 文章 | 标签 |
 | --- | --- |
-| [CSS @layer 层叠层](./Base/CSS%20@layer%20层叠层.md) | CSS / @layer / 层叠层 / 现代特性 |
 | [CSS @property 自定义属性进阶](./Base/CSS%20@property%20自定义属性进阶.md) | CSS / 自定义属性 / @property / 现代特性 |
 | [CSS @scope 与作用域](./Base/CSS%20@scope%20与作用域.md) | CSS / @scope / 作用域 / 现代特性 |
 | [CSS @starting-style 过渡初始样式](./Base/CSS%20@starting-style%20过渡初始样式.md) | CSS / 过渡 / 动画 / 现代特性 |
