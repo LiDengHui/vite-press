@@ -4,7 +4,7 @@ import type { Plugin } from 'vite';
 import { generateSidebar } from 'vitepress-sidebar';
 import { withMermaid } from 'vitepress-plugin-mermaid2';
 import withDrawio from '@dhlx/vitepress-plugin-drawio';
-import mathjax, { mathjaxStyles } from './mathjax';
+import mathjax, { mathjaxStyles } from './mathjax.ts';
 import timeline from 'vitepress-markdown-timeline';
 import markdownItTaskCheckbox from 'markdown-it-task-checkbox';
 import lightbox from 'vitepress-plugin-lightbox';
@@ -19,7 +19,7 @@ if (process.env.DEPLOY_TYPE === 'git') {
     base = '/vite-press/';
 }
 
-const srcRoot = path.resolve(__dirname, '../blog');
+const srcRoot = path.resolve(import.meta.dirname, '../blog');
 const sidebarExcludePattern = ['components', 'English', 'README', 'README.md', 'cache', 'tags', 'tags.md'];
 const maxSidebarScopeDepth = 2;
 
@@ -118,7 +118,7 @@ export default withMindMap(
                 head: [['style', { 'data-mathjax': 'true' }, mathjaxStyles]] as HeadConfig[],
                 title: '点滴生活',
                 description: '记录个人成长',
-                metaChunk: true,
+                metaChunk: false,
                 markdown: {
                     cache: false,
                     toc: { level: [1, 2, 3, 4, 5] },

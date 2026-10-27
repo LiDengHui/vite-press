@@ -7,7 +7,7 @@ type PageItem = {
     lastUpdated: number;
 };
 
-const blogRoot = path.resolve(__dirname, '../../blog');
+const blogRoot = path.resolve(import.meta.dirname, '../../blog');
 
 function collectMarkdownFiles(dir: string): string[] {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
