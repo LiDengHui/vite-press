@@ -10,8 +10,6 @@ import markdownItTaskCheckbox from 'markdown-it-task-checkbox';
 import lightbox from 'vitepress-plugin-lightbox';
 import viteImagemin from 'vite-plugin-imagemin';
 import withMindMap from '@dhlx/vitepress-plugin-mindmap';
-import { visualizer } from 'rollup-plugin-visualizer';
-import vitepressProtectPlugin from 'vitepress-protect-plugin';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import vueDevTools from 'vite-plugin-vue-devtools';
@@ -174,18 +172,6 @@ export default withMindMap(
                     },
                     plugins: [
                         ...plugins,
-                        visualizer({
-                            gzipSize: false,
-                            brotliSize: false,
-                            emitFile: false,
-                            filename: 'test.html',
-                            open: false
-                        }),
-                        vitepressProtectPlugin({
-                            disableF12: false,
-                            disableCopy: false,
-                            disableSelect: false
-                        }),
                         ...(process.platform !== 'win32'
                             ? [
                                   viteImagemin({
