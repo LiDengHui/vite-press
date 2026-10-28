@@ -35,6 +35,14 @@ interface SidebarGeneratorOptions {
     scanStartPath?: string;
     resolvePath?: string;
     excludePattern?: string[];
+    useFolderLinkFromIndexFile?: boolean;
+}
+
+interface GeneratedSidebarMulti {
+    [path: string]: {
+        base: string;
+        items: DefaultTheme.SidebarItem[];
+    };
 }
 
 function buildSidebarOptions(relDir = ''): SidebarGeneratorOptions[] {
@@ -47,7 +55,8 @@ function buildSidebarOptions(relDir = ''): SidebarGeneratorOptions[] {
             documentRootPath: '/blog',
             scanStartPath: relDir,
             resolvePath: `/${relDir}/`,
-            excludePattern: sidebarExcludePattern
+            excludePattern: sidebarExcludePattern,
+            useFolderLinkFromIndexFile: true
         });
     }
 
@@ -102,12 +111,34 @@ function toNavItems(items: DefaultTheme.SidebarItem[]): DefaultTheme.NavItem[] {
         .filter((item): item is DefaultTheme.NavItem => Boolean(item));
 }
 
+function normalizeIndexLinks(items: DefaultTheme.SidebarItem[]) {
+    for (const item of items) {
+        if (item.link) {
+            item.link = item.link === 'index.md' ? '/' : item.link.replace(/\/index\.md$/, '/');
+        }
+        if (item.items) {
+            normalizeIndexLinks(item.items);
+        }
+    }
+}
+
 const topLevelSidebar = generateSidebar({
     documentRootPath: '/blog',
-    excludePattern: sidebarExcludePattern
+    excludePattern: sidebarExcludePattern,
+    useFolderLinkFromIndexFile: true
 }) as DefaultTheme.SidebarItem[];
 
-const scopedSidebar = generateSidebar(buildSidebarOptions()) as DefaultTheme.SidebarMulti;
+normalizeIndexLinks(topLevelSidebar);
+
+const generatedScopedSidebar = generateSidebar(buildSidebarOptions()) as GeneratedSidebarMulti;
+
+for (const { items } of Object.values(generatedScopedSidebar)) {
+    normalizeIndexLinks(items);
+}
+
+const scopedSidebar = Object.fromEntries(
+    Object.entries(generatedScopedSidebar).filter(([, { items }]) => items.length > 0)
+) as unknown as DefaultTheme.SidebarMulti;
 
 export default withMindMap(
     withMermaid(
